@@ -26,7 +26,7 @@ export default function Projects() {
       desc: "A news Website using React and NewsAPI, with search functionalities.",
       status: "✅ Completed",
       link: "#",
-      img: "https://www.creativefabrica.com/wp-content/uploads/2020/07/23/News-App-UI-Kit-580x386.jpg",
+      img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
     },
     {
       name: "Job Portal",
@@ -34,35 +34,8 @@ export default function Projects() {
       status: " ➡️ Coming Soon",
       link: "#",
       img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-illustration-download-in-svg-png-gif-file-formats--hr-recruitment-company-business-activities-pack-people-illustrations-4032953.png",
-    },
-    {
-      name: "E-Commerce Website",
-      desc: "A full-stack shopping platform with filters, cart, and Stripe/Cashfree payments.",
-      status: "🛠 Under Development",
-      link: "#",
-      img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
-    },
-    {
-      name: "Portfolio Website",
-      desc: "My personal portfolio using React, Tailwind, and Framer Motion animations.",
-      status: "✅ Completed",
-      link: "#",
-      img: "https://designnotes.blog.gov.uk/wp-content/uploads/sites/53/2020/06/Portfolio-Desk.jpg",
-    },
-    {
-      name: "News Application",
-      desc: "A news Website using React and NewsAPI, with search functionalities.",
-      status: "✅ Completed",
-      link: "#",
-      img: "https://www.creativefabrica.com/wp-content/uploads/2020/07/23/News-App-UI-Kit-580x386.jpg",
-    },
-    {
-      name: "Job Portal",
-      desc: "MERN-based platform to find/apply for tech jobs and manage job postings.",
-      status: " ➡️ Coming Soon",
-      link: "#",
-      img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-illustration-download-in-svg-png-gif-file-formats--hr-recruitment-company-business-activities-pack-people-illustrations-4032953.png",
-    },
+    }
+    
     // Add more projects here...
   ];
 
