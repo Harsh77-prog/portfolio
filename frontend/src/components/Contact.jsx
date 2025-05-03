@@ -10,7 +10,7 @@ import {
 export default function Contact() {
   return (
     <div>
-      <section className=" py-20 px-6 text-white relative overflow-hidden">
+      <section className=" py-20 text-white relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center z-10 relative">
           <motion.h1
             initial={{ opacity: 0, y: -30 }}
@@ -42,15 +42,23 @@ export default function Contact() {
                   📞 Contact Me
                 </span>
               </motion.h3>
+              <div className="space-y-4 px-2 sm:px-4">
+  <div>
+    <h3 className="text-white text-lg sm:text-xl font-semibold" >Email</h3>
+    <p className="text-gray-300 text-base sm:text-lg break-all">
+      harsh.kumar1a9@gmail.com
+    </p>
+  </div>
 
-              <div className="space-y-3">
-                <p className="text-gray-300 text-lg md:text-xl">
-                  <strong>Email:</strong> harsh.kumar1a9@gmail.com
-                </p>
-                <p className="text-gray-300 text-lg md:text-xl">
-                  <strong>Phone:</strong> +91 81988 70725
-                </p>
-              </div>
+  <div>
+    <h3 className="text-white text-lg sm:text-xl font-semibold">Phone</h3>
+    <p className="text-gray-300 text-base sm:text-lg break-all">
+      +91 81988 70725
+    </p>
+  </div>
+</div>
+
+              
             </div>
 
             {/* Social Media Links */}
