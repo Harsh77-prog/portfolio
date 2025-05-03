@@ -63,7 +63,7 @@ export default function Projects() {
   }, [isHovered]);
 
   return (
-    <section className="py-20 px-4 text-white relative z-10 overflow-hidden">
+    <section className="py-20  text-white relative z-10 overflow-hidden">
       {/* Title */}
       <div className="max-w-6xl mx-auto text-center">
         <motion.h1
@@ -82,7 +82,7 @@ export default function Projects() {
       {/* Scrollable Carousel for All Screen Sizes */}
       <div
   ref={scrollRef}
-  className="scroll-container overflow-x-auto whitespace-nowrap scroll-smooth md:flex md:gap-4"
+  className="scroll-container overflow-x-auto whitespace-nowrap scroll-smooth md:flex "
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
 >
@@ -94,7 +94,7 @@ export default function Projects() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
       viewport={{ once: true }}
-      className="bg-[#1c1c1c] inline-block align-top min-w-[250px] max-w-[260px] mx-2 rounded-xl shadow-md hover:shadow-blue-500/30 transition-all transform hover:-translate-y-2 hover:scale-105 overflow-hidden whitespace-normal break-words"
+      className="bg-[#1c1c1c] inline-block align-top min-w-[250px] max-w-[260px]  rounded-xl shadow-md hover:shadow-blue-500/30 transition-all transform hover:-translate-y-2 hover:scale-105 overflow-hidden whitespace-normal break-words"
     >
       <img
         src={project.img}

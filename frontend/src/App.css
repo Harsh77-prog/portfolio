@@ -14,7 +14,7 @@
   .scroll-container {
     display: flex;
     overflow-x: auto;
-    gap: 1.5rem;
+    gap: 10px;
     scroll-behavior: smooth;
     padding: 1rem 0;
     scrollbar-width: none; /* Firefox */
@@ -44,7 +44,7 @@
     flex: 0 0 auto;
     background-color: #131c31;
     border: 1px solid #334155;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 0 12px rgba(13, 255, 255, 0.05);
     transition: all 0.3s ease;
