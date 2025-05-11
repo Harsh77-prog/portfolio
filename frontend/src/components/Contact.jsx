@@ -78,7 +78,7 @@ export default function Contact() {
                 <FaTwitter size={24} />
               </a>
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/harsh-kumar-116423316/"
                 target="_blank"
                 className="text-blue-700 hover:text-blue-800"
               >
