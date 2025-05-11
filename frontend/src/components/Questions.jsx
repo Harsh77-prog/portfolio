@@ -50,9 +50,15 @@ export default function AskQuestion() {
           placeholder="Your Question"
           required
         />
-        <button className="w-full bg-blue-600 hover:bg-blue-700 transition duration-300 text-white px-4 py-3 rounded-xl font-semibold shadow-md">
-          Ask Question
-        </button>
+       <div className="relative group w-full">
+  <button className="relative w-full px-4 py-3 font-semibold rounded-xl text-white backdrop-blur-md  border border-white/20 overflow-hidden z-10" style = {{background: "linear-gradient(to right,#17037B, #3B3B3B, #4F0053)", color: "white"}}> 
+    ⚡ Ask Question
+    {/* Glowing moving border */}
+    <span className="absolute inset-0 rounded-xl pointer-events-none border-effect"></span>
+  </button>
+</div>
+
+
       </form>
 
       <div className="space-y-4 px-2 sm:px-4">

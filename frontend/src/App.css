@@ -85,3 +85,37 @@
   position: relative;
   z-index: 0;
 }
+.border-effect {
+  content: "";
+  border-radius: 0.75rem;
+  padding: 2px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgb(0, 255, 191),
+    transparent
+  );
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+
+  background-size: 200% 200%;
+  animation: glowBorder 3s linear infinite;
+}
+
+@keyframes glowBorder {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
