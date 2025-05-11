@@ -34,7 +34,7 @@ export default function About() {
       transition={{ duration: 1 }}
       className="text-center md:text-left"
     >
-      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white tracking-wide">Hii, I am Harsh</h1>
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white tracking-wide">Hi, I am Harsh</h1>
       <p className="text-gray-300 mb-6 text-lg md:text-xl leading-relaxed max-w-xl">
        I am a passionate B.Tech CSE student focused on full-stack web development, aiming to become a top software developer. I love building fast, clean, and user-friendly apps that solve real-world problems.
       </p>
