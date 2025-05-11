@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000', // Change this to the port where your backend server is running
+        target: 'https://harsh-live.onrender.com', // Change this to the port where your backend server is running
         changeOrigin: true,
         secure: false,
       },
