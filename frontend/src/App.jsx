@@ -44,7 +44,7 @@ import {
           <Route path="/contact"  element={<Contact/>} />
           <Route path="/achievements" element={<Achievements/>} />
           <Route path="/skills" element={<Skills/>} />
-          <Route path="/owner" element={<OwnerReply />} />
+          <Route path="/owner" element={<OwnerReply/>} />
         </Routes>
         
       </Router>
