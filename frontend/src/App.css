@@ -119,3 +119,20 @@
     background-position: -200% 0;
   }
 }
+/* src/index.css or global.css */
+.ribbon-shape {
+  position: relative;
+  clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%, 7% 50%);
+}
+.typewriter-glow {
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 6px #22d3ee, 0 0 12px #22d3ee;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
