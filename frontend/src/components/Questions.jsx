@@ -74,7 +74,7 @@ export default function AskQuestion() {
 
       {/* Questions Container */}
      {showQuestions && (
-  <div className="max-h-[400px] overflow-y-auto p-4 space-y-6 bg-gradient-to-br from-[#1a1a1a] via-[#111111cc] to-[#0f0f0f] border border-[#3a3a3a] rounded-2xl backdrop-blur-md shadow-inner transition-all duration-500 scrollbar-hide">
+  <div className="max-h-[400px] overflow-y-auto space-y-6 bg-gradient-to-br from-[#1a1a1a] via-[#111111cc] to-[#0f0f0f] border border-[#3a3a3a] rounded-2xl backdrop-blur-md shadow-inner transition-all duration-500 scrollbar-hide">
     {questions.map((q) => (
       <div
         key={q._id}
