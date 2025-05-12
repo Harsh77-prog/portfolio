@@ -54,9 +54,7 @@ export default function AskQuestion() {
             placeholder="Type your question here..."
             required
           />
-          <button
-            className="w-full px-5 py-3 font-bold rounded-xl text-white border border-white/30 bg-gradient-to-r from-blue-800 to-purple-900 hover:from-purple-800 hover:to-pink-700 transition duration-300 shadow-lg hover:shadow-purple-500/30"
-          >
+          <button className="w-full px-5 py-3 font-bold rounded-xl text-white border border-white/30 bg-gradient-to-r from-blue-800 to-purple-900 hover:from-purple-800 hover:to-pink-700 transition duration-300 shadow-lg hover:shadow-purple-500/30">
             ⚡ Ask Question
           </button>
         </div>
@@ -73,56 +71,61 @@ export default function AskQuestion() {
       </div>
 
       {/* Questions Container */}
-     {showQuestions && (
-  <div className="max-h-[400px] overflow-y-auto space-y-6 bg-gradient-to-br from-[#1a1a1a] via-[#111111cc] to-[#0f0f0f] border border-[#3a3a3a] rounded-2xl backdrop-blur-md shadow-inner transition-all duration-500 scrollbar-hide">
-    {questions.map((q) => (
-      <div
-        key={q._id}
-        className="rounded-2xl p-4 bg-black/40 backdrop-blur-xl border border-[#2e2e2e] shadow-lg transition-transform duration-300 hover:scale-[1.01] hover:shadow-blue-500/20"
-      >
-        {/* Question */}
-        <div className="flex items-center gap-4">
-          <div className="min-w-[40px] h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-700 flex items-center justify-center font-bold text-white shadow-md">
-            {q.userAvatar ? (
-              <img
-                src={q.userAvatar}
-                alt={q.name}
-                className="rounded-full object-cover w-10 h-10"
-              />
-            ) : (
-              <span>{q.name[0].toUpperCase()}</span>
-            )}
-          </div>
+      {showQuestions && (
+        <div className="max-h-[400px] overflow-y-auto space-y-6 scrollbar-hide">
+          {questions.map((q) => (
+            <div
+              key={q._id}
+              className="rounded-2xl p-4 bg-black/40 backdrop-blur-xl border border-[#2e2e2e] shadow-lg transition-transform duration-300 hover:scale-[1.01] hover:shadow-blue-500/20"
+            >
+              {/* Question */}
+              <div className="flex items-center gap-4">
+                <div className="min-w-[40px] h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-700 flex items-center justify-center font-bold text-white shadow-md">
+                  {q.userAvatar ? (
+                    <img
+                      src={q.userAvatar}
+                      alt={q.name}
+                      className="rounded-full object-cover w-10 h-10"
+                    />
+                  ) : (
+                    <span>{q.name[0].toUpperCase()}</span>
+                  )}
+                </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-sm">
-            <h2 className="font-semibold text-blue-400">
-              {q.name.charAt(0).toUpperCase() + q.name.slice(1)}:
-            </h2>
-            <p className="text-gray-300 leading-snug">{q.question}</p>
-          </div>
+                <div className="items-center gap-2 text-sm">
+                  <p className="text-gray-300 leading-snug text-justify">
+                    <strong className="font-semibold text-blue-400">
+                      {q.name.charAt(0).toUpperCase() + q.name.slice(1)} :
+                    </strong>
+                    {q.question}
+                  </p>
+                </div>
+              </div>
+
+              {/* Reply */}
+              {q.reply && (
+                <div className="flex items-center gap-4 mt-4  ">
+                  <div className="min-w-[36px] w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                    <img
+                      src="HarshImage.png"
+                      alt="Admin"
+                      className="w-9 h-9 rounded-full object-cover"
+                    />
+                  </div>
+                  <div className="items-center gap-2 text-sm">
+                    <p className="text-gray-300 leading-snug text-justify">
+                      <strong className="font-semibold text-green-400">
+                        Reply :{" "}
+                      </strong>
+                      {q.reply}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-
-        {/* Reply */}
-        {q.reply && (
-          <div className="flex items-center gap-4 mt-4 pl-12 border-l-2 border-blue-700/50">
-            <div className="min-w-[36px] w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
-              <img
-                src="HarshImage.png"
-                alt="Admin"
-                className="w-9 h-9 rounded-full object-cover"
-              />
-            </div>
-            <div className="flex flex-wrap items-center gap-2 text-sm">
-              <h2 className="font-semibold text-green-400">Reply:</h2>
-              <p className="text-gray-300 leading-snug">{q.reply}</p>
-            </div>
-          </div>
-        )}
-      </div>
-    ))}
-  </div>
-)}
-
+      )}
     </div>
   );
 }
