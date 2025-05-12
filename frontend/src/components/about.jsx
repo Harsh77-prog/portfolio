@@ -51,8 +51,7 @@ useEffect(() => {
   src="HarshImage.png" // Make sure this path is correct
   alt="Profile"
   style={{ objectFit: 'cover' }}
-  className="rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 border-4 border-white shadow-lg hover:scale-105 transition-transform duration-300"
-/>
+  className="rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 border-4  border-cyan-400 hover:shadow-[0_0_12px_#00FFFF] transition-all duration-300"/>
 
     </motion.div>
 
