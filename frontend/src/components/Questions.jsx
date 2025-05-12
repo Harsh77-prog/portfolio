@@ -28,7 +28,7 @@ export default function AskQuestion() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 text-white">
+    <div className="max-w-3xl mx-auto  text-white">
       <h2 className="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
         Ask Me Anything 💬
       </h2>
