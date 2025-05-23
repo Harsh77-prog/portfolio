@@ -25,7 +25,7 @@ export default function Projects() {
       name: "News Application",
       desc: "A news Website using React and NewsAPI, with search functionalities.",
       status: "✅ Completed",
-      link: "#",
+      link: "https://news-v9gy.vercel.app/",
       img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
     },
     {
