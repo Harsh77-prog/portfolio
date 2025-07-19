@@ -10,8 +10,8 @@ export default function Projects() {
     {
       name: "E-Commerce Website",
       desc: "A full-stack shopping platform with filters, cart, and Stripe/Cashfree payments.",
-      status: "🛠 Under Development",
-      link: "#",
+      status: "✅ Completed",
+      link: "https://trendify-ecommerce-web.onrender.com",
       img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
     },
     {
