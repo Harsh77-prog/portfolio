@@ -75,7 +75,7 @@ export default function Projects({ isDark }) {
     <span
       className={`relative inline-block text-transparent bg-clip-text ${
         isDark
-          ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+          ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
           : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
       }`}
     >
@@ -85,7 +85,7 @@ export default function Projects({ isDark }) {
     {/* Glow behind text */}
     <span
       className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
-        isDark ? "bg-yellow-500/30" : "bg-black/20"
+        isDark ? "bg-yellow-200" : "bg-black/20"
       }`}
     ></span>
   </motion.h1>
@@ -94,7 +94,7 @@ export default function Projects({ isDark }) {
   <div
     className={`h-1 w-32 mx-auto rounded-full mb-6 ${
       isDark
-        ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+        ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
         : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
     }`}
   ></div>
@@ -121,7 +121,7 @@ export default function Projects({ isDark }) {
             <div
               className={`flex flex-col rounded-2xl overflow-hidden transition-all duration-300 ${
                 isDark
-                  ? "bg-black border border-yellow-500 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
+                  ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
                   : " border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
               }`}
               style={{ width: "260px", height: "350px" }} // fixed width and height
@@ -135,7 +135,7 @@ export default function Projects({ isDark }) {
                 <div>
                   <h3
                     className={`text-lg font-bold mb-2 ${
-                      isDark ? "text-yellow-400" : "text-black"
+                      isDark ? "text-yellow-200" : "text-black"
                     }`}
                   >
                     {project.name}
@@ -151,7 +151,7 @@ export default function Projects({ isDark }) {
                 <div>
                   <p
                     className={`text-xs mb-2 font-semibold ${
-                      isDark ? "text-yellow-300" : "text-gray-800"
+                      isDark ? "text-yellow-200" : "text-gray-800"
                     }`}
                   >
                     {project.status}
@@ -159,7 +159,7 @@ export default function Projects({ isDark }) {
                   <a
                     href={project.link}
                     className={`text-sm hover:underline font-medium ${
-                      isDark ? "text-yellow-400" : "text-black"
+                      isDark ? "text-yellow-200" : "text-black"
                     } ${
                       project.status !== "✅ Completed"
                         ? "line-through cursor-not-allowed"

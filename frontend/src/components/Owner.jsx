@@ -29,7 +29,7 @@ export default function OwnerReply({ isDark }) {
     <div
       className={`min-h-screen p-4 sm:p-6 max-w-3xl mx-auto transition-all duration-700 ease-in-out ${
         isDark
-          ? " text-yellow-600"
+          ? " text-yellow-200"
           : " text-white"
       }`}
     >
@@ -37,14 +37,14 @@ export default function OwnerReply({ isDark }) {
       <h2
         className={`text-3xl font-semibold mb-8 pb-2 border-b-2 text-center tracking-wide ${
           isDark
-            ? "border-[#FFD700]/40 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#b8860b] animate-goldFlow"
+            ? "border-[#FFD700]/40 bg-clip-text text-transparent bg-gradient-to-r from-yellow-100 to-yellow-200 animate-goldFlow"
             : "border-black/40 text-black"
         }`}
       >
         🛠️ Reply to Questions{" "}
         <span
           className={`text-sm font-normal ${
-            isDark ? "text-[#b8860b]" : "text-gray-600"
+            isDark ? "text-yellow-200" : "text-gray-600"
           }`}
         >
           (Admin Only)
@@ -74,13 +74,13 @@ export default function OwnerReply({ isDark }) {
             <p
               className={`mb-3 text-base leading-relaxed ${
                 isDark
-                  ? "text-black bg-gradient-to-r from-[#FFD700] to-[#b8860b] bg-clip-text text-transparent"
+                  ? "text-black bg-gradient-to-r from-yellow-100 to-yellow-200 bg-clip-text text-transparent"
                   : "text-gray-800"
               }`}
             >
               <span
                 className={`font-semibold ${
-                  isDark ? "text-[#FFD700]" : "text-blue-700"
+                  isDark ? "text-yellow-200" : "text-blue-700"
                 }`}
               >
                 {q.name}:
@@ -104,7 +104,7 @@ export default function OwnerReply({ isDark }) {
                 <input
                   className={`w-full mt-3 px-4 py-2 rounded-lg border outline-none transition-all duration-300 ${
                     isDark
-                      ? "bg-black/20 border-[#FFD700]/20 text-yellow-600 placeholder-[#b8860b] focus:border-[#FFD700]"
+                      ? "bg-black/20 border-[#FFD700]/20 text-yellow-600 placeholder-[#b8860b] focus:border-yellow-200"
                       : "bg-gray-100 border-gray-400 text-black placeholder-gray-500 focus:border-black"
                   }`}
                   placeholder="Type your reply..."
@@ -118,7 +118,7 @@ export default function OwnerReply({ isDark }) {
                   onClick={() => handleReply(q._id)}
                   className={`mt-4 px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
                     isDark
-                      ? "bg-gradient-to-r from-[#FFD700] to-[#b8860b] text-black hover:scale-105"
+                      ? "bg-gradient-to-r from-yellow-100 to-yellow-200 text-black hover:scale-105"
                       : "bg-black text-white hover:scale-105"
                   }`}
                 >

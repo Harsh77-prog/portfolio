@@ -97,7 +97,7 @@ export default function Achievements({ isDark }) {
     <span
       className={`relative inline-block text-transparent bg-clip-text ${
         isDark
-          ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+          ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
           : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
       }`}
     >
@@ -116,7 +116,7 @@ export default function Achievements({ isDark }) {
   <div
     className={`h-1 w-32 mx-auto rounded-full mb-12 ${
       isDark
-        ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+        ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
         : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
     }`}
   ></div>
@@ -147,7 +147,7 @@ export default function Achievements({ isDark }) {
         <div
           className={`flex flex-col rounded-2xl overflow-hidden p-4 transition-all duration-300 justify-between shadow-lg ${
             isDark
-              ? "bg-black border border-yellow-500 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
+              ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
               : " border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
           }`}
           style={{ width: "260px", height: "360px" }}
@@ -156,14 +156,14 @@ export default function Achievements({ isDark }) {
             <div className="text-4xl mb-3">{a.icon}</div>
             <h4
               className={`text-lg font-bold mb-1 ${
-                isDark ? "text-yellow-400" : "text-black"
+                isDark ? "text-yellow-200" : "text-black"
               }`}
             >
               {a.title}
             </h4>
             <p
               className={`text-sm mb-2 font-medium ${
-                isDark ? "text-yellow-300" : "text-gray-800"
+                isDark ? "text-yellow-200" : "text-gray-800"
               }`}
             >
               {a.subtitle}

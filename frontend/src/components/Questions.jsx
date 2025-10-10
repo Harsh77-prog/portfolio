@@ -63,7 +63,7 @@ export default function AskQuestion({ isDark }) {
         <div className="relative z-10 flex flex-col gap-4">
           <motion.input
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #FFD700" : "0 0 15px #000" }}
-            className={`p-3 w-full rounded-xl border focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 ${colors.inputBg}`}
+            className={`p-3 w-full rounded-xl border focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all duration-300 ${colors.inputBg}`}
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
@@ -71,7 +71,7 @@ export default function AskQuestion({ isDark }) {
           />
           <motion.textarea
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #FFD700" : "0 0 15px #000" }}
-            className={`p-3 w-full rounded-xl h-32 resize-none border focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 ${colors.inputBg}`}
+            className={`p-3 w-full rounded-xl h-32 resize-none border focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all duration-300 ${colors.inputBg}`}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Type your question here..."

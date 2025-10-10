@@ -27,7 +27,7 @@ export default function Navbar({ isDark, setIsDark }) {
   ];
 
   const colors = {
-    linkColor: isDark ? "text-[#FFD700]" : "text-black",
+    linkColor: isDark ? "text-yellow-200" : "text-black",
     hoverShadow: isDark
       ? "hover:shadow-[0_0_15px_#FFD700] hover:scale-110 transition-all duration-300"
       : "hover:shadow-[0_0_10px_#000] hover:scale-110 transition-all duration-300",

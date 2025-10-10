@@ -47,7 +47,7 @@ export default function Skills({ isDark }) {
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className={`absolute rounded-full ${isDark ? "bg-yellow-400" : "bg-black"} opacity-20`}
+            className={`absolute rounded-full ${isDark ? "bg-yellow-200" : "bg-black"} opacity-20`}
             animate={{
               x: [0, 100, -100, 0],
               y: [0, 50, -50, 0],
@@ -80,7 +80,7 @@ export default function Skills({ isDark }) {
     <span
       className={`relative inline-block text-transparent bg-clip-text ${
         isDark
-          ?"bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+          ?"bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
           : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
       }`}
     >
@@ -90,7 +90,7 @@ export default function Skills({ isDark }) {
     {/* Glow behind text */}
     <span
       className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
-        isDark ? "bg-yellow-500/30" : "bg-black/20"
+        isDark ? "bg-yellow-200" : "bg-black/20"
       }`}
     ></span>
   </motion.h2>
@@ -99,7 +99,7 @@ export default function Skills({ isDark }) {
   <div
     className={`h-1 w-32 mx-auto rounded-full ${
       isDark
-        ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+        ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
         : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
     }`}
   ></div>
@@ -114,7 +114,7 @@ export default function Skills({ isDark }) {
         key={index}
         className={`relative flex flex-col items-center justify-center p-4 sm:p-5 md:p-6 rounded-xl cursor-pointer transition-all ${
           isDark
-            ? "bg-black border-2 border-yellow-400"
+            ? "bg-black border-2 border-yellow-200"
             : " border-2 border-black hover:bg-slate-200 hover:text-white"
         } w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44`}
         initial={{ rotate: 0, y: 0 }}
@@ -139,7 +139,7 @@ export default function Skills({ isDark }) {
         {skill.icon}
         <motion.p
           className={`mt-2 text-xs sm:text-sm md:text-sm font-semibold ${
-            isDark ? "text-yellow-400" : "text-black"
+            isDark ? "text-yellow-200" : "text-black"
           }`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -151,7 +151,7 @@ export default function Skills({ isDark }) {
         {/* Glowing border ring */}
         <motion.div
           className={`absolute inset-0 rounded-xl pointer-events-none ${
-            isDark ? "border border-yellow-400" : "border border-black"
+            isDark ? "border border-yellow-200" : "border border-black"
           }`}
           animate={{ rotate: [0, 360] }}
           transition={{ repeat: Infinity, duration: 10 + index * 0.2, ease: "linear" }}

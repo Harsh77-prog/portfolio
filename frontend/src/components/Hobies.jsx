@@ -28,7 +28,7 @@ export default function Hobbies({ isDark }) {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className={`absolute rounded-full ${isDark ? "bg-yellow-400" : "bg-black"} opacity-20`}
+            className={`absolute rounded-full ${isDark ? "bg-yellow-200" : "bg-black"} opacity-20`}
             animate={{
               x: [0, 50, -50, 0],
               y: [0, -30, 30, 0],
@@ -58,7 +58,7 @@ export default function Hobbies({ isDark }) {
           viewport={{ once: true }}
           className={`text-4xl md:text-5xl font-bold mb-14 tracking-tight ${
             isDark
-              ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+              ? "bg-gradient-to-r from-yellow-200 to-yellow-300 text-transparent bg-clip-text"
               : "bg-gradient-to-r from-black to-gray-700 text-transparent bg-clip-text"
           }`}
         >
@@ -93,7 +93,7 @@ export default function Hobbies({ isDark }) {
       : "0 0 20px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4)",
   }}
   className={`relative flex flex-col items-center justify-center gap-2 p-5 rounded-2xl cursor-pointer border-2 transition-all duration-300 ${
-    isDark ? "bg-black border-yellow-400 text-white" : "bg-white border-black text-black"
+    isDark ? "bg-black border-yellow-200 text-white" : "bg-white border-black text-black"
   }`}
 >
   <div className="text-3xl md:text-4xl">{hobby.icon}</div>

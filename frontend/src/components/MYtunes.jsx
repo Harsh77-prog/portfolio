@@ -34,7 +34,7 @@ export default function MyTunes({ isDark }) {
       >
         <span
           className={`bg-gradient-to-r ${
-            isDark ? "from-yellow-400 to-yellow-600" : "from-black to-gray-700"
+            isDark ? "from-yellow-200 to-yellow-100" : "from-black to-gray-700"
           } text-transparent bg-clip-text animate-pulse flex items-center justify-center gap-2`}
         >
           <FaSpotify /> ✦ My Tunes

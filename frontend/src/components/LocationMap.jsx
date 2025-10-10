@@ -57,7 +57,7 @@ export default function LocationMap({ isDark }) {
   }, []);
 
   const colors = {
-    heading: isDark ? "text-yellow-400" : "text-black",
+    heading: isDark ? "text-yellow-200" : "text-black",
     text: isDark ? "text-yellow-200" : "text-gray-800",
     cardBg: isDark ? "bg-black" : "bg-gradient-to-r from-gray-100 to-gray-300",
     cardShadow: isDark
@@ -111,7 +111,7 @@ export default function LocationMap({ isDark }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={myCoordinates} icon={customIcon}>
-            <Popup className={isDark ? "text-yellow-400" : "text-black"}>
+            <Popup className={isDark ? "text-yellow-200" : "text-black"}>
               I am here! 📍
             </Popup>
           </Marker>
