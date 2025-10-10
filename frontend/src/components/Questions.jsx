@@ -35,12 +35,12 @@ export default function AskQuestion({ isDark }) {
     cardShadow: isDark
       ? "shadow-[0_0_20px_#FFD700]/50"
       : "shadow-[0_0_20px_#000]/30",
-    textColor: isDark ? "text-yellow-400" : "text-black",
+    textColor: isDark ? "text-yellow-200" : "text-black",
     inputBg: isDark
-      ? "bg-black text-yellow-400 border-yellow-400 placeholder-yellow-300"
+      ? "bg-black text-yellow-200 border-yellow-200 placeholder-yellow-300"
       : "bg-gradient-to-r from-gray-100 to-gray-300 text-black border-black placeholder-gray-600",
     buttonBg: isDark
-      ? "bg-yellow-400 text-black hover:bg-yellow-300"
+      ? "bg-yellow-200 text-black hover:bg-yellow-100"
       : "bg-black text-white hover:bg-gray-800",
     hoverShadow: isDark
       ? "hover:shadow-[0_0_25px_#FFD700]"
