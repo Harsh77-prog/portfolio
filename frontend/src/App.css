@@ -130,7 +130,7 @@
 
 /* Dark mode override */
 .dark {
-  --typewriter-glow-color: rgba(255,215,0,0.8); /* golden glow for dark mode */
+  --typewriter-glow-color: rgba(255, 240, 155, 0.8); /* golden glow for dark mode */
 }
 
 .typewriter-glow {
@@ -180,18 +180,18 @@
 @keyframes goldPulse {
   0% {
     color: #000;
-    background: linear-gradient(90deg, #ffdb6f, #b8860b, #ffd700);
+    background: linear-gradient(90deg, #ffedb8, #ffd877, #fff5ba);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   50% {
-    background: linear-gradient(90deg, #f2ffe6, #ffd700, #fff3b0);
+    background: linear-gradient(90deg, #f2ffe6, #ffeb79, #fff3b0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   100% {
     color: #000;
-    background: linear-gradient(90deg,  #ffe554, #b8860b, #ffd700);
+    background: linear-gradient(90deg,  #e7dc9a, #ffda7c, #fff8d4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
