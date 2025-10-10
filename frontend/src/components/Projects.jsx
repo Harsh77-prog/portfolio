@@ -39,23 +39,32 @@ export default function Projects({ isDark }) {
   ];
 
   // Smooth scroll
-  useEffect(() => {
-    let animationFrameId;
-    const scrollSpeed = 1.2;
+ // Smooth scroll using transform for GPU acceleration
+useEffect(() => {
+  let start = 0;
+  let animationFrameId;
+  const scrollSpeed = 0.5; // slower is smoother
 
-    const smoothScroll = () => {
-      if (scrollRef.current && !isHovered) {
-        const el = scrollRef.current;
-        el.scrollLeft += scrollSpeed;
-        const maxScrollLeft = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft >= maxScrollLeft) el.scrollLeft = 0;
-      }
-      animationFrameId = requestAnimationFrame(smoothScroll);
-    };
+  const smoothScroll = () => {
+    if (scrollRef.current && !isHovered) {
+      const el = scrollRef.current;
+      start += scrollSpeed;
+      const maxScroll = el.scrollWidth;
 
+      // reset scroll
+      if (start >= maxScroll) start = 0;
+
+      // hardware-accelerated transform
+      el.style.transform = `translateX(${-start}px)`;
+    }
     animationFrameId = requestAnimationFrame(smoothScroll);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHovered]);
+  };
+
+  animationFrameId = requestAnimationFrame(smoothScroll);
+
+  return () => cancelAnimationFrame(animationFrameId);
+}, [isHovered]);
+
 
   return (
     <section
