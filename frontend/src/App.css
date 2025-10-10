@@ -124,15 +124,132 @@
   position: relative;
   clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%, 7% 50%);
 }
+:root {
+  --typewriter-glow-color: rgba(0,0,0,0.5); /* black glow for light mode */
+}
+
+/* Dark mode override */
+.dark {
+  --typewriter-glow-color: rgba(255,215,0,0.8); /* golden glow for dark mode */
+}
+
 .typewriter-glow {
   animation: flicker 2s infinite;
 }
 
 @keyframes flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    text-shadow: 0 0 6px #22d3ee, 0 0 12px #22d3ee;
+    text-shadow: 0 0 6px var(--typewriter-glow-color), 0 0 12px var(--typewriter-glow-color);
   }
   20%, 24%, 55% {
     text-shadow: none;
   }
+}
+
+@keyframes borderGlow {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-border-gradient {
+  pointer-events: none;
+  padding: 2px;
+  background-size: 200% 200%;
+  animation: borderGlow 3s linear infinite;
+}
+@keyframes borderGlow {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-border-gradient {
+  pointer-events: none;
+  background-size: 200% 200%;
+  animation: borderGlow 3s linear infinite;
+  border-radius: 1rem; /* same as card */
+}
+/* ✨ Elegant Gold Pulse for Dark Mode */
+@keyframes goldPulse {
+  0% {
+    color: #000;
+    background: linear-gradient(90deg, #ffdb6f, #b8860b, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  50% {
+    background: linear-gradient(90deg, #f2ffe6, #ffd700, #fff3b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  100% {
+    color: #000;
+    background: linear-gradient(90deg,  #ffe554, #b8860b, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.animate-goldPulse {
+  animation: goldPulse 3s ease-in-out infinite alternate;
+}
+
+/* 🌤️ Soft Fade for Light Mode */
+@keyframes softFade {
+  0%, 100% {
+    opacity: 0.9;
+    letter-spacing: 0.2px;
+  }
+  50% {
+    opacity: 1;
+    letter-spacing: 0.8px;
+  }
+}
+
+.animate-softFade {
+  animation: softFade 3s ease-in-out infinite;
+}
+
+@keyframes goldFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-goldFlow {
+  background-size: 200% auto;
+  animation: goldFlow 4s linear infinite alternate;
+}
+/* Twinkling gold gradient animation */
+@keyframes gold-twinkle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gold-twinkle {
+  background-size: 200% 200%;
+  animation: gold-twinkle 3s ease infinite;
+}
+
+/* Twinkling black-white gradient animation */
+@keyframes bw-twinkle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-bw-twinkle {
+  background-size: 200% 200%;
+  animation: bw-twinkle 3s ease infinite;
 }

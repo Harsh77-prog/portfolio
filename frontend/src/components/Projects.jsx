@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import "../App.css";
+import PropTypes from "prop-types";
 
-export default function Projects() {
+export default function Projects({ isDark }) {
   const scrollRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -35,83 +36,140 @@ export default function Projects() {
       link: "#",
       img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-illustration-download-in-svg-png-gif-file-formats--hr-recruitment-company-business-activities-pack-people-illustrations-4032953.png",
     },
-    
   ];
 
-  
-
+  // Smooth scroll
   useEffect(() => {
     let animationFrameId;
-    const scrollSpeed = 1.2; // Adjust for visible smoothness
-  
+    const scrollSpeed = 1.2;
+
     const smoothScroll = () => {
       if (scrollRef.current && !isHovered) {
         const el = scrollRef.current;
         el.scrollLeft += scrollSpeed;
-  
         const maxScrollLeft = el.scrollWidth - el.clientWidth;
-  
-        if (el.scrollLeft >= maxScrollLeft) {
-          el.scrollLeft = 0;
-        }
+        if (el.scrollLeft >= maxScrollLeft) el.scrollLeft = 0;
       }
       animationFrameId = requestAnimationFrame(smoothScroll);
     };
-  
+
     animationFrameId = requestAnimationFrame(smoothScroll);
-  
     return () => cancelAnimationFrame(animationFrameId);
   }, [isHovered]);
-  
-  
+
   return (
-    <section className="py-20 text-white relative z-10 overflow-hidden">
+    <section
+      className={`py-20 relative z-10 overflow-hidden ${
+        isDark ? "text-white" : "text-black"
+      }`}
+    >
       {/* Title */}
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-12 tracking-tight"
-        >
-          <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-            🚀 My Projects
-          </span>
-        </motion.h1>
-      </div>
+  <div className="max-w-6xl mx-auto text-center px-4">
+  <motion.h1
+    initial={{ opacity: 0, y: -30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+    viewport={{ once: true }}
+    className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 tracking-tight relative inline-block"
+  >
+    <span
+      className={`relative inline-block text-transparent bg-clip-text ${
+        isDark
+          ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+          : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+      }`}
+    >
+      🚀 My Projects
+    </span>
+
+    {/* Glow behind text */}
+    <span
+      className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
+        isDark ? "bg-yellow-500/30" : "bg-black/20"
+      }`}
+    ></span>
+  </motion.h1>
+
+  {/* Animated underline */}
+  <div
+    className={`h-1 w-32 mx-auto rounded-full mb-6 ${
+      isDark
+        ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+        : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+    }`}
+  ></div>
+</div>
+
+
 
       {/* Scrollable Carousel */}
       <div
-  ref={scrollRef}
-  className="scroll-container flex gap-6 px-4 overflow-x-auto scroll-smooth whitespace-nowrap scroll-snap-x mandatory transition-all duration-200 ease-linear"
-  onMouseEnter={() => setIsHovered(true)}
-  onMouseLeave={() => setIsHovered(false)}
->
-
+        ref={scrollRef}
+        className="scroll-container flex gap-6 px-4 overflow-x-auto scroll-smooth whitespace-nowrap scroll-snap-x mandatory transition-all duration-200 ease-linear"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {projectList.map((project, index) => (
           <motion.div
             key={index}
-            id="projects"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className="bg-[#1c1c1c] inline-block w-[260px] rounded-xl shadow-md hover:shadow-blue-500/30 transition-all transform hover:-translate-y-2 hover:scale-105 overflow-hidden break-words scroll-snap-align-start"
+            className="relative inline-block scroll-snap-align-start transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 cursor-pointer"
           >
-            <img src={project.img} alt={project.name} className="w-full h-36 object-cover" />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2 text-blue-300">{project.name}</h3>
-              <p className="text-gray-400 text-sm mb-2 leading-relaxed break-words whitespace-normal">{project.desc}</p>
-              <p className="text-yellow-400 text-xs mb-2">{project.status}</p>
-              <a
-                href={project.link}
-                className={`text-blue-400 hover:underline text-sm ${
-                  project.status !== "✅ Completed" ? "line-through cursor-not-allowed" : ""
-                }`}
-              >
-                🔗 View Project
-              </a>
+            <div
+              className={`flex flex-col rounded-2xl overflow-hidden transition-all duration-300 ${
+                isDark
+                  ? "bg-black border border-yellow-500 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
+                  : " border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
+              }`}
+              style={{ width: "260px", height: "350px" }} // fixed width and height
+            >
+              <img
+                src={project.img}
+                alt={project.name}
+                className="w-full h-36 object-cover"
+              />
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3
+                    className={`text-lg font-bold mb-2 ${
+                      isDark ? "text-yellow-400" : "text-black"
+                    }`}
+                  >
+                    {project.name}
+                  </h3>
+                  <p
+                    className={`text-sm mb-2 leading-relaxed break-words whitespace-normal ${
+                      isDark ? "text-gray-300" : "text-gray-700"
+                    }`}
+                  >
+                    {project.desc}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    className={`text-xs mb-2 font-semibold ${
+                      isDark ? "text-yellow-300" : "text-gray-800"
+                    }`}
+                  >
+                    {project.status}
+                  </p>
+                  <a
+                    href={project.link}
+                    className={`text-sm hover:underline font-medium ${
+                      isDark ? "text-yellow-400" : "text-black"
+                    } ${
+                      project.status !== "✅ Completed"
+                        ? "line-through cursor-not-allowed"
+                        : ""
+                    }`}
+                  >
+                    🔗 View Project
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -119,3 +177,7 @@ export default function Projects() {
     </section>
   );
 }
+
+Projects.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};

@@ -7,50 +7,62 @@ import Skills from './components/skill';
 import Contact from './components/Contact';
 import Navbar from './components/navbar';
 import OwnerReply from './components/Owner';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes
-} from 'react-router-dom';
- function App() {
+
+
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+function App() {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('isDark'); // persist
+    return saved ? JSON.parse(saved) : true; // default dark
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('isDark', JSON.stringify(isDark));
+  }, [isDark]);
+
   return (
-    <>
-     <div className="app-container">
-      {/* Global Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="background-video"
-      >
-        <source src="/magic-BG.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <Router>
+      <div className="app-container">
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          key={isDark ? 'dark' : 'light'} // force reload when switching
+          className="background-video"
+        >
+          <source
+            src={isDark ? '/magic-bg2.mp4' : '/light-BG.mp4'}
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
 
-      {/* Optional: Dark overlay */}
-      <div className="video-overlay" />
+        {/* Optional overlay only for dark mode */}
+        {isDark && <div className="video-overlay" />}
 
-      {/* Main App Content */}
-      <div className="content">
-        
-      
-      <Router>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/about" element={<About/>} />
-          <Route path="/projects" element={<Projects/>} />
-          <Route path="/contact"  element={<Contact/>} />
-          <Route path="/achievements" element={<Achievements/>} />
-          <Route path="/skills" element={<Skills/>} />
-          <Route path="/owner" element={<OwnerReply/>} />
-        </Routes>
-        
-      </Router>
+        {/* Navbar */}
+        <Navbar isDark={isDark} setIsDark={setIsDark} />
+
+        {/* Page Content */}
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home isDark={isDark} />} />
+            <Route path="/about" element={<About isDark={isDark} />} />
+            <Route path="/projects" element={<Projects isDark={isDark} />} />
+            <Route path="/contact" element={<Contact isDark={isDark} />} />
+            <Route path="/achievements" element={<Achievements isDark={isDark} />} />
+            <Route path="/skills" element={<Skills isDark={isDark} />} />
+            <Route path="/owner" element={<OwnerReply isDark={isDark} />} />
+          </Routes>
+        </div>
       </div>
-    </div>
-    </>
+    </Router>
   );
 }
+
 export default App;

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import '../App.css';
+import "../App.css";
 import {
   SiHtml5,
   SiCss3,
@@ -15,9 +15,12 @@ import {
   SiBootstrap,
   SiFigma,
   SiPostman,
+  SiFlutter,
+  SiDart,
 } from "react-icons/si";
+import PropTypes from "prop-types";
 
-export default function Skills() {
+export default function Skills({ isDark }) {
   const skills = [
     { name: "C", icon: <SiC className="text-blue-500 text-4xl" /> },
     { name: "C++", icon: <SiCplusplus className="text-blue-300 text-4xl" /> },
@@ -33,40 +36,137 @@ export default function Skills() {
     { name: "Figma", icon: <SiFigma className="text-pink-500 text-4xl" /> },
     { name: "Postman", icon: <SiPostman className="text-orange-400 text-4xl" /> },
     { name: "Git", icon: <SiGit className="text-orange-600 text-4xl" /> },
+    { name: "Flutter", icon: <SiFlutter className="text-blue-400 text-4xl" /> },
+    { name: "Dart", icon: <SiDart className="text-blue-600 text-4xl" /> },
   ];
 
   return (
-    <section className="py-20 px-6 text-white relative overflow-hidden z-10">
-      {/* Glowing background effects */}
-     
+    <section className={`relative py-20 px-6 overflow-hidden z-10 ${isDark ? "text-white" : "text-black"}`}>
+      {/* Animated Particle Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className={`absolute rounded-full ${isDark ? "bg-yellow-400" : "bg-black"} opacity-20`}
+            animate={{
+              x: [0, 100, -100, 0],
+              y: [0, 50, -50, 0],
+              scale: [1, 1.2, 0.8, 1],
+              rotate: [0, 360, 0],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 20 + i,
+              ease: "linear",
+            }}
+            style={{
+              width: Math.random() * 50 + 20,
+              height: Math.random() * 50 + 20,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="max-w-6xl mx-auto text-center relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-14 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text"
+    initial={{ opacity: 0, y: -30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+    viewport={{ once: true }}
+    className="text-4xl sm:text-5xl md:text-5xl font-extrabold mb-14 tracking-tight relative inline-block"
+  >
+    <span
+      className={`relative inline-block text-transparent bg-clip-text ${
+        isDark
+          ?"bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+          : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+      }`}
+    >
+      💻 My Tech Stack
+    </span>
+
+    {/* Glow behind text */}
+    <span
+      className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
+        isDark ? "bg-yellow-500/30" : "bg-black/20"
+      }`}
+    ></span>
+  </motion.h2>
+
+  {/* Animated underline */}
+  <div
+    className={`h-1 w-32 mx-auto rounded-full ${
+      isDark
+        ? "bg-gradient-to-r from-yellow-600 via-yellow-100 to-black animate-gold-twinkle"
+        : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+    }`}
+  ></div>
+  <br />
+       <div className="max-w-6xl mx-auto text-center relative z-10">
+  
+
+  {/* Centered Grid */}
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-5 md:gap-6 justify-items-center">
+    {skills.map((skill, index) => (
+      <motion.div
+        key={index}
+        className={`relative flex flex-col items-center justify-center p-4 sm:p-5 md:p-6 rounded-xl cursor-pointer transition-all ${
+          isDark
+            ? "bg-black border-2 border-yellow-400"
+            : " border-2 border-black hover:bg-slate-200 hover:text-white"
+        } w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44`}
+        initial={{ rotate: 0, y: 0 }}
+        animate={{
+          rotate: [0, 5, -5, 5, 0],
+          y: [0, -5, 5, -5, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 6 + index * 0.1,
+          ease: "easeInOut",
+        }}
+        whileHover={{
+          scale: 1.2,
+          rotate: [0, 10, -10, 0],
+          boxShadow: isDark
+            ? "0 0 25px rgba(255,215,0,0.8), 0 0 50px rgba(255,215,0,0.6)"
+            : "0 0 25px rgba(0,0,0,0.8), 0 0 50px rgba(0,0,0,0.5)",
+        }}
+      >
+        {skill.icon}
+        <motion.p
+          className={`mt-2 text-xs sm:text-sm md:text-sm font-semibold ${
+            isDark ? "text-yellow-400" : "text-black"
+          }`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: index * 0.1 }}
         >
-          💻 My Tech Stack
-        </motion.h2>
+          {skill.name}
+        </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-[#401967] via-[#000043] to-[#464646] p-6 rounded-xl shadow-lg hover:shadow-blue-500/40 transform transition duration-300 hover:-translate-y-2 flex flex-col items-center gap-2"
+        {/* Glowing border ring */}
+        <motion.div
+          className={`absolute inset-0 rounded-xl pointer-events-none ${
+            isDark ? "border border-yellow-400" : "border border-black"
+          }`}
+          animate={{ rotate: [0, 360] }}
+          transition={{ repeat: Infinity, duration: 10 + index * 0.2, ease: "linear" }}
+        />
+      </motion.div>
+    ))}
+  </div>
+</div>
 
-            >
-              {skill.icon}
-              <p className="mt-2 text-sm">{skill.name}</p>
-            </motion.div>
-          ))}
-        </div>
+
       </div>
     </section>
   );
 }
+
+Skills.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};

@@ -1,10 +1,10 @@
-// OwnerReply.js
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-export default function OwnerReply() {
+export default function OwnerReply({ isDark }) {
   const [questions, setQuestions] = useState([]);
   const [replies, setReplies] = useState({});
 
@@ -18,52 +18,121 @@ export default function OwnerReply() {
   }, []);
 
   const handleReply = async (id) => {
-    await axios.post(`${backendUrl}/api/questions/reply/${id}`, { reply: replies[id] });
-    setReplies({ ...replies, [id]: '' });
+    await axios.post(`${backendUrl}/api/questions/reply/${id}`, {
+      reply: replies[id],
+    });
+    setReplies({ ...replies, [id]: "" });
     fetchQuestions();
   };
 
   return (
-    <div className="p-4 sm:p-6 max-w-3xl mx-auto text-white">
-    <h2 className="text-3xl font-semibold mb-6 border-b border-gray-700 pb-2">
-      🛠️ Reply to Questions <span className="text-sm text-gray-400">(Admin Only)</span>
-    </h2>
-  
-    {questions.map((q) => (
-      <div
-        key={q._id}
-        className="bg-gray-800 border border-gray-700 p-4 sm:p-5 rounded-2xl shadow-md mb-5 transition hover:shadow-lg"
+    <div
+      className={`min-h-screen p-4 sm:p-6 max-w-3xl mx-auto transition-all duration-700 ease-in-out ${
+        isDark
+          ? " text-black"
+          : " text-white"
+      }`}
+    >
+      {/* 🏷️ Page Heading */}
+      <h2
+        className={`text-3xl font-semibold mb-8 pb-2 border-b-2 text-center tracking-wide ${
+          isDark
+            ? "border-[#FFD700]/40 bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#b8860b] animate-goldFlow"
+            : "border-black/40 text-black"
+        }`}
       >
-        <p className="mb-2 text-base leading-relaxed">
-          <span className="font-medium text-blue-400">{q.name}:</span> {q.question}
+        🛠️ Reply to Questions{" "}
+        <span
+          className={`text-sm font-normal ${
+            isDark ? "text-[#b8860b]" : "text-gray-600"
+          }`}
+        >
+          (Admin Only)
+        </span>
+      </h2>
+
+      {/* 🧠 All Questions */}
+      {questions.length === 0 ? (
+        <p
+          className={`text-center mt-20 text-lg ${
+            isDark ? "text-gray-500" : "text-gray-700"
+          }`}
+        >
+          No questions found.
         </p>
-  
-        {q.reply ? (
-          <p className="text-green-400 mt-3 bg-gray-900 p-3 rounded-md">
-            <strong>Reply:</strong> {q.reply}
-          </p>
-        ) : (
-          <>
-            <input
-              className="w-full mt-3 px-4 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Type your reply..."
-              value={replies[q._id] || ''}
-              onChange={(e) =>
-                setReplies({ ...replies, [q._id]: e.target.value })
-              }
-            />
-  
-            <button
-              onClick={() => handleReply(q._id)}
-              className="mt-3 px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition"
+      ) : (
+        questions.map((q) => (
+          <div
+            key={q._id}
+            className={`p-5 sm:p-6 rounded-2xl mb-6 border transition-all duration-500 shadow-md hover:shadow-lg ${
+              isDark
+                ? "bg-[#121212] border-[#FFD700]/20 hover:border-[#FFD700]/40"
+                : "bg-white border-gray-300 hover:border-black/30"
+            }`}
+          >
+            {/* 🧩 Question */}
+            <p
+              className={`mb-3 text-base leading-relaxed ${
+                isDark
+                  ? "text-black bg-gradient-to-r from-[#FFD700] to-[#b8860b] bg-clip-text text-transparent"
+                  : "text-gray-800"
+              }`}
             >
-              Send Reply
-            </button>
-          </>
-        )}
-      </div>
-    ))}
-  </div>
-  
+              <span
+                className={`font-semibold ${
+                  isDark ? "text-[#FFD700]" : "text-blue-700"
+                }`}
+              >
+                {q.name}:
+              </span>{" "}
+              {q.question}
+            </p>
+
+            {/* 💬 Reply or Input */}
+            {q.reply ? (
+              <p
+                className={`mt-3 p-3 rounded-md ${
+                  isDark
+                    ? "bg-black/20 text-[#32CD32] font-medium"
+                    : "bg-gray-100 text-green-700"
+                }`}
+              >
+                <strong>Reply:</strong> {q.reply}
+              </p>
+            ) : (
+              <>
+                <input
+                  className={`w-full mt-3 px-4 py-2 rounded-lg border outline-none transition-all duration-300 ${
+                    isDark
+                      ? "bg-black/20 border-[#FFD700]/20 text-black placeholder-[#b8860b] focus:border-[#FFD700]"
+                      : "bg-gray-100 border-gray-400 text-black placeholder-gray-500 focus:border-black"
+                  }`}
+                  placeholder="Type your reply..."
+                  value={replies[q._id] || ""}
+                  onChange={(e) =>
+                    setReplies({ ...replies, [q._id]: e.target.value })
+                  }
+                />
+
+                <button
+                  onClick={() => handleReply(q._id)}
+                  className={`mt-4 px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    isDark
+                      ? "bg-gradient-to-r from-[#FFD700] to-[#b8860b] text-black hover:scale-105"
+                      : "bg-black text-white hover:scale-105"
+                  }`}
+                >
+                  Send Reply
+                </button>
+              </>
+            )}
+          </div>
+        ))
+      )}
+    </div>
   );
 }
+
+OwnerReply.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};
