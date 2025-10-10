@@ -33,7 +33,7 @@ export default function About({ isDark }) {
   return (
     <div
       className={`relative min-h-[70vh] flex items-center justify-center px-6 py-8 overflow-hidden ${
-        isDark ? ' text-yellow-400' : ' text-black'
+        isDark ? ' text-yellow-200' : ' text-black'
       }`}
     >
       {/* Content */}
@@ -52,7 +52,7 @@ export default function About({ isDark }) {
             style={{ objectFit: 'cover' }}
             className={`rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 border-4 transition-all duration-300 ${
               isDark
-                ? 'border-yellow-400 hover:shadow-[0_0_12px_#FFD700]'
+                ? 'border-yellow-200 hover:shadow-[0_0_12px_#FFD700]'
                 : 'border-black hover:shadow-[0_0_12px_#000000]'
             }`}
           />
@@ -94,7 +94,7 @@ export default function About({ isDark }) {
               target="_blank"
               rel="noreferrer"
               className={`hover:scale-110 transition ${
-                isDark ? 'hover:text-yellow-300' : 'hover:text-black'
+                isDark ? 'hover:text-yellow-200' : 'hover:text-black'
               }`}
             >
               <FaGithub />
@@ -104,7 +104,7 @@ export default function About({ isDark }) {
               target="_blank"
               rel="noreferrer"
               className={`hover:scale-110 transition ${
-                isDark ? 'hover:text-yellow-300' : 'hover:text-black'
+                isDark ? 'hover:text-yellow-200' : 'hover:text-black'
               }`}
             >
               <FaLinkedin />
@@ -112,7 +112,7 @@ export default function About({ isDark }) {
             <a
               href="https://www.instagram.com/hars.hkumar4299/"
               className={`hover:scale-110 transition ${
-                isDark ? 'hover:text-yellow-300' : 'hover:text-black'
+                isDark ? 'hover:text-yellow-200' : 'hover:text-black'
               }`}
             >
               <FaInstagram />
@@ -127,7 +127,7 @@ export default function About({ isDark }) {
               rel="noopener noreferrer"
               className={`relative group inline-flex items-center px-8 py-3 font-bold shadow-lg transition-all duration-300 overflow-hidden ribbon-shape ${
                 isDark
-                  ? 'bg-black border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black hover:shadow-[0_0_20px_#FFD700]'
+                  ? 'bg-black border-2 border-yellow-200 text-yellow-100 hover:bg-yellow-200 hover:text-black hover:shadow-[0_0_20px_#FFD700]'
                   : 'bg-slate-300 border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-[0_0_20px_#000000]'
               }`}
             >
