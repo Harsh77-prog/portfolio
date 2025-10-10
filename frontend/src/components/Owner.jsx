@@ -104,7 +104,7 @@ export default function OwnerReply({ isDark }) {
                 <input
                   className={`w-full mt-3 px-4 py-2 rounded-lg border outline-none transition-all duration-300 ${
                     isDark
-                      ? "bg-black/20 border-[#FFD700]/20 text-black placeholder-[#b8860b] focus:border-[#FFD700]"
+                      ? "bg-black/20 border-[#FFD700]/20 text-yellow-600 placeholder-[#b8860b] focus:border-[#FFD700]"
                       : "bg-gray-100 border-gray-400 text-black placeholder-gray-500 focus:border-black"
                   }`}
                   placeholder="Type your reply..."
