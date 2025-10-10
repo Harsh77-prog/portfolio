@@ -11,8 +11,8 @@ import PropTypes from "prop-types";
 
 export default function Contact({ isDark }) {
   const colors = {
-    heading: isDark ? "text-yellow-400" : "text-black",
-    subheading: isDark ? "text-yellow-200" : "text-gray-800",
+    heading: isDark ? "text-yellow-200" : "text-black",
+    subheading: isDark ? "text-yellow-100" : "text-gray-800",
     cardBg: isDark ? "bg-black" : "bg",
     cardShadow: isDark
       ? "shadow-[0_0_25px_#FFD700]/40"
