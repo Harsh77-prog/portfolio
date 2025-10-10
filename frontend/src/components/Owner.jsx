@@ -29,7 +29,7 @@ export default function OwnerReply({ isDark }) {
     <div
       className={`min-h-screen p-4 sm:p-6 max-w-3xl mx-auto transition-all duration-700 ease-in-out ${
         isDark
-          ? " text-black"
+          ? " text-yellow-600"
           : " text-white"
       }`}
     >
