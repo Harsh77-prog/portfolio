@@ -115,7 +115,7 @@ export default function Skills({ isDark }) {
         className={`relative flex flex-col items-center justify-center p-4 sm:p-5 md:p-6 rounded-xl cursor-pointer transition-all ${
           isDark
             ? "bg-black border-2 border-yellow-200"
-            : " border-2 border-black hover:bg-slate-200 hover:text-white"
+            : " bg-white border-2 border-black hover:bg-slate-200 hover:text-white"
         } w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44`}
         initial={{ rotate: 0, y: 0 }}
         animate={{
@@ -149,13 +149,7 @@ export default function Skills({ isDark }) {
         </motion.p>
 
         {/* Glowing border ring */}
-        <motion.div
-          className={`absolute inset-0 rounded-xl pointer-events-none ${
-            isDark ? "border border-yellow-200" : "border border-black"
-          }`}
-          animate={{ rotate: [0, 360] }}
-          transition={{ repeat: Infinity, duration: 10 + index * 0.2, ease: "linear" }}
-        />
+       
       </motion.div>
     ))}
   </div>

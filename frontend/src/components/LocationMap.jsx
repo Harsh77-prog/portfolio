@@ -7,7 +7,7 @@ import L from "leaflet";
 import PropTypes from "prop-types";
 
 // Custom avatar image
-const avatarUrl = "logo.svg";
+const avatarUrl = "HarshImage.png";
 
 // Fix Leaflet marker icon issues
 delete L.Icon.Default.prototype._getIconUrl;

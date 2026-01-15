@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "../App.css";
 import PropTypes from "prop-types";
 
 export default function Projects({ isDark }) {
-  const scrollRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const projectList = [
@@ -24,170 +23,147 @@ export default function Projects({ isDark }) {
     },
     {
       name: "News Application",
-      desc: "A news Website using React and NewsAPI, with search functionalities.",
+      desc: "A news Website using React and NewsAPI.",
       status: "✅ Completed",
       link: "https://news-v9gy.vercel.app/",
       img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
     },
     {
       name: "Job Portal",
-      desc: "MERN-based platform to find/apply for tech jobs and manage job postings.",
+      desc: "MERN-based job search & hiring platform.",
       status: "➡️ Coming Soon",
       link: "#",
-      img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-illustration-download-in-svg-png-gif-file-formats--hr-recruitment-company-business-activities-pack-people-illustrations-4032953.png",
+      img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-4032953.png",
     },
     {
-      name:"NoteShelf",
-      desc: "Flutter Based A note-taking app with markdown support, tags, and local storage , ChatGPT API integration for generating notes.",
+      name: "NoteShelf",
+      desc: "Flutter notes app with ChatGPT integration.",
       status: "✅ Completed",
       link: "https://github.com/Harsh77-prog/Noteshelf",
       img: "startimg.png",
     },
     {
       name: "Shatranj",
-      desc:" A Single Player Chess Game with AI opponent using Minimax algorithm, built with HTML, CSS, and JavaScript.",
+      desc: "Single-player chess game with AI (Minimax).",
       status: "✅ Completed",
       link: "https://harshkumar2003.github.io/Shatranj/",
-      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg?w=2000",
-    }
-
+      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
+    },
   ];
 
-  // Smooth scroll
-  useEffect(() => {
-    let animationFrameId;
-    const scrollSpeed = 1.2;
-
-    const smoothScroll = () => {
-      if (scrollRef.current && !isHovered) {
-        const el = scrollRef.current;
-        el.scrollLeft += scrollSpeed;
-        const maxScrollLeft = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft >= maxScrollLeft) el.scrollLeft = 0;
-      }
-      animationFrameId = requestAnimationFrame(smoothScroll);
-    };
-
-    animationFrameId = requestAnimationFrame(smoothScroll);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHovered]);
+  // Duplicate for seamless loop
+  const loopedProjects = [...projectList, ...projectList];
 
   return (
     <section
-      className={`py-20 relative z-10 overflow-hidden ${
+      className={`py-20 relative overflow-hidden ${
         isDark ? "text-white" : "text-black"
       }`}
     >
       {/* Title */}
-  <div className="max-w-6xl mx-auto text-center px-4">
-  <motion.h1
-    initial={{ opacity: 0, y: -30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    viewport={{ once: true }}
-    className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 tracking-tight relative inline-block"
-  >
-    <span
-      className={`relative inline-block text-transparent bg-clip-text ${
-        isDark
-          ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-          : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-      }`}
-    >
-      🚀 My Projects
-    </span>
+      <div className="max-w-6xl mx-auto text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 tracking-tight relative inline-block"
+        >
+          <span
+            className={`relative inline-block text-transparent bg-clip-text ${
+              isDark
+                ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
+                : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+            }`}
+          >
+            🚀 My Projects
+          </span>
 
-    {/* Glow behind text */}
-    <span
-      className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
-        isDark ? "bg-yellow-200" : "bg-black/20"
-      }`}
-    ></span>
-  </motion.h1>
+          {/* Glow behind text */}
+          <span
+            className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
+              isDark ? "bg-yellow-200" : "bg-black/20"
+            }`}
+          />
+        </motion.h1>
 
-  {/* Animated underline */}
-  <div
-    className={`h-1 w-32 mx-auto rounded-full mb-6 ${
-      isDark
-        ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-        : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-    }`}
-  ></div>
-</div>
+        {/* Animated underline */}
+        <div
+          className={`h-1 w-32 mx-auto rounded-full mb-6 ${
+            isDark
+              ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
+              : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
+          }`}
+        />
+      </div>
 
-
-
-      {/* Scrollable Carousel */}
+      {/* Auto-scrolling track */}
       <div
-        ref={scrollRef}
-        className="scroll-container flex gap-6 px-4 overflow-x-auto scroll-smooth whitespace-nowrap scroll-snap-x mandatory transition-all duration-200 ease-linear"
+        className="relative overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {projectList.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            viewport={{ once: true }}
-            className="relative inline-block scroll-snap-align-start transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 cursor-pointer"
-          >
-            <div
-              className={`flex flex-col rounded-2xl overflow-hidden transition-all duration-300 ${
-                isDark
-                  ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
-                  : " border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
-              }`}
-              style={{ width: "260px", height: "350px" }} // fixed width and height
-            >
-              <img
-                src={project.img}
-                alt={project.name}
-                className="w-full h-36 object-cover"
-              />
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3
-                    className={`text-lg font-bold mb-2 ${
-                      isDark ? "text-yellow-200" : "text-black"
-                    }`}
-                  >
-                    {project.name}
-                  </h3>
-                  <p
-                    className={`text-sm mb-2 leading-relaxed break-words whitespace-normal ${
-                      isDark ? "text-gray-300" : "text-gray-700"
-                    }`}
-                  >
-                    {project.desc}
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className={`text-xs mb-2 font-semibold ${
-                      isDark ? "text-yellow-200" : "text-gray-800"
-                    }`}
-                  >
-                    {project.status}
-                  </p>
-                  <a
-                    href={project.link}
-                    className={`text-sm hover:underline font-medium ${
-                      isDark ? "text-yellow-200" : "text-black"
-                    } ${
-                      project.status !== "✅ Completed"
-                        ? "line-through cursor-not-allowed"
-                        : ""
-                    }`}
-                  >
-                    🔗 View Project
-                  </a>
+        <motion.div
+          className="flex gap-6 px-6 w-max"
+          animate={{
+            x: isHovered ? undefined : ["0%", "-50%"],
+          }}
+          transition={{
+            duration: 30,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          style={{ willChange: "transform" }}
+        >
+          {loopedProjects.map((project, index) => (
+            <div key={index} className="shrink-0">
+              <div
+                className={`flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:scale-105 ${
+                  isDark
+                    ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.4)]"
+                    : "bg-white border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                }`}
+                style={{ width: "260px", height: "350px" }}
+              >
+                <img
+                  src={project.img}
+                  alt={project.name}
+                  className="w-full h-36 object-cover"
+                />
+
+                <div className="p-4 flex flex-col justify-between flex-1">
+                  <div>
+                    <h3 className="text-lg font-bold mb-2">{project.name}</h3>
+
+                    <p
+                      className={`text-sm ${
+                        isDark ? "text-gray-300" : "text-gray-700"
+                      }`}
+                    >
+                      {project.desc}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold mb-2">
+                      {project.status}
+                    </p>
+                    <a
+                      href={project.link}
+                      className={`text-sm font-medium hover:underline ${
+                        project.status !== "✅ Completed"
+                          ? "line-through opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
+                    >
+                      🔗 View Project
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-        ))}
+          ))}
+        </motion.div>
       </div>
     </section>
   );

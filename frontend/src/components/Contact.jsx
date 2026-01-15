@@ -20,7 +20,10 @@ export default function Contact({ isDark }) {
     hoverShadow: isDark
       ? "hover:shadow-[0_0_35px_#FFD700]"
       : "hover:shadow-[0_0_35px_#000]",
-    socialHover: isDark ? "hover:text-yellow-300" : "hover:text-black",
+    socialHover: isDark
+  ? "text-yellow-300 hover:text-yellow-100 transition-colors duration-300"
+  : "text-black hover:text-gray-500 transition-colors duration-300",
+
   };
 
   return (

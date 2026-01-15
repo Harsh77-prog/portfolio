@@ -36,7 +36,7 @@ function App() {
           className="background-video"
         >
           <source
-            src={isDark ? '/magic-bg2.mp4' : '/light-BG.mp4'}
+            src={isDark ? '/dark-BG.mp4' : '/light-BG.mp4'}
             type="video/mp4"
           />
           Your browser does not support the video tag.

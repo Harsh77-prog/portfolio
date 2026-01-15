@@ -148,7 +148,7 @@ export default function Achievements({ isDark }) {
           className={`flex flex-col rounded-2xl overflow-hidden p-4 transition-all duration-300 justify-between shadow-lg ${
             isDark
               ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
-              : " border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
+              : " bg-white border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
           }`}
           style={{ width: "260px", height: "360px" }}
         >
