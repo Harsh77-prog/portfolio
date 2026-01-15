@@ -10,7 +10,7 @@ export default function Projects({ isDark }) {
   const projectList = [
     {
       name: "E-Commerce Website",
-      desc: "A full-stack shopping platform with filters, cart, and Stripe/Cashfree payments.",
+      desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
       status: "✅ Completed",
       link: "https://trendify-ecommerce-web.onrender.com",
       img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
@@ -36,6 +36,21 @@ export default function Projects({ isDark }) {
       link: "#",
       img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-illustration-download-in-svg-png-gif-file-formats--hr-recruitment-company-business-activities-pack-people-illustrations-4032953.png",
     },
+    {
+      name:"NoteShelf",
+      desc: "Flutter Based A note-taking app with markdown support, tags, and local storage , ChatGPT API integration for generating notes.",
+      status: "✅ Completed",
+      link: "https://github.com/Harsh77-prog/Noteshelf",
+      img: "startimg.png",
+    },
+    {
+      name: "Shatranj",
+      desc:" A Single Player Chess Game with AI opponent using Minimax algorithm, built with HTML, CSS, and JavaScript.",
+      status: "✅ Completed",
+      link: "https://harshkumar2003.github.io/Shatranj/",
+      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg?w=2000",
+    }
+
   ];
 
   // Smooth scroll
