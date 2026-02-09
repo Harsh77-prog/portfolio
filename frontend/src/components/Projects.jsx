@@ -15,7 +15,7 @@ function ProjectCard({ project, isDark }) {
         }`}
     >
       {/* Image */}
-      <div className="relative h-[40vw] sm:h-80 overflow-hidden">
+      <div className="relative h-[40vw] sm:h-200 overflow-hidden">
         <img
           src={project.img}
           alt={project.name}
