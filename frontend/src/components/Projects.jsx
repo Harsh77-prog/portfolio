@@ -9,7 +9,7 @@ function ProjectCard({ project, isDark }) {
     <div
       className={`relative w-full rounded-3xl overflow-hidden backdrop-blur-xl
       transition-all duration-500 flex flex-col
-      min-h-[650px] sm:min-h-0 sm:h-[480px]
+      min-h-[540px] sm:min-h-0 sm:h-[480px]
       ${
         isDark
           ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
@@ -17,7 +17,7 @@ function ProjectCard({ project, isDark }) {
       }`}
     >
       {/* Image */}
-      <div className="relative h-[60%] sm:h-56 overflow-hidden">
+      <div className="relative h-[48%] sm:h-56 overflow-hidden">
         <img
           src={project.img}
           alt={project.name}
@@ -26,26 +26,24 @@ function ProjectCard({ project, isDark }) {
         <div
           className={`absolute inset-0 ${
             isDark
-              ? "bg-gradient-to-t from-black/95 via-black/40 to-transparent"
-              : "bg-gradient-to-t from-white/90 via-white/50 to-transparent"
+              ? "bg-gradient-to-t from-black/90 via-black/30 to-transparent"
+              : "bg-gradient-to-t from-white/85 via-white/40 to-transparent"
           }`}
         />
       </div>
 
       {/* Content */}
-      <div className="p-6 sm:p-6 flex-1 flex flex-col justify-between">
-        <div>
-          <h3 className="text-2xl font-extrabold mb-4 tracking-wide">
-            {project.name}
-          </h3>
-          <p
-            className={`text-sm leading-relaxed ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
-          >
-            {project.desc}
-          </p>
-        </div>
+      <div className="p-6 flex-1">
+        <h3 className="text-2xl font-extrabold mb-3 tracking-wide">
+          {project.name}
+        </h3>
+        <p
+          className={`text-sm leading-relaxed ${
+            isDark ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
+          {project.desc}
+        </p>
       </div>
 
       {/* Status */}
@@ -62,23 +60,19 @@ function ProjectCard({ project, isDark }) {
       </span>
 
       {/* Visit Project */}
-      <div
-        className={`px-6 pb-6 ${
-          isDark ? "bg-black/95" : "bg-white"
-        }`}
-      >
+      <div className={`px-6 pb-6 ${isDark ? "bg-black/90" : "bg-white"}`}>
         <a
           href={project.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block w-full text-center py-4 rounded-xl font-bold tracking-wide
+          className={`block w-full text-center py-3.5 rounded-xl font-bold tracking-wide
           transition-all duration-500
           ${
             project.status !== "✅ Completed"
               ? "opacity-40 cursor-not-allowed line-through"
               : isDark
-              ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-300 text-black hover:shadow-[0_0_35px_rgba(255,215,0,0.8)] hover:-translate-y-1"
-              : "bg-black text-white hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+              ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-300 text-black hover:shadow-[0_0_30px_rgba(255,215,0,0.7)] hover:-translate-y-1"
+              : "bg-black text-white hover:shadow-[0_0_25px_rgba(0,0,0,0.5)] hover:-translate-y-1"
           }`}
         >
           🔗 Visit Project
