@@ -51,7 +51,7 @@ export default function Projects({ isDark }) {
     },
   ];
 
-  // Duplicate for seamless loop
+  // Duplicate projects for seamless infinite scroll
   const loopedProjects = [...projectList, ...projectList];
 
   return (
@@ -79,7 +79,6 @@ export default function Projects({ isDark }) {
             🚀 My Projects
           </span>
 
-          {/* Glow behind text */}
           <span
             className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
               isDark ? "bg-yellow-200" : "bg-black/20"
@@ -87,7 +86,6 @@ export default function Projects({ isDark }) {
           />
         </motion.h1>
 
-        {/* Animated underline */}
         <div
           className={`h-1 w-32 mx-auto rounded-full mb-6 ${
             isDark
@@ -97,23 +95,17 @@ export default function Projects({ isDark }) {
         />
       </div>
 
-      {/* Auto-scrolling track */}
+      {/* Auto scrolling container */}
       <div
         className="relative overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <motion.div
-          className="flex gap-6 px-6 w-max"
-          animate={{
-            x: isHovered ? undefined : ["0%", "-50%"],
+        <div
+          className="flex gap-6 px-6 w-max scrolling-track"
+          style={{
+            animationPlayState: isHovered ? "paused" : "running",
           }}
-          transition={{
-            duration: 30,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-          style={{ willChange: "transform" }}
         >
           {loopedProjects.map((project, index) => (
             <div key={index} className="shrink-0">
@@ -133,7 +125,9 @@ export default function Projects({ isDark }) {
 
                 <div className="p-4 flex flex-col justify-between flex-1">
                   <div>
-                    <h3 className="text-lg font-bold mb-2">{project.name}</h3>
+                    <h3 className="text-lg font-bold mb-2">
+                      {project.name}
+                    </h3>
 
                     <p
                       className={`text-sm ${
@@ -148,6 +142,7 @@ export default function Projects({ isDark }) {
                     <p className="text-xs font-semibold mb-2">
                       {project.status}
                     </p>
+
                     <a
                       href={project.link}
                       className={`text-sm font-medium hover:underline ${
@@ -163,7 +158,7 @@ export default function Projects({ isDark }) {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

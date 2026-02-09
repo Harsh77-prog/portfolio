@@ -253,3 +253,17 @@
   background-size: 200% 200%;
   animation: bw-twinkle 3s ease infinite;
 }
+.scrolling-track {
+  animation: smoothScroll 30s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes smoothScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
