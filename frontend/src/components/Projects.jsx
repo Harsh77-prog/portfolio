@@ -9,7 +9,7 @@ function ProjectCard({ project, isDark }) {
     <div
       className={`relative w-full rounded-3xl overflow-hidden backdrop-blur-xl
       transition-all duration-500 flex flex-col
-      min-h-[540px] sm:min-h-0 sm:h-[480px]
+      min-h-[440px] sm:min-h-0 sm:h-[480px]
       ${
         isDark
           ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
@@ -17,7 +17,7 @@ function ProjectCard({ project, isDark }) {
       }`}
     >
       {/* Image */}
-      <div className="relative h-[48%] sm:h-56 overflow-hidden">
+      <div className="relative h-[48%] sm:h-52 overflow-hidden">
         <img
           src={project.img}
           alt={project.name}
@@ -33,7 +33,7 @@ function ProjectCard({ project, isDark }) {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex-1">
+      <div className="flex-1">
         <h3 className="text-2xl font-extrabold mb-3 tracking-wide">
           {project.name}
         </h3>
