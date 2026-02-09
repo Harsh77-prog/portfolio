@@ -21,7 +21,7 @@ L.Icon.Default.mergeOptions({
 });
 
 // Your coordinates
-const myCoordinates = [30.8606954, 75.8569916];
+const myCoordinates = [30.85835, 75.86031];
 const mapZoomLevel = 16;
 
 // Custom avatar icon for marker
