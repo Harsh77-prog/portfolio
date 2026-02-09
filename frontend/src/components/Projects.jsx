@@ -210,6 +210,20 @@ export default function Projects({ isDark }) {
       img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
     },
     {
+      name: "E-Commerce Website",
+      desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
+      status: "✅ Completed",
+      link: "https://trendify-ecommerce-web.onrender.com",
+      img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
+    },
+    {
+      name: "Shatranj",
+      desc: "Single-player chess game with AI (Minimax).",
+      status: "✅ Completed",
+      link: "https://harshkumar2003.github.io/Shatranj/",
+      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
+    },
+    {
       name: "Job Portal",
       desc: "MERN-based job search & hiring platform.",
       status: "➡️ Coming Soon",
