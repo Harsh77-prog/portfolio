@@ -7,15 +7,17 @@ import "../App.css";
 function ProjectCard({ project, isDark }) {
   return (
     <div
-      className={`relative rounded-3xl overflow-hidden backdrop-blur-xl transition-all duration-500
-        h-[70vw] sm:h-[480px] flex flex-col ${
-          isDark
-            ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
-            : "bg-white/95 border border-black/20 shadow-[0_25px_70px_rgba(0,0,0,0.2)]"
-        }`}
+      className={`relative w-full rounded-3xl overflow-hidden backdrop-blur-xl
+      transition-all duration-500 flex flex-col
+      min-h-[420px] sm:min-h-0 sm:h-[480px]
+      ${
+        isDark
+          ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
+          : "bg-white/95 border border-black/20 shadow-[0_25px_70px_rgba(0,0,0,0.2)]"
+      }`}
     >
       {/* Image */}
-      <div className="relative h-[40vw] sm:h-200 overflow-hidden">
+      <div className="relative h-52 sm:h-56 overflow-hidden">
         <img
           src={project.img}
           alt={project.name}
@@ -31,16 +33,22 @@ function ProjectCard({ project, isDark }) {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex-1">
-        <h3 className="text-2xl font-extrabold mb-3 tracking-wide">{project.name}</h3>
-        <p className={`text-sm leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+      <div className="p-5 sm:p-6 flex-1">
+        <h3 className="text-xl sm:text-2xl font-extrabold mb-2 sm:mb-3 tracking-wide">
+          {project.name}
+        </h3>
+        <p
+          className={`text-sm leading-relaxed ${
+            isDark ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           {project.desc}
         </p>
       </div>
 
       {/* Status */}
       <span
-        className={`absolute top-5 left-5 text-xs px-4 py-1.5 rounded-full font-semibold backdrop-blur-lg ${
+        className={`absolute top-4 left-4 text-xs px-4 py-1.5 rounded-full font-semibold backdrop-blur-lg ${
           project.status.includes("Completed")
             ? isDark
               ? "bg-yellow-200 text-black"
@@ -52,12 +60,14 @@ function ProjectCard({ project, isDark }) {
       </span>
 
       {/* Visit Project */}
-      <div className={`px-6 pb-6 transition-all duration-500 ${isDark ? "bg-black/90" : "bg-white"}`}>
+      <div className={`px-5 pb-5 sm:px-6 sm:pb-6 ${isDark ? "bg-black/90" : "bg-white"}`}>
         <a
           href={project.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block w-full text-center py-3 rounded-xl font-bold tracking-wide transition-all duration-500 ${
+          className={`block w-full text-center py-3 rounded-xl font-bold tracking-wide
+          transition-all duration-500
+          ${
             project.status !== "✅ Completed"
               ? "opacity-40 cursor-not-allowed line-through"
               : isDark
@@ -71,6 +81,7 @@ function ProjectCard({ project, isDark }) {
     </div>
   );
 }
+
 
 /* ========== PROP TYPES FOR PROJECT CARD ========== */
 ProjectCard.propTypes = {
