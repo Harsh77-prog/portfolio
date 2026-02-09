@@ -49,64 +49,68 @@ function AnimatedProjectStack({ projects, isDark }) {
           else if (index < activeIndex) position = "left";
         }
 
-        const gap = 20; // adjust this to increase/decrease space between cards
+        const cardWidth = window.innerWidth < 640 ? 0.9 * window.innerWidth : 380; // 90% width on mobile
 
-        const variants = {
-          left: {
-            x: -380 - gap,
-            scale: 0.82,
-            rotate: -12,
-            opacity: 0.55,
-            zIndex: 1,
-          },
-          center: { x: 0, scale: 1, rotate: 0, opacity: 1, zIndex: 10 },
-          right: {
-            x: 380 + gap,
-            scale: 0.82,
-            rotate: 12,
-            opacity: 0.55,
-            zIndex: 1,
-          },
-          off: {
-            x: direction * 800,
-            scale: 0.7,
-            rotate: 0,
-            opacity: 0,
-            zIndex: 0,
-          },
-        };
+const gap = 20;
+
+const variants = {
+  left: {
+    x: -cardWidth - gap,
+    scale: 0.82,
+    rotate: -12,
+    opacity: 0.55,
+    zIndex: 1,
+  },
+  center: { x: 0, scale: 1, rotate: 0, opacity: 1, zIndex: 10 },
+  right: {
+    x: cardWidth + gap,
+    scale: 0.82,
+    rotate: 12,
+    opacity: 0.55,
+    zIndex: 1,
+  },
+  off: {
+    x: direction * (cardWidth * 2), // offscreen adjusted dynamically
+    scale: 0.7,
+    rotate: 0,
+    opacity: 0,
+    zIndex: 0,
+  },
+};
+
 
         return (
           <motion.div
-            key={index}
-            animate={variants[position]}
-            transition={{
-              type: "tween",
-              duration: 0.6,
-              ease: "easeOut",
-            }}
-            className="absolute w-[380px] cursor-pointer"
-            onClick={() => {
-              setPaused(true);
-              setTimeout(() => setPaused(false), 2600);
-            }}
-            whileHover={{ scale: position === "center" ? 1.03 : undefined }}
-          >
+  key={index}
+  animate={variants[position]}
+  transition={{
+    type: "spring",
+    stiffness: 25,  // smooth, creamy motion
+    damping: 30,
+    mass: 0.5,
+  }}
+  className="absolute cursor-pointer w-[90vw] sm:w-[380px]" // responsive width
+  onClick={() => {
+    setPaused(true);
+    setTimeout(() => setPaused(false), 2600);
+  }}
+  whileHover={{ scale: position === "center" ? 1.03 : undefined }}
+>
+
             {/* ================= CARD ================= */}
             <div
-              className={`relative rounded-3xl overflow-hidden backdrop-blur-xl transition-all duration-500 h-[480px] flex flex-col ${
-                isDark
-                  ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
-                  : "bg-white/95 border border-black/20 shadow-[0_25px_70px_rgba(0,0,0,0.2)]"
-              }`}
-            >
+  className={`relative rounded-3xl overflow-hidden backdrop-blur-xl transition-all duration-500 
+    h-[70vw] sm:h-[480px] flex flex-col ${isDark
+      ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
+      : "bg-white/95 border border-black/20 shadow-[0_25px_70px_rgba(0,0,0,0.2)]"}`}
+>
               {/* Image */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={project.img}
-                  alt={project.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+              <div className="relative h-[40vw] sm:h-56 overflow-hidden">
+                 <img
+      src={project.img}
+      alt={project.name}
+      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+    />
                 <div
                   className={`absolute inset-0 ${
                     isDark
