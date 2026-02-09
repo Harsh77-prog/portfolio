@@ -267,3 +267,8 @@
     transform: translate3d(-50%, 0, 0);
   }
 }
+
+.perspective {
+  perspective: 1300px;
+}
+
