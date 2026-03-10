@@ -27,29 +27,22 @@ export default function OwnerReply({ isDark }) {
 
   return (
     <div
-      className={`min-h-screen p-4 sm:p-6 max-w-3xl mx-auto transition-all duration-700 ease-in-out ${
-        isDark
-          ? " text-yellow-200"
-          : " text-white"
+      className={`min-h-screen p-4 sm:p-6 max-w-4xl mx-auto transition-all duration-700 ease-in-out ${
+        isDark ? "text-white" : "text-slate-900"
       }`}
     >
       {/* 🏷️ Page Heading */}
       <h2
-        className={`text-3xl font-semibold mb-8 pb-2 border-b-2 text-center tracking-wide ${
-          isDark
-            ? "border-[#FFD700]/40 bg-clip-text text-transparent bg-gradient-to-r from-yellow-100 to-yellow-200 animate-goldFlow"
-            : "border-black/40 text-black"
-        }`}
+        className="fx-title text-center"
       >
-        🛠️ Reply to Questions{" "}
+        Reply to Questions{" "}
         <span
-          className={`text-sm font-normal ${
-            isDark ? "text-yellow-200" : "text-gray-600"
-          }`}
+          className={`text-sm font-normal ${isDark ? "text-slate-300" : "text-slate-600"}`}
         >
           (Admin Only)
         </span>
       </h2>
+      <div className="fx-holo-line mx-auto mt-4 mb-10" />
 
       {/* 🧠 All Questions */}
       {questions.length === 0 ? (
@@ -64,23 +57,20 @@ export default function OwnerReply({ isDark }) {
         questions.map((q) => (
           <div
             key={q._id}
-            className={`p-5 sm:p-6 rounded-2xl mb-6 border transition-all duration-500 shadow-md hover:shadow-lg ${
-              isDark
-                ? "bg-[#121212] border-[#FFD700]/20 hover:border-[#FFD700]/40"
-                : "bg-white border-gray-300 hover:border-black/30"
-            }`}
+            className="fx-panel p-5 sm:p-6 mb-6"
           >
+            <div className="fx-ring" />
             {/* 🧩 Question */}
             <p
               className={`mb-3 text-base leading-relaxed ${
                 isDark
-                  ? "text-black bg-gradient-to-r from-yellow-100 to-yellow-200 bg-clip-text text-transparent"
-                  : "text-gray-800"
+                  ? "text-slate-200"
+                  : "text-slate-700"
               }`}
             >
               <span
                 className={`font-semibold ${
-                  isDark ? "text-yellow-200" : "text-blue-700"
+                  isDark ? "text-sky-200" : "text-slate-900"
                 }`}
               >
                 {q.name}:
@@ -91,22 +81,14 @@ export default function OwnerReply({ isDark }) {
             {/* 💬 Reply or Input */}
             {q.reply ? (
               <p
-                className={`mt-3 p-3 rounded-md ${
-                  isDark
-                    ? "bg-black/20 text-[#32CD32] font-medium"
-                    : "bg-gray-100 text-green-700"
-                }`}
+                className={`mt-3 p-3 rounded-md ${isDark ? "bg-sky-200/10 text-sky-200" : "bg-slate-900/5 text-slate-700"}`}
               >
                 <strong>Reply:</strong> {q.reply}
               </p>
             ) : (
               <>
                 <input
-                  className={`w-full mt-3 px-4 py-2 rounded-lg border outline-none transition-all duration-300 ${
-                    isDark
-                      ? "bg-black/20 border-[#FFD700]/20 text-yellow-600 placeholder-[#b8860b] focus:border-yellow-200"
-                      : "bg-gray-100 border-gray-400 text-black placeholder-gray-500 focus:border-black"
-                  }`}
+                  className="fx-input mt-3"
                   placeholder="Type your reply..."
                   value={replies[q._id] || ""}
                   onChange={(e) =>
@@ -116,11 +98,7 @@ export default function OwnerReply({ isDark }) {
 
                 <button
                   onClick={() => handleReply(q._id)}
-                  className={`mt-4 px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
-                    isDark
-                      ? "bg-gradient-to-r from-yellow-100 to-yellow-200 text-black hover:scale-105"
-                      : "bg-black text-white hover:scale-105"
-                  }`}
+                  className="fx-button mt-4"
                 >
                   Send Reply
                 </button>
@@ -136,3 +114,9 @@ export default function OwnerReply({ isDark }) {
 OwnerReply.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+
+
+
+
+

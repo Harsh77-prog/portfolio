@@ -1,6 +1,5 @@
 import "../App.css";
 import Questions from "./Questions";
-import { motion } from "framer-motion";
 import {
   FaFacebookF,
   FaTwitter,
@@ -8,123 +7,104 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import PropTypes from "prop-types";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 export default function Contact({ isDark }) {
-  const colors = {
-    heading: isDark ? "text-yellow-200" : "text-black",
-    subheading: isDark ? "text-yellow-100" : "text-gray-800",
-    cardBg: isDark ? "bg-black" : "bg",
-    cardShadow: isDark
-      ? "shadow-[0_0_25px_#FFD700]/40"
-      : "shadow-[0_0_25px_#000]/30",
-    hoverShadow: isDark
-      ? "hover:shadow-[0_0_35px_#FFD700]"
-      : "hover:shadow-[0_0_35px_#000]",
-    socialHover: isDark
-  ? "text-yellow-300 hover:text-yellow-100 transition-colors duration-300"
-  : "text-black hover:text-gray-500 transition-colors duration-300",
-
-  };
-
   return (
-    <div>
-      <section className="py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
-            whileInView={{ opacity: 1, y: [0, -10, 0] }}
-            transition={{ duration: 1.2, repeat: Infinity }}
-            viewport={{ once: true }}
-            className={`text-4xl md:text-5xl font-bold mb-14 tracking-tight ${colors.heading} drop-shadow-lg`}
-          >
-            📬 Get In Touch
-          </motion.h1>
+    <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
+      <div className="fx-grid" />
+      <div className="fx-orb" style={{ top: "-140px", right: "10%" }} />
+      <div className="fx-orb fx-orb-2" style={{ bottom: "-160px", left: "8%" }} />
 
-          {/* Questions Section */}
-          <motion.section
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className={`rounded-3xl p-1 ${colors.cardBg} border border-white/10 ${colors.cardShadow} hover:scale-[1.01] transition-all duration-300`}
-          >
+      <div className="fx-shell relative z-10">
+        <RevealGroup as="div" className="text-center">
+          <RevealItem as="h1" className="fx-title" variant="tilt">
+            Get In Touch
+          </RevealItem>
+          <RevealItem as="p" className="fx-subtitle mt-3" variant="glide">
+            Signal channel open
+          </RevealItem>
+        </RevealGroup>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] items-start">
+          <Reveal as="section" className="fx-panel p-6 sm:p-8" duration={0.8} variant="glide">
+            <div className="fx-ring" />
             <Questions isDark={isDark} />
-          </motion.section>
+          </Reveal>
 
-          <br />
-          <h2 className={`text-2xl font-semibold mb-6 ${colors.subheading}`}>Or</h2>
-
-          {/* Contact Info */}
-          <div className="space-y-6 max-w-xl mx-auto w-full px-4">
-            <div className="text-center px-4 py-10 md:py-16">
-              <motion.h3
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: [0, -5, 0] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                viewport={{ once: true }}
-                className={`text-3xl md:text-3xl font-bold mb-6 ${colors.heading} drop-shadow-md`}
+          <div className="fx-panel p-6 sm:p-8">
+            <div className="fx-ring" />
+            <RevealGroup as="div">
+              <RevealItem as="h3" className="text-2xl sm:text-3xl font-bold" variant="tilt">
+                Contact Me
+              </RevealItem>
+              <RevealItem
+                as="p"
+                variant="soft"
+                className={`mt-2 ${isDark ? "text-slate-300" : "text-slate-600"}`}
               >
-                📞 Contact Me
-              </motion.h3>
+                Prefer direct contact? Reach me instantly.
+              </RevealItem>
+            </RevealGroup>
 
-              <div className="space-y-4 px-2 sm:px-4">
-                <div className="motion-div">
-                  <h3 className={`text-lg sm:text-xl font-semibold ${colors.heading}`}>Email</h3>
-                  <p className={`text-base sm:text-lg ${colors.subheading} break-all`}>
-                    harsh.kumar1a9@gmail.com
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className={`text-lg sm:text-xl font-semibold ${colors.heading}`}>Phone</h3>
-                  <p className={`text-base sm:text-lg ${colors.subheading} break-all`}>
-                    +91 81988 70725
-                  </p>
-                </div>
+            <div className="mt-6 space-y-4">
+              <div>
+                <p className="fx-subtitle">Email</p>
+                <p className="text-base sm:text-lg font-semibold">harsh.kumar1a9@gmail.com</p>
+              </div>
+              <div>
+                <p className="fx-subtitle">Phone</p>
+                <p className="text-base sm:text-lg font-semibold">+91 81988 70725</p>
               </div>
             </div>
 
-            {/* Social Media Links */}
-            <div className="flex justify-center space-x-6 mt-6">
-              <motion.a
-                whileHover={{ scale: 1.2 }}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
                 href="https://www.facebook.com/profile.php?id=100093563294785"
                 target="_blank"
-                className={`${colors.socialHover} transition-all duration-300`}
+                rel="noreferrer"
+                className="fx-button"
               >
-                <FaFacebookF size={24} />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.2 }}
+                <FaFacebookF size={18} /> Facebook
+              </a>
+              <a
                 href="https://x.com/HarshKumar71157"
                 target="_blank"
-                className={`${colors.socialHover} transition-all duration-300`}
+                rel="noreferrer"
+                className="fx-button"
               >
-                <FaTwitter size={24} />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.2 }}
+                <FaTwitter size={18} /> X
+              </a>
+              <a
                 href="https://www.linkedin.com/in/harsh-kumar-116423316/"
                 target="_blank"
-                className={`${colors.socialHover} transition-all duration-300`}
+                rel="noreferrer"
+                className="fx-button"
               >
-                <FaLinkedinIn size={24} />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.2 }}
+                <FaLinkedinIn size={18} /> LinkedIn
+              </a>
+              <a
                 href="https://www.instagram.com/hars.hkumar4299/"
-                className={`${colors.socialHover} transition-all duration-300`}
+                target="_blank"
+                rel="noreferrer"
+                className="fx-button"
               >
-                <FaInstagram size={24} />
-              </motion.a>
+                <FaInstagram size={18} /> Instagram
+              </a>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
 Contact.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+
+
+
+
+

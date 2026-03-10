@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import Reveal from "./Reveal";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -29,41 +30,19 @@ export default function AskQuestion({ isDark }) {
     if (!showQuestions) setShowQuestions(true);
   };
 
-  // Theme colors
-  const colors = {
-    cardBg: isDark ? "bg-black" : "bg-gradient-to-r from-gray-100 to-gray-300",
-    cardShadow: isDark
-      ? "shadow-[0_0_20px_#FFD700]/50"
-      : "shadow-[0_0_20px_#000]/30",
-    textColor: isDark ? "text-yellow-200" : "text-black",
-    inputBg: isDark
-      ? "bg-black text-yellow-200 border-yellow-200 placeholder-yellow-300"
-      : "bg-gradient-to-r from-gray-100 to-gray-300 text-black border-black placeholder-gray-600",
-    buttonBg: isDark
-      ? "bg-yellow-200 text-black hover:bg-yellow-100"
-      : "bg-black text-white hover:bg-gray-800",
-    hoverShadow: isDark
-      ? "hover:shadow-[0_0_25px_#FFD700]"
-      : "hover:shadow-[0_0_25px_#000]",
-  };
-
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8">
-      {/* Heading with moving animation */}
-     
-
       {/* Ask Form */}
-      <motion.form
+      <Reveal
+        as="form"
         onSubmit={handleSubmit}
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className={`relative p-6 rounded-2xl border ${colors.cardBg} ${colors.cardShadow} mb-10 transition-all duration-300`}
+        className="relative mb-10"
       >
         <div className="relative z-10 flex flex-col gap-4">
+          <p className="fx-subtitle">Send a question</p>
           <motion.input
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #000" : "0 0 15px #000" }}
-            className={`p-3 w-full rounded-xl border focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all duration-300 ${colors.inputBg}`}
+            className="fx-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
@@ -71,7 +50,7 @@ export default function AskQuestion({ isDark }) {
           />
           <motion.textarea
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #000" : "0 0 15px #000" }}
-            className={`p-3 w-full rounded-xl h-32 resize-none border focus:outline-none focus:ring-2 focus:ring-yellow-200 transition-all duration-300 ${colors.inputBg}`}
+            className="fx-input h-32 resize-none"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Type your question here..."
@@ -80,21 +59,21 @@ export default function AskQuestion({ isDark }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`w-full p-3 font-bold rounded-xl transition-all duration-300 ${colors.buttonBg} ${colors.hoverShadow}`}
+            className="fx-button justify-center"
           >
-            ⚡ Ask Question
+            Ask Question
           </motion.button>
         </div>
-      </motion.form>
+      </Reveal>
 
       {/* Toggle Questions Button */}
       <div className="text-center mb-6">
         <motion.button
           whileHover={{ scale: 1.05 }}
-          className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${colors.cardBg} border ${colors.textColor} ${colors.hoverShadow}`}
+          className="fx-button"
           onClick={() => setShowQuestions(!showQuestions)}
         >
-          {showQuestions ? "Hide Questions ❌" : "Show Questions 📜"}
+          {showQuestions ? "Hide Questions" : "Show Questions"}
         </motion.button>
       </div>
 
@@ -107,12 +86,15 @@ export default function AskQuestion({ isDark }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [0, -5, 0] }}
               transition={{ duration: 0.8 }}
-              className={`rounded-2xl p-4 border ${colors.cardBg} ${colors.cardShadow} transition-transform duration-300 hover:scale-[1.01] ${colors.hoverShadow}`}
+              className="fx-panel p-4"
             >
+              <div className="fx-ring" />
               {/* Question */}
               <div className="flex items-center gap-4">
                 <div
-                  className={`min-w-[40px] h-10 w-10 rounded-full ${colors.textColor} flex items-center justify-center font-bold shadow-md`}
+                  className={`min-w-[40px] h-10 w-10 rounded-full flex items-center justify-center font-bold shadow-md ${
+                    isDark ? "bg-sky-200/20 text-sky-200" : "bg-slate-900/10 text-slate-900"
+                  }`}
                 >
                   {q.userAvatar ? (
                     <img
@@ -125,8 +107,8 @@ export default function AskQuestion({ isDark }) {
                   )}
                 </div>
                 <div className="items-center gap-2 text-sm">
-                  <p className={`leading-snug text-justify ${colors.textColor}`}>
-                    <strong className={`font-semibold ${colors.textColor}`}>
+                  <p className={`leading-snug text-justify ${isDark ? "text-slate-200" : "text-slate-700"}`}>
+                    <strong className={`font-semibold ${isDark ? "text-sky-200" : "text-slate-900"}`}>
                       {q.name.charAt(0).toUpperCase() + q.name.slice(1)} :
                     </strong>{" "}
                     {q.question}
@@ -138,7 +120,9 @@ export default function AskQuestion({ isDark }) {
               {q.reply && (
                 <div className="flex items-center gap-4 mt-4">
                   <div
-                    className={`min-w-[36px] w-9 h-9 rounded-full ${colors.textColor} flex items-center justify-center shadow-md`}
+                    className={`min-w-[36px] w-9 h-9 rounded-full flex items-center justify-center shadow-md ${
+                      isDark ? "bg-sky-200/20 text-sky-200" : "bg-slate-900/10 text-slate-900"
+                    }`}
                   >
                     <img
                       src="HarshImage.png"
@@ -147,10 +131,10 @@ export default function AskQuestion({ isDark }) {
                     />
                   </div>
                   <div className="items-center gap-2 text-sm">
-                    <p className={`leading-snug text-justify ${colors.textColor}`}>
-                      <strong className={`font-semibold ${colors.textColor}`}>
-                        Reply :{" "}
-                      </strong>
+                    <p className={`leading-snug text-justify ${isDark ? "text-slate-200" : "text-slate-700"}`}>
+                      <strong className={`font-semibold ${isDark ? "text-sky-200" : "text-slate-900"}`}>
+                        Reply:
+                      </strong>{" "}
                       {q.reply}
                     </p>
                   </div>
@@ -167,3 +151,9 @@ export default function AskQuestion({ isDark }) {
 AskQuestion.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+
+
+
+
+

@@ -1,286 +1,296 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+﻿import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 
-/* ===================== PROJECT CARD COMPONENT ===================== */
-function ProjectCard({ project, isDark }) {
+const PROJECTS = [
+  {
+    name: "E-Commerce Website",
+    desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
+    status: "Completed",
+    link: "https://trendify-ecommerce-web.onrender.com",
+    img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
+    stack: ["React", "Node", "Razorpay"],
+  },
+  {
+    name: "Portfolio Website",
+    desc: "Personal portfolio using React, Tailwind, and Framer Motion animations.",
+    status: "Completed",
+    link: "#",
+    img: "https://designnotes.blog.gov.uk/wp-content/uploads/sites/53/2020/06/Portfolio-Desk.jpg",
+    stack: ["React", "Tailwind", "Framer"],
+  },
+  {
+    name: "News Application",
+    desc: "A news website using React and NewsAPI with category filtering.",
+    status: "Completed",
+    link: "https://news-v9gy.vercel.app/",
+    img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
+    stack: ["React", "NewsAPI", "Vercel"],
+  },
+  {
+    name: "Shatranj",
+    desc: "Single-player chess game with AI (Minimax).",
+    status: "Completed",
+    link: "https://github.com/Harsh77-prog/Shatranj",
+    img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
+    stack: ["JS", "AI", "Minimax"],
+  },
+  {
+    name: "Job Portal",
+    desc: "MERN-based job search & hiring platform.",
+    status: "Coming Soon",
+    link: "#",
+    img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-4032953.png",
+    stack: ["MongoDB", "Express", "React"],
+  },
+  {
+    name: "NoteShelf",
+    desc: "Flutter notes app with ChatGPT integration.",
+    status: "Completed",
+    link: "https://github.com/Harsh77-prog/Noteshelf",
+    img: "startimg.png",
+    stack: ["Flutter", "ChatGPT", "Android"],
+  },
+];
+
+function StatusPill({ status, isDark }) {
+  const isCompleted = status === "Completed";
   return (
-    <div
-      className={`relative w-full rounded-3xl overflow-hidden backdrop-blur-xl
-      transition-all duration-500 flex flex-col
-      min-h-[490px] sm:min-h-0 sm:h-[480px]
-      ${
-        isDark
-          ? "bg-black/85 border border-yellow-200/30 shadow-[0_0_70px_rgba(255,215,0,0.3)]"
-          : "bg-white/95 border border-black/20 shadow-[0_25px_70px_rgba(0,0,0,0.2)]"
+    <span
+      className={`text-[10px] sm:text-xs px-3 py-1 rounded-full font-semibold tracking-widest ${
+        isCompleted
+          ? isDark
+            ? "bg-sky-200 text-black"
+            : "bg-[#05060d] text-white"
+          : "bg-gray-400 text-black"
       }`}
     >
-      {/* Image */}
-      <div className="relative h-[48%] sm:h-52 overflow-hidden">
-        <img
-          src={project.img}
-          alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div
-          className={`absolute inset-0 ${
-            isDark
-              ? "bg-gradient-to-t from-black/90 via-black/30 to-transparent"
-              : "bg-gradient-to-t from-white/85 via-white/40 to-transparent"
-          }`}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="p-6 flex-1">
-        <h3 className="text-2xl font-extrabold mb-3 tracking-wide">
-          {project.name}
-        </h3>
-        <p
-          className={`text-sm leading-relaxed ${
-            isDark ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
-          {project.desc}
-        </p>
-      </div>
-
-      {/* Status */}
-      <span
-        className={`absolute top-5 left-5 text-xs px-4 py-1.5 rounded-full font-semibold backdrop-blur-lg ${
-          project.status.includes("Completed")
-            ? isDark
-              ? "bg-yellow-200 text-black"
-              : "bg-black text-white"
-            : "bg-gray-400 text-black"
-        }`}
-      >
-        {project.status}
-      </span>
-
-      {/* Visit Project */}
-      <div className={`px-6 pb-6 ${isDark ? "bg-black/90" : "bg-white"}`}>
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`block w-full text-center py-3.5 rounded-xl font-bold tracking-wide
-          transition-all duration-500
-          ${
-            project.status !== "✅ Completed"
-              ? "opacity-40 cursor-not-allowed line-through"
-              : isDark
-              ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-300 text-black hover:shadow-[0_0_30px_rgba(255,215,0,0.7)] hover:-translate-y-1"
-              : "bg-black text-white hover:shadow-[0_0_25px_rgba(0,0,0,0.5)] hover:-translate-y-1"
-          }`}
-        >
-          🔗 Visit Project
-        </a>
-      </div>
-    </div>
+      {isCompleted ? "LIVE" : "SOON"}
+    </span>
   );
 }
 
-
-/* ========== PROP TYPES FOR PROJECT CARD ========== */
-ProjectCard.propTypes = {
+StatusPill.propTypes = {
+  status: PropTypes.string.isRequired,
   isDark: PropTypes.bool.isRequired,
+};
+
+function HoloCard({ project, isDark, active }) {
+  const isCompleted = project.status === "Completed";
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`holo-card ${isDark ? "holo-dark" : "holo-light"} ${
+        active ? "holo-active" : "holo-idle"
+      }`}
+    >
+      <div className="holo-frame" />
+      <div className="holo-corners" />
+      <div className="holo-scan" />
+
+      <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden">
+        <img
+          src={project.img}
+          alt={project.name}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className={`absolute inset-0 ${isDark ? "holo-overlay-dark" : "holo-overlay-light"}`} />
+      </div>
+
+      <div className="mt-5">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="text-xl sm:text-2xl font-extrabold tracking-wide">
+            {project.name}
+          </h3>
+          <StatusPill status={project.status} isDark={isDark} />
+        </div>
+
+        <p className={`mt-3 text-sm leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+          {project.desc}
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.stack.map((item) => (
+            <span
+              key={item}
+              className={`text-[10px] sm:text-xs px-3 py-1 rounded-full border ${
+                isDark ? "border-sky-200/40 text-sky-100" : "border-black/30 text-black/70"
+              }`}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-5 flex items-center justify-between">
+          <span className={`text-xs tracking-[0.3em] ${isDark ? "text-sky-200" : "text-black/60"}`}>
+            {isCompleted ? "DEPLOYED" : "IN BUILD"}
+          </span>
+
+          <a
+            href={isCompleted ? project.link : "#"}
+            target={isCompleted ? "_blank" : undefined}
+            rel={isCompleted ? "noopener noreferrer" : undefined}
+            onClick={(event) => {
+              if (!isCompleted) event.preventDefault();
+            }}
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-500 ${
+              !isCompleted
+                ? "opacity-40 cursor-not-allowed line-through"
+                : isDark
+                ? "bg-gradient-to-r from-sky-200 via-cyan-200 to-sky-200 text-black hover:shadow-[0_0_30px_rgba(94,234,212,0.55)]"
+                : "bg-[#05060d] text-white hover:shadow-[0_0_25px_rgba(0,0,0,0.4)]"
+            }`}
+            style={{ position: "relative", zIndex: 5 }}
+          >
+            Launch
+            <span className="text-base">?</span>
+          </a>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+HoloCard.propTypes = {
   project: PropTypes.shape({
     name: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
+    stack: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  isDark: PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
 };
 
-/* ===================== STACK ANIMATION COMPONENT ===================== */
-function AnimatedProjectStack({ projects, isDark }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 = left→right, -1 = right→left
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (paused) return;
-
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => {
-        const nextIndex = prev + direction;
-        if (nextIndex >= projects.length) {
-          setDirection(-1);
-          return prev - 1;
-        } else if (nextIndex < 0) {
-          setDirection(1);
-          return prev + 1;
-        } else return nextIndex;
-      });
-    }, 2200);
-
-    return () => clearInterval(timer);
-  }, [paused, direction, projects.length]);
-
-  // Detect window width for responsiveness
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const cardWidth = windowWidth < 640 ? 0.9 * windowWidth : 380; // 90% on mobile
-  const gap = 20;
-
+function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
   return (
-    <div className="relative h-[520px] flex items-center justify-center overflow-hidden perspective">
-      {projects.map((project, index) => {
-        let position = "off";
-        if (direction === 1) {
-          if (index < activeIndex) position = "left";
-          else if (index === activeIndex) position = "center";
-          else if (index > activeIndex) position = "right";
-        } else {
-          if (index > activeIndex) position = "right";
-          else if (index === activeIndex) position = "center";
-          else if (index < activeIndex) position = "left";
-        }
-
-        const variants = {
-          left: { x: -cardWidth - gap, scale: 0.82, rotate: -12, opacity: 0.55, zIndex: 1 },
-          center: { x: 0, scale: 1, rotate: 0, opacity: 1, zIndex: 10 },
-          right: { x: cardWidth + gap, scale: 0.82, rotate: 12, opacity: 0.55, zIndex: 1 },
-          off: { x: direction * cardWidth * 2, scale: 0.7, rotate: 0, opacity: 0, zIndex: 0 },
-        };
-
-        return (
-          <motion.div
-            key={index}
-            animate={variants[position]}
-            transition={{ type: "spring", stiffness: 25, damping: 30, mass: 0.5 }}
-            className="absolute cursor-pointer w-[90vw] sm:w-[380px]"
-            onClick={() => {
-              setPaused(true);
-              setTimeout(() => setPaused(false), 2600);
-            }}
-            whileHover={{ scale: position === "center" ? 1.03 : undefined }}
-          >
-            <ProjectCard project={project} isDark={isDark} />
-          </motion.div>
-        );
-      })}
+    <div className="relative mt-10">
+      <div className="rail-line" />
+      <div className="rail-scroll hide-scrollbar">
+        {projects.map((project, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <button
+              key={`${project.name}-${index}`}
+              type="button"
+              onClick={() => onSelect(index)}
+              className={`rail-item ${isActive ? "rail-active" : "rail-idle"} ${
+                isDark ? "rail-dark" : "rail-light"
+              }`}
+            >
+              <img src={project.img} alt={project.name} className="rail-thumb" />
+              <div className="rail-meta">
+                <span className="rail-title">{project.name}</span>
+                <span className="rail-sub">{project.status === "Completed" ? "LIVE" : "SOON"}</span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-AnimatedProjectStack.propTypes = {
-  projects: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      desc: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+ProjectRail.propTypes = {
+  projects: PropTypes.arrayOf(PropTypes.object).isRequired,
   isDark: PropTypes.bool.isRequired,
+  activeIndex: PropTypes.number.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
-/* ===================== MAIN PROJECTS ===================== */
 export default function Projects({ isDark }) {
-  const projectList = [
-    {
-      name: "E-Commerce Website",
-      desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
-      status: "✅ Completed",
-      link: "https://trendify-ecommerce-web.onrender.com",
-      img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
-    },
-    {
-      name: "Portfolio Website",
-      desc: "My personal portfolio using React, Tailwind, and Framer Motion animations.",
-      status: "✅ Completed",
-      link: "#",
-      img: "https://designnotes.blog.gov.uk/wp-content/uploads/sites/53/2020/06/Portfolio-Desk.jpg",
-    },
-    {
-      name: "News Application",
-      desc: "A news Website using React and NewsAPI.",
-      status: "✅ Completed",
-      link: "https://news-v9gy.vercel.app/",
-      img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
-    },
-    {
-      name: "E-Commerce Website",
-      desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
-      status: "✅ Completed",
-      link: "https://trendify-ecommerce-web.onrender.com",
-      img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
-    },
-    {
-      name: "Shatranj",
-      desc: "Single-player chess game with AI (Minimax).",
-      status: "✅ Completed",
-      link: "https://harshkumar2003.github.io/Shatranj/",
-      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
-    },
-    {
-      name: "Job Portal",
-      desc: "MERN-based job search & hiring platform.",
-      status: "➡️ Coming Soon",
-      link: "#",
-      img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-4032953.png",
-    },
-    {
-      name: "NoteShelf",
-      desc: "Flutter notes app with ChatGPT integration.",
-      status: "✅ Completed",
-      link: "https://github.com/Harsh77-prog/Noteshelf",
-      img: "startimg.png",
-    },
-    {
-      name: "Shatranj",
-      desc: "Single-player chess game with AI (Minimax).",
-      status: "✅ Completed",
-      link: "https://harshkumar2003.github.io/Shatranj/",
-      img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
-    },
-  ];
+  const shouldReduceMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, [shouldReduceMotion]);
+
+  const activeProject = useMemo(() => PROJECTS[activeIndex], [activeIndex]);
 
   return (
-    <section className={`py-24 relative overflow-hidden ${isDark ? "text-white" : "text-black"}`}>
-      {/* TITLE */}
-      <div className="max-w-6xl mx-auto text-center px-4">
+    <section className={`fx-section relative overflow-hidden ${isDark ? "text-white" : "text-black"}`}>
+      <div className="fx-grid" />
+      <div className="relative mx-auto max-w-6xl px-4 text-center">
         <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -24 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 tracking-tight relative inline-block"
+          className="fx-title"
         >
-          <span
-            className={`relative inline-block text-transparent bg-clip-text ${
-              isDark
-                ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-                : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-            }`}
-          >
-            🚀 My Projects
-          </span>
-          <span className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${isDark ? "bg-yellow-200" : "bg-black/20"}`} />
+          Projects Console
         </motion.h1>
-
-        <div
-          className={`h-1 w-32 mx-auto rounded-full mb-6 ${
-            isDark
-              ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-              : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-          }`}
-        />
+        <p className="fx-subtitle mt-3">Build Command Center</p>
+        <p className={`mt-4 text-sm sm:text-base ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+          A futuristic command center for my builds. Designed to feel smooth, fast, and adaptive.
+        </p>
       </div>
 
-      {/* STACK */}
-      <div className="max-w-7xl mx-auto px-6 mt-20">
-        <AnimatedProjectStack projects={projectList} isDark={isDark} />
+      <div className="relative mx-auto mt-14 max-w-7xl px-6">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+            className={`control-panel ${isDark ? "panel-dark" : "panel-light"}`}
+          >
+            <div className="holo-corners" />
+            <div className="panel-header">
+              <span className="panel-dot" />
+              <span className="panel-dot" />
+              <span className="panel-dot" />
+              <p className="panel-title">SYSTEM STATUS</p>
+            </div>
+            <div className="panel-body">
+              <div>
+                <p className="panel-label">Active Project</p>
+                <h3 className="panel-value">{activeProject.name}</h3>
+              </div>
+              <div>
+                <p className="panel-label">Stage</p>
+                <h4 className="panel-value-sm">{activeProject.status}</h4>
+              </div>
+              <div>
+                <p className="panel-label">Stack</p>
+                <div className="panel-tags">
+                  {activeProject.stack.map((item) => (
+                    <span key={item} className="panel-tag">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="panel-label">Summary</p>
+                <p className="panel-desc">{activeProject.desc}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="relative">
+            <HoloCard project={activeProject} isDark={isDark} active />
+          </div>
+        </div>
+
+        <ProjectRail
+          projects={PROJECTS}
+          isDark={isDark}
+          activeIndex={activeIndex}
+          onSelect={setActiveIndex}
+        />
       </div>
     </section>
   );
@@ -289,3 +299,5 @@ export default function Projects({ isDark }) {
 Projects.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+

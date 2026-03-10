@@ -27,12 +27,12 @@ export default function Navbar({ isDark, setIsDark }) {
   ];
 
   const colors = {
-    linkColor: isDark ? "text-yellow-200" : "text-black",
+    linkColor: isDark ? "text-sky-200" : "text-slate-900",
     hoverShadow: isDark
-      ? "hover:shadow-[0_0_15px_#FFD700] hover:scale-110 transition-all duration-300"
-      : "hover:shadow-[0_0_10px_#000] hover:scale-110 transition-all duration-300",
-    tooltipBg: isDark ? "bg-black/80" : "bg-white/80",
-    tooltipText: isDark ? "text-[#FFD700]" : "text-black",
+      ? "hover:shadow-[0_0_18px_rgba(34,197,94,0.6)] hover:scale-110 transition-all duration-300"
+      : "hover:shadow-[0_0_12px_rgba(15,23,42,0.35)] hover:scale-110 transition-all duration-300",
+    tooltipBg: isDark ? "bg-[#0b0f17]/80" : "bg-white/90",
+    tooltipText: isDark ? "text-sky-200" : "text-slate-900",
   };
 
   const handleClick = (link) => {
@@ -41,26 +41,18 @@ export default function Navbar({ isDark, setIsDark }) {
   };
 
   return (
-    <div className="fixed top-2/3 right-2 sm:right-4 -translate-y-1/2 z-[999]">
+    <div className="fixed top-1/2 right-2 sm:right-4 -translate-y-1/2 z-[999]">
       <nav
-        className={`backdrop-blur-md rounded-full p-2 sm:p-2 shadow-xl border flex flex-col items-center gap-5 sm:gap-6 bg-transparent ${
-          isDark ? "border-[#FFD700]/20" : "border-black/20"
+        className={`relative fx-panel px-3 py-4 flex flex-col items-center gap-5 sm:gap-6 ${
+          isDark ? "text-sky-200" : "text-slate-900"
         }`}
       >
-        {/* ✅ Theme Toggle fixed top center (no animation, aligned) */}
-       {/* ✅ Theme Toggle fixed at top, aligned with nav links */}
-<div className="flex items-center justify-center mb-4 ml-5 w-12 h-12 rounded-full bg-transparent">
-  <button
-    onClick={() => setIsDark((prev) => !prev)}
-    aria-label="Toggle theme"
-    className="w-full h-full flex items-center justify-center text-lg"
-  >
-    <ThemeToggle isDark={isDark} />
-  </button>
-</div>
+        <div className="fx-ring" />
 
+        <div className="flex items-center justify-center">
+          <ThemeToggle isDark={isDark} setIsDark={setIsDark} />
+        </div>
 
-        {/* ✅ Navigation Items */}
         <div className="flex flex-col items-center text-xs font-medium tracking-wide gap-4 sm:gap-6">
           {navItems.map((item) => {
             const isActive = location.pathname === item.link;
@@ -94,3 +86,9 @@ Navbar.propTypes = {
   isDark: PropTypes.bool.isRequired,
   setIsDark: PropTypes.func.isRequired,
 };
+
+
+
+
+
+

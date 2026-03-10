@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import "../App.css";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 const achievements = [
   {
@@ -56,132 +56,58 @@ const achievements = [
 ];
 
 export default function Achievements({ isDark }) {
-  const containerRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Smooth scroll
-  useEffect(() => {
-    let animationFrameId;
-
-    const scroll = () => {
-      if (!isHovered && containerRef.current) {
-        const el = containerRef.current;
-        el.scrollLeft += 0.5;
-
-        if (el.scrollLeft + el.clientWidth >= el.scrollWidth) {
-          el.scrollLeft = 0; // loop
-        }
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHovered]);
-
   return (
-    <section
-      className={`py-10 px-2 relative z-10 overflow-hidden ${
-        isDark ? "text-white" : "text-black"
-      }`}
-    >
-      <div className="text-center max-w-6xl mx-auto px-4">
-  {/* Heading */}
-  <motion.h1
-    initial={{ opacity: 0, y: -30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    viewport={{ once: true }}
-    className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-10 tracking-tight relative inline-block"
-  >
-    <span
-      className={`relative inline-block text-transparent bg-clip-text ${
-        isDark
-          ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-          : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-      }`}
-    >
-      💥 Milestones of Excellence
-    </span>
+    <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
+      <div className="fx-grid" />
+      <div className="fx-orb" style={{ top: "-120px", left: "10%" }} />
+      <div className="fx-orb fx-orb-2" style={{ bottom: "-160px", right: "5%" }} />
 
-    {/* Glow behind text */}
-    <span
-      className={`absolute inset-0 blur-xl opacity-30 rounded-lg ${
-        isDark ? "bg-yellow-500/30" : "bg-black/20"
-      }`}
-    ></span>
-  </motion.h1>
+      <div className="fx-shell relative z-10">
+        <RevealGroup as="div" className="text-center">
+          <RevealItem as="h1" className="fx-title inline-block" variant="tilt">
+            Milestones of Excellence
+          </RevealItem>
+          <RevealItem as="p" className="fx-subtitle mt-3" variant="glide">
+            Proof of momentum
+          </RevealItem>
+          <RevealItem
+            as="p"
+            variant="soft"
+            className={`max-w-2xl mx-auto mt-6 ${isDark ? "text-slate-300" : "text-slate-600"}`}
+          >
+            Discover the significant milestones and accolades that highlight my journey and contributions.
+          </RevealItem>
+        </RevealGroup>
 
-  {/* Animated underline */}
-  <div
-    className={`h-1 w-32 mx-auto rounded-full mb-12 ${
-      isDark
-        ? "bg-gradient-to-r from-yellow-200 via-yellow-100 to-black animate-gold-twinkle"
-        : "bg-gradient-to-r from-black via-gray-500 to-white animate-bw-twinkle"
-    }`}
-  ></div>
+        <Reveal as="div" className="mt-12 achieve-marquee" delay={0.1} variant="glide">
+          <div className="achieve-track scrolling-track">
+            {[...achievements, ...achievements].map((a, i) => (
+              <motion.article
+                key={`${a.title}-${i}`}
+                whileHover={{ scale: 1.02, y: -6 }}
+                transition={{ type: "spring", stiffness: 220, damping: 18 }}
+                className="fx-panel p-6 relative w-[260px] sm:w-[280px]"
+              >
+                <div className="fx-ring" />
 
-  {/* Description */}
-  <p
-    className={`max-w-xl mx-auto mb-12 text-center transition-colors duration-300 ${
-      isDark ? "text-gray-300" : "text-gray-700"
-    }`}
-  >
-    Discover the significant milestones and accolades that highlight my
-    journey and contributions.
-  </p>
+                <div className="flex items-center justify-between">
+                  <div className="text-3xl">{a.icon}</div>
+                  <span className="fx-chip">Milestone</span>
+                </div>
 
-  {/* Achievements scroll container */}
-  <div
-    ref={containerRef}
-    className="scroll-container flex gap-6 overflow-x-auto scroll-smooth whitespace-nowrap scroll-snap-x mandatory"
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-  >
-    {achievements.map((a, i) => (
-      <motion.div
-        key={i}
-        whileHover={{ scale: 1.05 }}
-        className="relative inline-block scroll-snap-align-start transform transition-all duration-300 cursor-pointer"
-      >
-        <div
-          className={`flex flex-col rounded-2xl overflow-hidden p-4 transition-all duration-300 justify-between shadow-lg ${
-            isDark
-              ? "bg-black border border-yellow-200 shadow-[0_4px_20px_rgba(255,215,0,0.5)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.8)]"
-              : " bg-white border border-black shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:bg-slate-200"
-          }`}
-          style={{ width: "260px", height: "360px" }}
-        >
-          <div className="flex flex-col justify-start flex-1">
-            <div className="text-4xl mb-3">{a.icon}</div>
-            <h4
-              className={`text-lg font-bold mb-1 ${
-                isDark ? "text-yellow-200" : "text-black"
-              }`}
-            >
-              {a.title}
-            </h4>
-            <p
-              className={`text-sm mb-2 font-medium ${
-                isDark ? "text-yellow-200" : "text-gray-800"
-              }`}
-            >
-              {a.subtitle}
-            </p>
-            <p
-              className={`text-sm leading-relaxed break-words whitespace-normal flex-1 ${
-                isDark ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
-              {a.description}
-            </p>
+                <h4 className="mt-4 text-lg sm:text-xl font-bold">{a.title}</h4>
+                <p className={`text-xs tracking-[0.2em] uppercase mt-2 ${isDark ? "text-slate-300" : "text-slate-500"}`}>
+                  {a.subtitle}
+                </p>
+
+                <p className={`mt-4 text-sm leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+                  {a.description}
+                </p>
+              </motion.article>
+            ))}
           </div>
-        </div>
-      </motion.div>
-    ))}
-  </div>
-</div>
-
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -189,3 +115,11 @@ export default function Achievements({ isDark }) {
 Achievements.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+
+
+
+
+
+
+

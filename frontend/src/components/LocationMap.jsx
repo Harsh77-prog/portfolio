@@ -1,10 +1,10 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { motion } from "framer-motion";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import PropTypes from "prop-types";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 // Custom avatar image
 const avatarUrl = "HarshImage.png";
@@ -56,50 +56,39 @@ export default function LocationMap({ isDark }) {
       });
   }, []);
 
-  const colors = {
-    heading: isDark ? "text-yellow-200" : "text-black",
-    text: isDark ? "text-yellow-200" : "text-gray-800",
-    cardBg: isDark ? "bg-black" : "bg-gradient-to-r from-gray-100 to-gray-300",
-    cardShadow: isDark
-      ? "shadow-[0_0_25px_#FFD700]/40"
-      : "shadow-[0_0_25px_#000]/30",
-    hoverShadow: isDark
-      ? "hover:shadow-[0_0_35px_#FFD700]"
-      : "hover:shadow-[0_0_35px_#000]",
-  };
-
   return (
     <div
-      className={`rounded-2xl w-full md:w-[90%] mx-auto p-4 ${colors.cardBg} ${colors.cardShadow} transition-all duration-300 ${colors.hoverShadow}`}
+      className="fx-panel map-panel w-full md:w-[90%] mx-auto p-5 sm:p-8"
     >
-      {/* Title */}
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: [0, -10, 0] }}
-        transition={{ duration: 1.2, repeat: Infinity }}
-        viewport={{ once: true }}
-        className={`text-4xl md:text-5xl font-bold mb-4 tracking-tight ${colors.heading} drop-shadow-lg text-center`}
-      >
-        ✦ My Real Location
-      </motion.h1>
+      <div className="fx-ring" />
+      <div className="map-glow" />
+      <div className="map-grid" />
+
+      <RevealGroup as="div" className="text-center">
+        <RevealItem as="h1" className="fx-title map-title" variant="tilt">
+          Location Beacon
+        </RevealItem>
+        <RevealItem as="p" className="fx-subtitle mt-2" variant="glide">
+          Live Coordinates
+        </RevealItem>
+      </RevealGroup>
 
       {/* Location Text */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className={`mb-4 text-center ${colors.text}`}
-      >
+      <Reveal as="p" duration={1} delay={0.2} className="map-location-text" variant="soft">
         {locationText}
-      </motion.p>
+      </Reveal>
+
+      <div className="map-hud">
+        <div className="map-hud-chip">Lat: {myCoordinates[0]}</div>
+        <div className="map-hud-chip">Lon: {myCoordinates[1]}</div>
+        <div className="map-hud-chip">Zoom: {mapZoomLevel}</div>
+      </div>
 
       {/* Map */}
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative w-full h-[350px] rounded-2xl overflow-hidden"
-      >
+      <Reveal as="div" className="map-frame" duration={0.8} variant="glide">
+        <div className="map-frame-ring" />
+        <div className="map-scanline" />
+        <div className="map-overlay" />
         <MapContainer
           center={myCoordinates}
           zoom={mapZoomLevel}
@@ -111,12 +100,12 @@ export default function LocationMap({ isDark }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={myCoordinates} icon={customIcon}>
-            <Popup className={isDark ? "text-yellow-200" : "text-black"}>
+            <Popup className={isDark ? "text-sky-200" : "text-black"}>
               I am here! 📍
             </Popup>
           </Marker>
         </MapContainer>
-      </motion.div>
+      </Reveal>
     </div>
   );
 }
@@ -124,3 +113,9 @@ export default function LocationMap({ isDark }) {
 LocationMap.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+
+
+
+
+

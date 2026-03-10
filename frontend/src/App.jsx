@@ -26,24 +26,22 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          key={isDark ? 'dark' : 'light'} // force reload when switching
-          className="background-video"
-        >
-          <source
-            src={isDark ? '/dark-BG.mp4' : '/light-BG.mp4'}
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
-
-        {/* Optional overlay only for dark mode */}
-        {isDark && <div className="video-overlay" />}
+        {/* Background */}
+        {isDark ? (
+          <div className="dark-bg">
+            <div className="dark-bg-grid" />
+            <div className="dark-bg-orbs" />
+            <div className="dark-bg-stars" />
+            <div className="dark-bg-glow" />
+          </div>
+        ) : (
+          <div className="light-bg">
+            <div className="light-bg-grid" />
+            <div className="light-bg-orbs" />
+            <div className="light-bg-stars" />
+            <div className="light-bg-glow" />
+          </div>
+        )}
 
         {/* Navbar */}
         <Navbar isDark={isDark} setIsDark={setIsDark} />
@@ -66,3 +64,4 @@ function App() {
 }
 
 export default App;
+
