@@ -41,7 +41,7 @@ export default function About({ isDark }) {
           <div className="fx-ring" />
 
           <div className="grid gap-10 md:grid-cols-[1.08fr_0.92fr] items-center">
-            <RevealGroup as="div" className="text-center md:text-left">
+            <RevealGroup as="div" className="text-center md:text-left order-2 md:order-1">
               <RevealItem as="p" className="about-eyebrow" variant="glide" direction="left">
                 HARSH KUMAR
               </RevealItem>
@@ -115,14 +115,14 @@ export default function About({ isDark }) {
               direction="right"
               duration={0.9}
               variant="glide"
-              className="relative"
+              className="relative order-1 md:order-2"
             >
               <div
                 className="fx-panel about-hero-media overflow-hidden"
                 style={{ backgroundImage: "url('/HarshImage.png')" }}
               >
                 <div className="about-hero-frame" />
-                <div className="relative h-[400px] sm:h-[460px]">
+                <div className="relative h-[320px] sm:h-[420px] md:h-[460px]">
                   <div className="about-hero-overlay" />
                 </div>
                 <div className="about-hero-badge">Available</div>

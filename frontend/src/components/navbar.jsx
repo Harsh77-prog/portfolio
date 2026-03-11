@@ -41,9 +41,9 @@ export default function Navbar({ isDark, setIsDark }) {
   };
 
   return (
-    <div className="fixed top-1/2 right-2 sm:right-4 -translate-y-1/2 z-[999]">
+    <div className="fixed top-1/2 right-2 sm:right-4 -translate-y-1/2 z-[999] fx-nav">
       <nav
-        className={`relative fx-panel px-3 py-4 flex flex-col items-center gap-5 sm:gap-6 ${
+        className={`relative fx-panel px-3 py-4 flex flex-col items-center gap-5 sm:gap-6 fx-nav-panel ${
           isDark ? "text-sky-200" : "text-slate-900"
         }`}
       >
@@ -53,7 +53,7 @@ export default function Navbar({ isDark, setIsDark }) {
           <ThemeToggle isDark={isDark} setIsDark={setIsDark} />
         </div>
 
-        <div className="flex flex-col items-center text-xs font-medium tracking-wide gap-4 sm:gap-6">
+        <div className="flex flex-col items-center text-xs font-medium tracking-wide gap-4 sm:gap-6 fx-nav-items">
           {navItems.map((item) => {
             const isActive = location.pathname === item.link;
             return (
@@ -61,14 +61,14 @@ export default function Navbar({ isDark, setIsDark }) {
                 <Link
                   to={item.link}
                   onClick={() => handleClick(item.link)}
-                  className={`relative group text-lg sm:text-xl transition-all duration-300 ${colors.linkColor} ${colors.hoverShadow} ${
+                  className={`relative group text-lg sm:text-xl transition-all duration-300 fx-nav-link ${colors.linkColor} ${colors.hoverShadow} ${
                     isActive ? "scale-110" : ""
                   }`}
                 >
                   {item.icon}
                   {/* Tooltip */}
                   <span
-                    className={`absolute right-9 sm:right-10 top-1/2 -translate-y-1/2 ${colors.tooltipBg} ${colors.tooltipText} text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50`}
+                    className={`absolute right-9 sm:right-10 top-1/2 -translate-y-1/2 fx-nav-tooltip ${colors.tooltipBg} ${colors.tooltipText} text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50`}
                   >
                     {item.name.toUpperCase()}
                   </span>

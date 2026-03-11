@@ -1087,8 +1087,22 @@ html:not(.dark) .stack-chip {
 }
 
 html:not(.dark) .fx-grid {
-  opacity: 0;
-  background: none;
+  opacity: 0.22;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px,
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px,
+      transparent 28px
+    );
 }
 
 html:not(.dark) .fx-panel {
@@ -1585,6 +1599,120 @@ html:not(.dark) .fx-button:focus {
 @media (max-width: 640px) {
   .about-hero-stat-value {
     font-size: 20px;
+  }
+}
+
+/* === Mobile responsive overrides === */
+@media (max-width: 640px) {
+  .fx-section {
+    padding: 64px 0;
+  }
+
+  .fx-shell {
+    padding: 0 16px;
+  }
+
+  .fx-title {
+    font-size: clamp(1.9rem, 5vw + 1rem, 2.8rem);
+    line-height: 1.1;
+  }
+
+  .fx-panel {
+    border-radius: 22px;
+  }
+
+  .fx-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .fx-holo-line {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-hero-card {
+    padding: 24px !important;
+  }
+
+  .about-hero-frame {
+    inset: 10px;
+  }
+
+  .about-hero-badge {
+    top: 14px;
+    left: 14px;
+    font-size: 10px;
+  }
+
+  .about-hero-stats {
+    position: static;
+    margin: 14px 0 0;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    backdrop-filter: none;
+  }
+
+  .about-hero-media {
+    aspect-ratio: 1 / 1;
+    background-position: center 18%;
+    transform: none;
+  }
+
+  .about-hero-media .about-hero-overlay {
+    opacity: 0.08;
+  }
+
+  .about-hero-stat-label {
+    letter-spacing: 0.2em;
+  }
+
+  .about-hero-stat-value {
+    font-size: 18px;
+  }
+
+  .rail-scroll {
+    padding: 12px 0 4px;
+  }
+
+  .rail-item {
+    min-width: 190px;
+  }
+
+  .fx-nav {
+    top: auto !important;
+    bottom: 16px;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 0) !important;
+    width: min(92vw, 420px);
+  }
+
+  .fx-nav-panel {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .fx-nav-items {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .fx-nav-link {
+    font-size: 18px !important;
+  }
+
+  .fx-nav-tooltip {
+    display: none;
   }
 }
 
