@@ -390,8 +390,15 @@ body {
 }
 
 .achieve-marquee {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.achieve-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .achieve-track {
@@ -400,8 +407,18 @@ body {
   width: max-content;
 }
 
-.achieve-marquee:hover .scrolling-track {
+.achieve-marquee.is-interacting .scrolling-track {
   animation-play-state: paused;
+}
+
+.achieve-marquee.is-interacting {
+  cursor: grabbing;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .achieve-marquee:hover .scrolling-track {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes smoothScroll {
@@ -1087,19 +1104,19 @@ html:not(.dark) .stack-chip {
 }
 
 html:not(.dark) .fx-grid {
-  opacity: 0.22;
+  opacity: 0.42;
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.08) 0,
-      rgba(0, 0, 0, 0.08) 1px,
+      rgba(0, 0, 0, 0.16) 0,
+      rgba(0, 0, 0, 0.16) 1px,
       transparent 1px,
       transparent 28px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.08) 0,
-      rgba(0, 0, 0, 0.08) 1px,
+      rgba(0, 0, 0, 0.16) 0,
+      rgba(0, 0, 0, 0.16) 1px,
       transparent 1px,
       transparent 28px
     );
@@ -1345,9 +1362,16 @@ html:not(.dark) .fx-button:focus {
 }
 
 .stack-marquee {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.stack-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .stack-marquee-rows {
@@ -1369,8 +1393,18 @@ html:not(.dark) .fx-button:focus {
   animation-duration: 26s;
 }
 
-.stack-marquee:hover .stack-track {
+.stack-marquee.is-interacting .stack-track {
   animation-play-state: paused;
+}
+
+.stack-marquee.is-interacting {
+  cursor: grabbing;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stack-marquee:hover .stack-track {
+    animation-play-state: paused;
+  }
 }
 
 .stack-chip {

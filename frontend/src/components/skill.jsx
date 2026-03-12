@@ -1,5 +1,6 @@
 import "../App.css";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   SiHtml5,
   SiCss3,
@@ -22,6 +23,7 @@ import PropTypes from "prop-types";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 export default function Skills({ isDark }) {
+  const [isInteracting, setIsInteracting] = useState(false);
   const skills = [
     { name: "C", icon: <SiC className="text-sky-500 text-4xl" /> },
     { name: "C++", icon: <SiCplusplus className="text-sky-300 text-4xl" /> },
@@ -62,7 +64,16 @@ export default function Skills({ isDark }) {
           <RevealItem as="div" className="stack-divider" variant="soft" />
         </RevealGroup>
 
-        <Reveal as="div" className="mt-8 stack-marquee stack-marquee-rows" delay={0.1} variant="glide">
+        <Reveal
+          as="div"
+          className={`mt-8 stack-marquee stack-marquee-rows ${isInteracting ? "is-interacting" : ""}`}
+          delay={0.1}
+          variant="glide"
+          onPointerDown={() => setIsInteracting(true)}
+          onPointerUp={() => setIsInteracting(false)}
+          onPointerLeave={() => setIsInteracting(false)}
+          onPointerCancel={() => setIsInteracting(false)}
+        >
           <div className="stack-track stack-track-top">
             {topRow.map((skill, index) => (
               <motion.div

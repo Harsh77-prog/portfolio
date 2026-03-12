@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 const capabilityGroups = [
   {
     title: "Full‑Stack",
-    points: ["React UI", "Node APIs", "MongoDB"],
+    points: ["React.js" , " Next.js", "Node ", "MongoDB" ,"PostgreSQL" , "AI/ML"],
   },
   {
     title: "Product",
@@ -15,7 +15,8 @@ const capabilityGroups = [
 
 const signalCards = [
   { label: "Core Stack", value: "MERN", sub: "React / Node / MongoDB" },
-  { label: "Focus", value: "UI Systems", sub: "Performance + Polish" },
+  { label: "Focus", value: "AI / ML", sub: "Machine Learning & Artificial Intelligence" },
+  { label: "App Dev", value: "Flutter", sub: "Basic Dart & Firebase" },
 ];
 
 export default function Expertise({ isDark }) {
@@ -89,7 +90,8 @@ export default function Expertise({ isDark }) {
           <div className="mt-4 flex flex-wrap gap-3">
             <span className="fx-badge">Frontend</span>
             <span className="fx-badge">Backend</span>
-            <span className="fx-badge">UI Systems</span>
+            <span className="fx-badge">AI / ML</span>
+            <span className="fx-badge">Mobile</span>
           </div>
         </div>
       </div>

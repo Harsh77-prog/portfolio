@@ -1,6 +1,7 @@
 import "../App.css";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 const achievements = [
@@ -56,6 +57,8 @@ const achievements = [
 ];
 
 export default function Achievements({ isDark }) {
+  const [isInteracting, setIsInteracting] = useState(false);
+
   return (
     <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
       <div className="fx-grid" />
@@ -79,7 +82,16 @@ export default function Achievements({ isDark }) {
           </RevealItem>
         </RevealGroup>
 
-        <Reveal as="div" className="mt-12 achieve-marquee" delay={0.1} variant="glide">
+        <Reveal
+          as="div"
+          className={`mt-12 achieve-marquee ${isInteracting ? "is-interacting" : ""}`}
+          delay={0.1}
+          variant="glide"
+          onPointerDown={() => setIsInteracting(true)}
+          onPointerUp={() => setIsInteracting(false)}
+          onPointerLeave={() => setIsInteracting(false)}
+          onPointerCancel={() => setIsInteracting(false)}
+        >
           <div className="achieve-track scrolling-track">
             {[...achievements, ...achievements].map((a, i) => (
               <motion.article

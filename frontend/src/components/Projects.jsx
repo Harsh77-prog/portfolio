@@ -6,18 +6,18 @@ import "../App.css";
 const PROJECTS = [
   {
     name: "E-Commerce Website",
-    desc: "A full-stack shopping platform with filters, cart, and Razorpay payments.",
+    desc: "A full-stack shopping platform with filters, cart, and Razorpay payments(Testing mode)",
     status: "Completed",
     link: "https://trendify-ecommerce-web.onrender.com",
-    img: "https://neilpatel.com/wp-content/uploads/2015/04/ecommerce.jpg",
-    stack: ["React", "Node", "Razorpay"],
+    img: "/trendify.png",
+    stack: ["Ejs", "Node", "Razorpay"],
   },
   {
     name: "Portfolio Website",
     desc: "Personal portfolio using React, Tailwind, and Framer Motion animations.",
     status: "Completed",
     link: "#",
-    img: "https://designnotes.blog.gov.uk/wp-content/uploads/sites/53/2020/06/Portfolio-Desk.jpg",
+    img: "/portfolio.png",
     stack: ["React", "Tailwind", "Framer"],
   },
   {
@@ -25,24 +25,24 @@ const PROJECTS = [
     desc: "A news website using React and NewsAPI with category filtering.",
     status: "Completed",
     link: "https://news-v9gy.vercel.app/",
-    img: "https://static.vecteezy.com/system/resources/previews/006/584/407/non_2x/illustration-graphic-cartoon-character-of-newspaper-vector.jpg",
-    stack: ["React", "NewsAPI", "Vercel"],
+    img: "/tazakhabar.png",
+    stack: ["React", "NewsAPI", "Node"],
   },
   {
     name: "Shatranj",
     desc: "Single-player chess game with AI (Minimax).",
     status: "Completed",
     link: "https://github.com/Harsh77-prog/Shatranj",
-    img: "https://img.freepik.com/premium-vector/chess-game-concept-illustration_114360-1050.jpg",
-    stack: ["JS", "AI", "Minimax"],
+    img: "/shatranj.png",
+    stack: ["Flutter", "Dart", "Minimax"],
   },
   {
-    name: "Job Portal",
-    desc: "MERN-based job search & hiring platform.",
-    status: "Coming Soon",
-    link: "#",
-    img: "https://cdni.iconscout.com/illustration/premium/thumb/online-job-search-4032953.png",
-    stack: ["MongoDB", "Express", "React"],
+    name: "FinanceIQ",
+    desc: "Create and track your financial journey with intelligent analytics",
+    status: "In Progress",
+    link: "https://finance-iq-frontend.vercel.app",
+    img: "/finance.png",
+    stack: ["Next", "Node", "postgreSQL" , "AI/ML"],
   },
   {
     name: "NoteShelf",
@@ -50,7 +50,7 @@ const PROJECTS = [
     status: "Completed",
     link: "https://github.com/Harsh77-prog/Noteshelf",
     img: "startimg.png",
-    stack: ["Flutter", "ChatGPT", "Android"],
+    stack: ["Flutter", "Open AI", "Local Storage"],
   },
 ];
 
@@ -299,5 +299,4 @@ export default function Projects({ isDark }) {
 Projects.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
-
 
