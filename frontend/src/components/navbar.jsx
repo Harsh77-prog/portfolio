@@ -18,12 +18,12 @@ export default function Navbar({ isDark, setIsDark }) {
   const [setClickedLink] = useState(null);
 
   const navItems = [
-    { name: "Home", icon: <FaHome />, link: "/" },
-    { name: "About", icon: <FaUser />, link: "/about" },
-    { name: "Projects", icon: <FaProjectDiagram />, link: "/projects" },
-    { name: "Achievements", icon: <FaTrophy />, link: "/achievements" },
-    { name: "Skills", icon: <FaCode />, link: "/skills" },
-    { name: "Contact", icon: <FaEnvelope />, link: "/contact" },
+    { name: "Home", icon: <FaHome />, hash: "home" },
+    { name: "About", icon: <FaUser />, hash: "about" },
+    { name: "Projects", icon: <FaProjectDiagram />, hash: "projects-section" },
+    { name: "Achievements", icon: <FaTrophy />, hash: "achievements" },
+    { name: "Skills", icon: <FaCode />, hash: "skills" },
+    { name: "Contact", icon: <FaEnvelope />, hash: "contact" },
   ];
 
   const colors = {
@@ -35,8 +35,8 @@ export default function Navbar({ isDark, setIsDark }) {
     tooltipText: isDark ? "text-sky-200" : "text-slate-900",
   };
 
-  const handleClick = (link) => {
-    setClickedLink(link);
+  const handleClick = (hash) => {
+    setClickedLink(hash);
     setTimeout(() => setClickedLink(null), 300);
   };
 
@@ -55,12 +55,12 @@ export default function Navbar({ isDark, setIsDark }) {
 
         <div className="flex flex-col items-center text-xs font-medium tracking-wide gap-4 sm:gap-6 fx-nav-items">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.link;
+            const isActive = location.pathname === "/" && location.hash === `#${item.hash}`;
             return (
               <div key={item.name}>
                 <Link
-                  to={item.link}
-                  onClick={() => handleClick(item.link)}
+                  to={`/#${item.hash}`}
+                  onClick={() => handleClick(item.hash)}
                   className={`relative group text-lg sm:text-xl transition-all duration-300 fx-nav-link ${colors.linkColor} ${colors.hoverShadow} ${
                     isActive ? "scale-110" : ""
                   }`}

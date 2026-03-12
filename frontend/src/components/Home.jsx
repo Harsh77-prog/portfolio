@@ -18,40 +18,51 @@ export default function Home({ isDark }) {
     : "hover:shadow-[0_0_25px_#000000]/60";
 
   return (
-    <div className={`relative min-h-screen ${isDark ? "text-white" : "text-slate-900"}`}>
+    <div
+      id="home"
+      className={`relative min-h-screen ${isDark ? "text-white" : "text-slate-900"}`}
+    >
       {/* Main content */}
       <div className="space-y-6  lg:py-5 relative z-10">
         {/* About Section */}
-        <Reveal
-          as="section"
-          className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
-        >
-          <About isDark={isDark} />
-        </Reveal>
+        <div id="about" className="section-anchor">
+          <Reveal
+            as="section"
+            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+          >
+            <About isDark={isDark} />
+          </Reveal>
+        </div>
 
         {/* Projects Section */}
-        <Reveal
-          as="section"
-          className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
-        >
-          <Projects isDark={isDark} />
-        </Reveal>
+        <div id="projects-section" className="section-anchor">
+          <Reveal
+            as="section"
+            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+          >
+            <Projects isDark={isDark} />
+          </Reveal>
+        </div>
 
         {/* Achievements Section */}
-        <Reveal
-          as="section"
-          className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
-        >
-          <Achievements isDark={isDark} />
-        </Reveal>
+        <div id="achievements" className="section-anchor">
+          <Reveal
+            as="section"
+            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+          >
+            <Achievements isDark={isDark} />
+          </Reveal>
+        </div>
 
         {/* Skills Section */}
-        <Reveal
-          as="section"
-          className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
-        >
-          <Skills isDark={isDark} />
-        </Reveal>
+        <div id="skills" className="section-anchor">
+          <Reveal
+            as="section"
+            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+          >
+            <Skills isDark={isDark} />
+          </Reveal>
+        </div>
 
         {/* Music + Hobbies Section */}
         <div className="min-h-screen mt-2 space-y-10">
@@ -85,12 +96,14 @@ export default function Home({ isDark }) {
         </div>
 
         {/* Contact Section */}
-        <Reveal
-          as="section"
-          className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
-        >
-          <Contact isDark={isDark} />
-        </Reveal>
+        <div id="contact" className="section-anchor">
+          <Reveal
+            as="section"
+            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+          >
+            <Contact isDark={isDark} />
+          </Reveal>
+        </div>
       </div>
     </div>
   );

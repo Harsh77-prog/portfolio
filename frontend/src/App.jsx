@@ -10,7 +10,28 @@ import OwnerReply from './components/Owner';
 
 
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+
+function ScrollToHash() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const id = location.hash.replace("#", "");
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location]);
+
+  return null;
+}
 
 function App() {
   const [isDark, setIsDark] = useState(() => {
@@ -26,6 +47,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        <ScrollToHash />
         {/* Background */}
         {isDark ? (
           <div className="dark-bg">

@@ -9,7 +9,14 @@
   }
 body {
     background: #05060d;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+
+html {
+  scroll-behavior: smooth;
+}
   
   .scroll-container {
     display: flex;
@@ -18,6 +25,7 @@ body {
     scroll-behavior: smooth;
     padding: 1rem 0;
     scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch;
   }
   
   .scroll-container::-webkit-scrollbar {
@@ -215,6 +223,10 @@ body {
   z-index: 0;
 }
 
+.section-anchor {
+  scroll-margin-top: 80px;
+}
+
 .border-effect {
   content: "";
   border-radius: 0.75rem;
@@ -387,6 +399,7 @@ body {
   animation: smoothScroll 30s linear infinite;
   will-change: transform;
   transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .achieve-marquee {
@@ -395,6 +408,7 @@ body {
   position: relative;
   scrollbar-width: none;
   cursor: grab;
+  -webkit-overflow-scrolling: touch;
 }
 
 .achieve-marquee::-webkit-scrollbar {
@@ -683,6 +697,7 @@ body {
   backdrop-filter: blur(18px);
   box-shadow: 0 35px 70px rgba(0, 0, 0, 0.28);
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .holo-dark {
@@ -761,6 +776,7 @@ body {
   overflow-x: auto;
   padding: 18px 0 6px;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .rail-item {
@@ -776,6 +792,7 @@ body {
   transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 .rail-dark {
@@ -1244,6 +1261,7 @@ html:not(.dark) .fx-button:focus {
   box-shadow: var(--fx-shadow);
   backdrop-filter: blur(18px);
   overflow: hidden;
+  will-change: transform;
 }
 
 .fx-panel::before {
@@ -1368,6 +1386,7 @@ html:not(.dark) .fx-button:focus {
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   scrollbar-width: none;
   cursor: grab;
+  -webkit-overflow-scrolling: touch;
 }
 
 .stack-marquee::-webkit-scrollbar {
@@ -1386,6 +1405,8 @@ html:not(.dark) .fx-button:focus {
   animation: stackScroll 22s linear infinite;
   padding: 10px 0;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .stack-track-bottom {
@@ -1420,6 +1441,7 @@ html:not(.dark) .fx-button:focus {
   overflow: hidden;
   min-width: 150px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
 .stack-chip::after {
@@ -1747,6 +1769,29 @@ html:not(.dark) .fx-button:focus {
 
   .fx-nav-tooltip {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .scrolling-track {
+    animation-duration: 36s;
+  }
+
+  .stack-track {
+    animation-duration: 28s;
+  }
+
+  .stack-track-bottom {
+    animation-duration: 32s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
