@@ -100,6 +100,10 @@ export default function AskQuestion({ isDark }) {
                     <img
                       src={q.userAvatar}
                       alt={q.name}
+                      loading="lazy"
+                      decoding="async"
+                      width="40"
+                      height="40"
                       className="rounded-full object-cover w-10 h-10"
                     />
                   ) : (
@@ -127,6 +131,10 @@ export default function AskQuestion({ isDark }) {
                     <img
                       src="HarshImage.png"
                       alt="Admin"
+                      loading="lazy"
+                      decoding="async"
+                      width="36"
+                      height="36"
                       className="w-9 h-9 rounded-full object-cover"
                     />
                   </div>

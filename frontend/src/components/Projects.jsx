@@ -96,6 +96,10 @@ function HoloCard({ project, isDark, active }) {
         <img
           src={project.img}
           alt={project.name}
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="675"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className={`absolute inset-0 ${isDark ? "holo-overlay-dark" : "holo-overlay-light"}`} />
@@ -185,7 +189,15 @@ function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
                 isDark ? "rail-dark" : "rail-light"
               }`}
             >
-              <img src={project.img} alt={project.name} className="rail-thumb" />
+              <img
+                src={project.img}
+                alt={project.name}
+                loading="lazy"
+                decoding="async"
+                width="56"
+                height="56"
+                className="rail-thumb"
+              />
               <div className="rail-meta">
                 <span className="rail-title">{project.name}</span>
                 <span className="rail-sub">{project.status === "Completed" ? "LIVE" : "SOON"}</span>
@@ -299,4 +311,3 @@ export default function Projects({ isDark }) {
 Projects.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
-

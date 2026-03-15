@@ -225,6 +225,9 @@ html {
 
 .section-anchor {
   scroll-margin-top: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+  contain: layout paint style;
 }
 
 .border-effect {
