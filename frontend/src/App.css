@@ -39,11 +39,13 @@ html {
     background-color: #131c31;
     border: 1px solid #334155;
     padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 12px rgba(13, 255, 255, 0.05);
-    transition: all 0.3s ease;
-  }
-  .achievement-card:hover {
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(13, 255, 255, 0.05);
+  transition: transform var(--fx-dur-med) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-med) var(--fx-ease-cream),
+    border-color var(--fx-dur-med) var(--fx-ease-cream);
+}
+.achievement-card:hover {
     box-shadow: 0 0 15px rgba(13, 255, 255, 0.3);
   }
   #projects{
@@ -53,10 +55,12 @@ html {
     background-color: #131c31;
     border: 1px solid #334155;
     padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 12px rgba(13, 255, 255, 0.05);
-    transition: all 0.3s ease;
-  }
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(13, 255, 255, 0.05);
+  transition: transform var(--fx-dur-med) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-med) var(--fx-ease-cream),
+    border-color var(--fx-dur-med) var(--fx-ease-cream);
+}
   #projects:hover {
     box-shadow: 0 0 15px rgba(13, 255, 255, 0.3);
   }
@@ -103,6 +107,23 @@ html {
   mix-blend-mode: screen;
 }
 
+.dark-bg-flow {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(56, 189, 248, 0.22), transparent 45%),
+    radial-gradient(circle at 75% 15%, rgba(34, 211, 238, 0.2), transparent 42%),
+    radial-gradient(circle at 60% 70%, rgba(59, 130, 246, 0.18), transparent 48%),
+    linear-gradient(120deg, rgba(8, 12, 20, 0.6), rgba(4, 6, 12, 0.2));
+  background-size: 200% 200%;
+  opacity: 0.55;
+  filter: blur(26px) saturate(1.1);
+  mix-blend-mode: screen;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: auroraFlow 42s var(--fx-ease-cream) infinite;
+}
+
 .dark-bg-orbs {
   position: absolute;
   inset: -10%;
@@ -110,8 +131,8 @@ html {
     radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.22), transparent 45%),
     radial-gradient(circle at 85% 15%, rgba(0, 0, 0, 0.08), transparent 45%),
     radial-gradient(circle at 60% 60%, rgba(59, 130, 246, 0.16), transparent 45%);
-  filter: blur(10px);
-  animation: orbFloat 14s ease-in-out infinite alternate;
+  filter: blur(12px);
+  animation: orbFloat 24s var(--fx-ease-cream) infinite alternate;
 }
 
 .dark-bg-glow {
@@ -133,7 +154,7 @@ html {
     radial-gradient(1px 1px at 85% 70%, rgba(255, 255, 255, 0.5) 40%, transparent 45%),
     radial-gradient(1.5px 1.5px at 55% 50%, rgba(255, 255, 255, 0.6) 40%, transparent 45%);
   opacity: 0.55;
-  animation: starTwinkle 6s ease-in-out infinite alternate;
+  animation: starTwinkle 12s var(--fx-ease-cream) infinite alternate;
 }
 
 /* Light mode space background (no overlap with dark) */
@@ -171,6 +192,22 @@ html {
   opacity: 0.28;
 }
 
+.light-bg-flow {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 235, 209, 0.75), transparent 48%),
+    radial-gradient(circle at 82% 18%, rgba(255, 248, 234, 0.7), transparent 45%),
+    radial-gradient(circle at 68% 78%, rgba(230, 245, 255, 0.6), transparent 50%),
+    linear-gradient(120deg, rgba(255, 250, 240, 0.85), rgba(245, 246, 250, 0.5));
+  background-size: 220% 220%;
+  opacity: 0.7;
+  filter: blur(22px) saturate(1.05);
+  will-change: transform;
+  transform: translateZ(0);
+  animation: creamFlow 48s var(--fx-ease-cream) infinite;
+}
+
 .light-bg-orbs {
   position: absolute;
   inset: -10%;
@@ -178,9 +215,9 @@ html {
     radial-gradient(circle at 20% 30%, rgba(255, 221, 170, 0.35), transparent 45%),
     radial-gradient(circle at 80% 20%, rgba(179, 229, 252, 0.35), transparent 45%),
     radial-gradient(circle at 70% 75%, rgba(210, 240, 255, 0.3), transparent 50%);
-  filter: blur(18px);
-  opacity: 0.8;
-  animation: orbFloat 16s ease-in-out infinite alternate;
+  filter: blur(20px);
+  opacity: 0.85;
+  animation: orbFloat 30s var(--fx-ease-cream) infinite alternate;
 }
 
 .light-bg-stars {
@@ -196,7 +233,7 @@ html {
     radial-gradient(1px 1px at 45% 20%, rgba(0, 0, 0, 0.2) 40%, transparent 45%),
     radial-gradient(1px 1px at 75% 85%, rgba(0, 0, 0, 0.2) 40%, transparent 45%);
   opacity: 0.45;
-  animation: starTwinkle 10s ease-in-out infinite alternate;
+  animation: starTwinkle 14s var(--fx-ease-cream) infinite alternate;
 }
 
 .light-bg-glow {
@@ -207,6 +244,30 @@ html {
     radial-gradient(circle at 20% 80%, rgba(214, 240, 255, 0.45), transparent 55%),
     radial-gradient(circle at 80% 85%, rgba(232, 232, 255, 0.4), transparent 60%);
   opacity: 0.65;
+}
+
+@keyframes auroraFlow {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, 2%, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+}
+
+@keyframes creamFlow {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
 }
 
 @keyframes starTwinkle {
@@ -253,7 +314,7 @@ html {
   -webkit-mask-composite: destination-out;
 
   background-size: 200% 200%;
-  animation: glowBorder 3s linear infinite;
+  animation: glowBorder 6s linear infinite;
 }
 
 @keyframes glowBorder {
@@ -304,7 +365,7 @@ html {
   pointer-events: none;
   padding: 2px;
   background-size: 200% 200%;
-  animation: borderGlow 3s linear infinite;
+  animation: borderGlow 6s linear infinite;
 }
 @keyframes borderGlow {
   0% {
@@ -318,7 +379,7 @@ html {
 .animate-border-gradient {
   pointer-events: none;
   background-size: 200% 200%;
-  animation: borderGlow 3s linear infinite;
+  animation: borderGlow 6s linear infinite;
   border-radius: 1rem; /* same as card */
 }
 /* ✨ Neon Pulse for Dark Mode */
@@ -343,7 +404,7 @@ html {
 }
 
 .animate-goldPulse {
-  animation: goldPulse 3s ease-in-out infinite alternate;
+  animation: goldPulse 5s var(--fx-ease-cream) infinite alternate;
 }
 
 /* 🌤️ Soft Fade for Light Mode */
@@ -359,7 +420,7 @@ html {
 }
 
 .animate-softFade {
-  animation: softFade 3s ease-in-out infinite;
+  animation: softFade 4.5s var(--fx-ease-cream) infinite;
 }
 
 @keyframes goldFlow {
@@ -373,7 +434,7 @@ html {
 
 .animate-goldFlow {
   background-size: 200% auto;
-  animation: goldFlow 4s linear infinite alternate;
+  animation: goldFlow 8s linear infinite alternate;
 }
 /* Twinkling neon gradient animation */
 @keyframes gold-twinkle {
@@ -384,7 +445,7 @@ html {
 
 .animate-gold-twinkle {
   background-size: 200% 200%;
-  animation: gold-twinkle 3s ease infinite;
+  animation: gold-twinkle 6s var(--fx-ease-cream) infinite;
 }
 
 /* Twinkling black-white gradient animation */
@@ -396,10 +457,10 @@ html {
 
 .animate-bw-twinkle {
   background-size: 200% 200%;
-  animation: bw-twinkle 3s ease infinite;
+  animation: bw-twinkle 6s var(--fx-ease-cream) infinite;
 }
 .scrolling-track {
-  animation: smoothScroll 30s linear infinite;
+  animation: smoothScroll 40s linear infinite;
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -512,7 +573,7 @@ html {
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
-  animation: neonShift 6s ease-in-out infinite alternate;
+  animation: neonShift 12s var(--fx-ease-cream) infinite alternate;
 }
 
 @keyframes neonShift {
@@ -589,15 +650,18 @@ html {
     radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.22), transparent 45%),
     radial-gradient(circle at 80% 30%, rgba(34, 211, 238, 0.22), transparent 45%);
   opacity: 0.7;
-  animation: orbFloat 12s ease-in-out infinite alternate;
+  animation: orbFloat 26s var(--fx-ease-cream) infinite alternate;
 }
 
 @keyframes orbFloat {
   0% {
-    transform: translateY(0);
+    transform: translate3d(-10px, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, -18px, 0) scale(1.03);
   }
   100% {
-    transform: translateY(-20px);
+    transform: translate3d(-6px, -28px, 0) scale(1);
   }
 }
 
@@ -725,7 +789,7 @@ html {
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
-  animation: neonShift 6s ease-in-out infinite alternate;
+  animation: neonShift 12s var(--fx-ease-cream) infinite alternate;
   pointer-events: none;
 }
 
@@ -743,7 +807,7 @@ html {
   inset: 0;
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   opacity: 0.25;
-  animation: scanMove 5s linear infinite;
+  animation: scanMove 8s linear infinite;
   pointer-events: none;
 }
 
@@ -792,7 +856,9 @@ html {
   gap: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+  transition: transform var(--fx-dur-slow) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-slow) var(--fx-ease-cream),
+    opacity var(--fx-dur-slow) var(--fx-ease-cream);
   position: relative;
   overflow: hidden;
   will-change: transform;
@@ -890,6 +956,12 @@ html {
   --fx-grid: rgba(0, 0, 0, 0.12);
   --fx-font-title: "Space Grotesk", "Sora", system-ui, sans-serif;
   --fx-font-body: "Sora", "Space Grotesk", system-ui, sans-serif;
+  --fx-ease-cream: cubic-bezier(0.16, 1, 0.3, 1);
+  --fx-ease-soft: cubic-bezier(0.18, 0.95, 0.25, 1);
+  --fx-dur-fast: 220ms;
+  --fx-dur-med: 480ms;
+  --fx-dur-slow: 720ms;
+  --fx-dur-cream: 1200ms;
 }
 
 .dark {
@@ -988,6 +1060,23 @@ body {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
+.map-frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--fx-muted);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 70%);
+}
+
 .map-frame-ring {
   position: absolute;
   inset: 0;
@@ -1013,7 +1102,7 @@ body {
   position: absolute;
   inset: -40% 0;
   background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.12), transparent);
-  animation: scanMove 6s linear infinite;
+  animation: scanMove 9s linear infinite;
   pointer-events: none;
 }
 
@@ -1201,10 +1290,33 @@ html:not(.dark) .fx-button:focus {
   padding: 0 24px;
 }
 
+.fx-cream-trans {
+  transition-property: transform, box-shadow, opacity, filter, border-color;
+  transition-duration: var(--fx-dur-cream);
+  transition-timing-function: var(--fx-ease-cream);
+  will-change: transform;
+}
+
+.fx-nav-link,
+.fx-nav-tooltip {
+  transition-timing-function: var(--fx-ease-cream);
+}
+
+.fx-nav-tooltip {
+  transition: opacity var(--fx-dur-med) var(--fx-ease-cream);
+}
+
 .fx-section {
   position: relative;
   overflow: hidden;
   padding: 90px 0;
+}
+
+@supports (content-visibility: auto) {
+  .fx-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+  }
 }
 
 .fx-grid {
@@ -1265,6 +1377,9 @@ html:not(.dark) .fx-button:focus {
   backdrop-filter: blur(18px);
   overflow: hidden;
   will-change: transform;
+  transition: transform var(--fx-dur-cream) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-cream) var(--fx-ease-cream),
+    border-color var(--fx-dur-cream) var(--fx-ease-cream);
 }
 
 .fx-panel::before {
@@ -1274,6 +1389,29 @@ html:not(.dark) .fx-button:focus {
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 60%);
   opacity: 0.8;
   pointer-events: none;
+}
+
+.fx-panel::after {
+  content: "";
+  position: absolute;
+  inset: -40% 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  opacity: 0.12;
+  transform: translateX(-60%);
+  animation: panelSheen 18s var(--fx-ease-cream) infinite;
+  pointer-events: none;
+}
+
+@keyframes panelSheen {
+  0% {
+    transform: translateX(-60%);
+  }
+  50% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(60%);
+  }
 }
 
 .fx-ring {
@@ -1287,7 +1425,7 @@ html:not(.dark) .fx-button:focus {
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
   pointer-events: none;
-  animation: neonShift 6s ease-in-out infinite alternate;
+  animation: neonShift 12s var(--fx-ease-cream) infinite alternate;
 }
 
 .fx-button {
@@ -1301,7 +1439,9 @@ html:not(.dark) .fx-button:focus {
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.16), transparent);
   color: var(--fx-text);
   box-shadow: var(--fx-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--fx-dur-med) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-med) var(--fx-ease-cream),
+    filter var(--fx-dur-med) var(--fx-ease-cream);
 }
 
 .fx-button:hover {
@@ -1348,7 +1488,8 @@ html:not(.dark) .fx-button:focus {
   color: var(--fx-text);
   padding: 12px 14px;
   outline: none;
-  transition: box-shadow 0.3s ease, border 0.3s ease;
+  transition: box-shadow var(--fx-dur-med) var(--fx-ease-cream),
+    border var(--fx-dur-med) var(--fx-ease-cream);
 }
 
 .fx-input:focus {
@@ -1405,7 +1546,7 @@ html:not(.dark) .fx-button:focus {
   display: flex;
   gap: 12px;
   width: max-content;
-  animation: stackScroll 22s linear infinite;
+  animation: stackScroll 34s linear infinite;
   padding: 10px 0;
   will-change: transform;
   transform: translateZ(0);
@@ -1414,7 +1555,7 @@ html:not(.dark) .fx-button:focus {
 
 .stack-track-bottom {
   animation-direction: reverse;
-  animation-duration: 26s;
+  animation-duration: 38s;
 }
 
 .stack-marquee.is-interacting .stack-track {
@@ -1443,7 +1584,8 @@ html:not(.dark) .fx-button:focus {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
   overflow: hidden;
   min-width: 150px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--fx-dur-med) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-med) var(--fx-ease-cream);
   will-change: transform;
 }
 
@@ -1453,7 +1595,7 @@ html:not(.dark) .fx-button:focus {
   inset: 0;
   background: linear-gradient(120deg, transparent, rgba(56, 189, 248, 0.18), transparent);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--fx-dur-med) var(--fx-ease-cream);
 }
 
 .stack-chip:hover::after {
@@ -1563,7 +1705,9 @@ html:not(.dark) .fx-button:focus {
   color: var(--fx-text);
   border: 1px solid var(--fx-border);
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), transparent);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  transition: transform var(--fx-dur-med) var(--fx-ease-cream),
+    box-shadow var(--fx-dur-med) var(--fx-ease-cream),
+    border var(--fx-dur-med) var(--fx-ease-cream);
 }
 
 .about-ghost-btn:hover {
@@ -1777,20 +1921,106 @@ html:not(.dark) .fx-button:focus {
 
 @media (max-width: 768px) {
   .scrolling-track {
-    animation-duration: 36s;
+    animation-duration: 44s;
   }
 
   .stack-track {
-    animation-duration: 28s;
+    animation-duration: 40s;
   }
 
   .stack-track-bottom {
-    animation-duration: 32s;
+    animation-duration: 44s;
   }
 }
 
+/* === Performance Lite Mode === */
+.perf-lite .dark-bg-flow,
+.perf-lite .light-bg-flow {
+  animation: none;
+  opacity: 0.35;
+  mix-blend-mode: normal;
+}
+
+.perf-lite .dark-bg-orbs,
+.perf-lite .light-bg-orbs,
+.perf-lite .ambient-orbs {
+  animation-duration: 60s;
+  filter: blur(10px);
+}
+
+.perf-lite .fx-panel,
+.perf-lite .control-panel,
+.perf-lite .holo-card,
+.perf-lite .futuristic-card {
+  backdrop-filter: none;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.perf-lite .fx-panel::after {
+  animation: none;
+  opacity: 0;
+}
+
+.perf-lite .fx-ring,
+.perf-lite .neon-ring,
+.perf-lite .holo-frame {
+  animation: none;
+  filter: none;
+}
+
+.perf-lite .holo-scan,
+.perf-lite .map-scanline {
+  animation: none;
+  opacity: 0.08;
+}
+
+.perf-lite .scanlines {
+  opacity: 0.2;
+}
+
+/* Pause heavy effects while scrolling for smoother feel */
+.is-scrolling .dark-bg-flow,
+.is-scrolling .light-bg-flow,
+.is-scrolling .dark-bg-orbs,
+.is-scrolling .light-bg-orbs,
+.is-scrolling .dark-bg-stars,
+.is-scrolling .light-bg-stars,
+.is-scrolling .ambient-orbs,
+.is-scrolling .scanlines,
+.is-scrolling .holo-scan,
+.is-scrolling .map-scanline,
+.is-scrolling .fx-ring,
+.is-scrolling .neon-ring,
+.is-scrolling .holo-frame,
+.is-scrolling .border-effect,
+.is-scrolling .animate-border-gradient,
+.is-scrolling .animate-goldPulse,
+.is-scrolling .animate-softFade,
+.is-scrolling .animate-goldFlow,
+.is-scrolling .animate-gold-twinkle,
+.is-scrolling .animate-bw-twinkle,
+.is-scrolling .scrolling-track,
+.is-scrolling .stack-track {
+  animation-play-state: paused !important;
+}
+
+.is-scrolling .fx-panel,
+.is-scrolling .control-panel,
+.is-scrolling .holo-card,
+.is-scrolling .futuristic-card {
+  backdrop-filter: none;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+}
+
+.is-scrolling .fx-panel::after {
+  animation: none;
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

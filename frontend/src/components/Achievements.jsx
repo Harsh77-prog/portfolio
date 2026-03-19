@@ -2,7 +2,7 @@ import "../App.css";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import Reveal, { RevealGroup, RevealItem, CREAM_SPRING } from "./Reveal";
 
 const achievements = [
   {
@@ -96,8 +96,8 @@ export default function Achievements({ isDark }) {
             {[...achievements, ...achievements].map((a, i) => (
               <motion.article
                 key={`${a.title}-${i}`}
-                whileHover={{ scale: 1.02, y: -6 }}
-                transition={{ type: "spring", stiffness: 220, damping: 18 }}
+                whileHover={{ scale: 1.015, y: -4 }}
+                transition={CREAM_SPRING}
                 className="fx-panel p-6 relative w-[260px] sm:w-[280px]"
               >
                 <div className="fx-ring" />

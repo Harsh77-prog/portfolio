@@ -8,7 +8,7 @@ import { FaGamepad, FaCameraRetro,
 import '../App.css';
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import Reveal, { RevealGroup, RevealItem, CREAM_EASE } from "./Reveal";
 
 export default function Hobbies({ isDark }) {
   const hobbies = [
@@ -52,13 +52,14 @@ export default function Hobbies({ isDark }) {
               initial={{ opacity: 0, y: 50, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               animate={{
-                y: [0, -3, 3, 0],
+                y: [0, -2, 2, 0],
               }}
               transition={{
-                y: { repeat: Infinity, duration: 7 + index * 0.1, ease: "easeInOut", repeatType: "loop" },
+                default: { duration: 1.05, ease: CREAM_EASE },
+                y: { repeat: Infinity, duration: 12 + index * 0.3, ease: "easeInOut", repeatType: "mirror" },
               }}
               whileHover={{
-                scale: 1.12,
+                scale: 1.08,
                 boxShadow: isDark
                   ? "0 0 30px rgba(56,189,248,0.45)"
                   : "0 0 30px rgba(30,64,175,0.2)",

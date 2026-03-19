@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import { motion, useReducedMotion } from "framer-motion";
 
-const DEFAULT_DISTANCE = 28;
+const DEFAULT_DISTANCE = 24;
+export const CREAM_EASE = [0.16, 1, 0.3, 1];
+export const CREAM_SPRING = {
+  type: "spring",
+  stiffness: 120,
+  damping: 26,
+  mass: 1,
+};
 
 function getOffset(direction, distance) {
   switch (direction) {
@@ -27,7 +34,7 @@ function buildVariants({ direction, distance, duration, delay, variant }) {
 
   if (variant === "tilt") {
     return {
-      hidden: { ...base, scale: 0.97, rotateX: 6, rotateZ: -1 },
+      hidden: { ...base, scale: 0.985, rotateX: 4, rotateZ: -0.8 },
       show: {
         opacity: 1,
         x: 0,
@@ -35,7 +42,7 @@ function buildVariants({ direction, distance, duration, delay, variant }) {
         scale: 1,
         rotateX: 0,
         rotateZ: 0,
-        transition: { duration, ease: "easeOut", delay },
+        transition: { duration, ease: CREAM_EASE, delay, type: "tween" },
       },
     };
   }
@@ -48,7 +55,7 @@ function buildVariants({ direction, distance, duration, delay, variant }) {
         x: 0,
         y: 0,
         scale: 1,
-        transition: { duration, ease: "easeOut", delay },
+        transition: { duration, ease: CREAM_EASE, delay, type: "tween" },
       },
     };
   }
@@ -60,7 +67,7 @@ function buildVariants({ direction, distance, duration, delay, variant }) {
       x: 0,
       y: 0,
       scale: 1,
-      transition: { duration, ease: "easeOut", delay },
+      transition: { duration, ease: CREAM_EASE, delay, type: "tween" },
     },
   };
 }
@@ -69,7 +76,7 @@ export function RevealItem({
   as = "div",
   className = "",
   delay = 0,
-  duration = 0.7,
+  duration = 1.05,
   direction = "up",
   distance = DEFAULT_DISTANCE,
   variant = "soft",
@@ -102,7 +109,9 @@ export function RevealGroup({
   as = "div",
   className = "",
   delay = 0,
-  stagger = 0.08,
+  stagger = 0.12,
+  once = false,
+  amount = 0.25,
   children,
 }) {
   const reduceMotion = useReducedMotion();
@@ -130,7 +139,7 @@ export function RevealGroup({
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once, amount }}
     >
       {children}
     </MotionTag>
@@ -142,6 +151,8 @@ RevealGroup.propTypes = {
   className: PropTypes.string,
   delay: PropTypes.number,
   stagger: PropTypes.number,
+  once: PropTypes.bool,
+  amount: PropTypes.number,
   children: PropTypes.node.isRequired,
 };
 
@@ -149,10 +160,12 @@ export default function Reveal({
   as = "div",
   className = "",
   delay = 0,
-  duration = 0.7,
+  duration = 1.05,
   direction = "up",
   distance = DEFAULT_DISTANCE,
   variant = "soft",
+  once = false,
+  amount = 0.25,
   children,
 }) {
   const reduceMotion = useReducedMotion();
@@ -171,7 +184,7 @@ export default function Reveal({
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once, amount }}
     >
       {children}
     </MotionTag>
@@ -186,5 +199,7 @@ Reveal.propTypes = {
   direction: PropTypes.oneOf(["up", "down", "left", "right"]),
   distance: PropTypes.number,
   variant: PropTypes.oneOf(["soft", "glide", "tilt"]),
+  once: PropTypes.bool,
+  amount: PropTypes.number,
   children: PropTypes.node.isRequired,
 };

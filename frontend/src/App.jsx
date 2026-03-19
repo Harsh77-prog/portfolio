@@ -44,6 +44,42 @@ function App() {
     localStorage.setItem('isDark', JSON.stringify(isDark));
   }, [isDark]);
 
+  useEffect(() => {
+    const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    const memory = navigator.deviceMemory ?? 8;
+    const cores = navigator.hardwareConcurrency ?? 8;
+    const connection = navigator.connection;
+    const saveData = connection?.saveData ?? false;
+    const effectiveType = connection?.effectiveType ?? "";
+    const slowConnection = typeof effectiveType === "string" && effectiveType.includes("2g");
+
+    const isLowEnd = prefersReduced || saveData || slowConnection || memory <= 4 || cores <= 4;
+    document.documentElement.classList.toggle("perf-lite", isLowEnd);
+  }, []);
+
+  useEffect(() => {
+    let timeoutId;
+    const root = document.documentElement;
+
+    const handleScroll = () => {
+      root.classList.add("is-scrolling");
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        root.classList.remove("is-scrolling");
+      }, 140);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("touchmove", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("touchmove", handleScroll);
+      window.clearTimeout(timeoutId);
+      root.classList.remove("is-scrolling");
+    };
+  }, []);
+
   return (
     <Router>
       <div className="app-container">
@@ -52,6 +88,7 @@ function App() {
         {isDark ? (
           <div className="dark-bg">
             <div className="dark-bg-grid" />
+            <div className="dark-bg-flow" />
             <div className="dark-bg-orbs" />
             <div className="dark-bg-stars" />
             <div className="dark-bg-glow" />
@@ -59,6 +96,7 @@ function App() {
         ) : (
           <div className="light-bg">
             <div className="light-bg-grid" />
+            <div className="light-bg-flow" />
             <div className="light-bg-orbs" />
             <div className="light-bg-stars" />
             <div className="light-bg-glow" />

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import Reveal from "./Reveal";
+import Reveal, { CREAM_EASE } from "./Reveal";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -42,6 +42,7 @@ export default function AskQuestion({ isDark }) {
           <p className="fx-subtitle">Send a question</p>
           <motion.input
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #000" : "0 0 15px #000" }}
+            transition={{ duration: 0.45, ease: CREAM_EASE }}
             className="fx-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -50,6 +51,7 @@ export default function AskQuestion({ isDark }) {
           />
           <motion.textarea
             whileFocus={{ scale: 1.02, boxShadow: isDark ? "0 0 15px #000" : "0 0 15px #000" }}
+            transition={{ duration: 0.45, ease: CREAM_EASE }}
             className="fx-input h-32 resize-none"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
@@ -59,6 +61,7 @@ export default function AskQuestion({ isDark }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.45, ease: CREAM_EASE }}
             className="fx-button justify-center"
           >
             Ask Question
@@ -70,6 +73,7 @@ export default function AskQuestion({ isDark }) {
       <div className="text-center mb-6">
         <motion.button
           whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.45, ease: CREAM_EASE }}
           className="fx-button"
           onClick={() => setShowQuestions(!showQuestions)}
         >
@@ -85,7 +89,7 @@ export default function AskQuestion({ isDark }) {
               key={q._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [0, -5, 0] }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2, ease: CREAM_EASE }}
               className="fx-panel p-4"
             >
               <div className="fx-ring" />

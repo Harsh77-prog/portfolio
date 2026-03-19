@@ -28,7 +28,7 @@ export default function Home({ isDark }) {
         <div id="about" className="section-anchor">
           <Reveal
             as="section"
-            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+            className={`rounded-3xl bg-transparent shadow-none fx-cream-trans ${shadowHover}`}
           >
             <About isDark={isDark} />
           </Reveal>
@@ -38,7 +38,7 @@ export default function Home({ isDark }) {
         <div id="projects-section" className="section-anchor">
           <Reveal
             as="section"
-            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+            className={`rounded-3xl bg-transparent shadow-none fx-cream-trans ${shadowHover}`}
           >
             <Projects isDark={isDark} />
           </Reveal>
@@ -48,7 +48,7 @@ export default function Home({ isDark }) {
         <div id="achievements" className="section-anchor">
           <Reveal
             as="section"
-            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+            className={`rounded-3xl bg-transparent shadow-none fx-cream-trans ${shadowHover}`}
           >
             <Achievements isDark={isDark} />
           </Reveal>
@@ -58,7 +58,7 @@ export default function Home({ isDark }) {
         <div id="skills" className="section-anchor">
           <Reveal
             as="section"
-            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+            className={`rounded-3xl bg-transparent shadow-none fx-cream-trans ${shadowHover}`}
           >
             <Skills isDark={isDark} />
           </Reveal>
@@ -71,7 +71,7 @@ export default function Home({ isDark }) {
               {/* Expertise Section */}
               <Reveal
                 as="div"
-                className={`flex-1 rounded-2xl bg-transparent shadow-none p-0 transition duration-300 ${shadowHover} hover:scale-[1.03] flex justify-center mt-4 md:mt-6`}
+                className={`flex-1 rounded-2xl bg-transparent shadow-none p-0 fx-cream-trans ${shadowHover} hover:scale-[1.03] flex justify-center mt-4 md:mt-6`}
               >
                 <Expertise isDark={isDark} />
               </Reveal>
@@ -79,7 +79,7 @@ export default function Home({ isDark }) {
               {/* Hobies Section */}
               <Reveal
                 as="div"
-                className={`flex-1 rounded-2xl bg-transparent shadow-none  transition duration-300 ${shadowHover} hover:scale-[1.03] flex justify-center`}
+                className={`flex-1 rounded-2xl bg-transparent shadow-none fx-cream-trans ${shadowHover} hover:scale-[1.03] flex justify-center`}
               >
                 <Hobies isDark={isDark} />
               </Reveal>
@@ -89,7 +89,7 @@ export default function Home({ isDark }) {
           {/* Location Map */}
           <Reveal
             as="div"
-            className={`flex-1 rounded-2xl bg-transparent shadow-none transition duration-300 ${shadowHover} hover:scale-[1.03]`}
+            className={`flex-1 rounded-2xl bg-transparent shadow-none fx-cream-trans ${shadowHover} hover:scale-[1.03]`}
           >
             <LocationMap isDark={isDark} />
           </Reveal>
@@ -99,7 +99,7 @@ export default function Home({ isDark }) {
         <div id="contact" className="section-anchor">
           <Reveal
             as="section"
-            className={`rounded-3xl bg-transparent shadow-none transition duration-300 ${shadowHover}`}
+            className={`rounded-3xl bg-transparent shadow-none fx-cream-trans ${shadowHover}`}
           >
             <Contact isDark={isDark} />
           </Reveal>

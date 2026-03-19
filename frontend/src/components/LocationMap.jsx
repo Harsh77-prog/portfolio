@@ -1,5 +1,5 @@
 import "../App.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -34,6 +34,9 @@ const customIcon = new L.Icon({
 
 export default function LocationMap({ isDark }) {
   const [locationText, setLocationText] = useState("Loading location...");
+  const [showMap, setShowMap] = useState(false);
+  const [perfLite, setPerfLite] = useState(false);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     const [lat, lon] = myCoordinates;
@@ -55,6 +58,34 @@ export default function LocationMap({ isDark }) {
         setLocationText("Unable to fetch location");
       });
   }, []);
+
+  useEffect(() => {
+    setPerfLite(document.documentElement.classList.contains("perf-lite"));
+  }, []);
+
+  useEffect(() => {
+    if (perfLite) return;
+    const node = mapRef.current;
+    if (!node) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setShowMap(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [perfLite]);
 
   return (
     <div
@@ -86,25 +117,33 @@ export default function LocationMap({ isDark }) {
 
       {/* Map */}
       <Reveal as="div" className="map-frame" duration={0.8} variant="glide">
-        <div className="map-frame-ring" />
-        <div className="map-scanline" />
-        <div className="map-overlay" />
-        <MapContainer
-          center={myCoordinates}
-          zoom={mapZoomLevel}
-          scrollWheelZoom={true}
-          style={{ height: "100%", width: "100%" }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={myCoordinates} icon={customIcon}>
-            <Popup className={isDark ? "text-sky-200" : "text-black"}>
-              I am here! 📍
-            </Popup>
-          </Marker>
-        </MapContainer>
+        <div ref={mapRef} className="map-frame-inner">
+          <div className="map-frame-ring" />
+          <div className="map-scanline" />
+          <div className="map-overlay" />
+          {showMap && !perfLite ? (
+            <MapContainer
+              center={myCoordinates}
+              zoom={mapZoomLevel}
+              scrollWheelZoom={false}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={myCoordinates} icon={customIcon}>
+                <Popup className={isDark ? "text-sky-200" : "text-black"}>
+                  I am here! 📍
+                </Popup>
+              </Marker>
+            </MapContainer>
+          ) : (
+            <div className="map-placeholder">
+              <p>{perfLite ? "Map disabled for smoothness" : "Loading map..."}</p>
+            </div>
+          )}
+        </div>
       </Reveal>
     </div>
   );
@@ -113,6 +152,7 @@ export default function LocationMap({ isDark }) {
 LocationMap.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
 
 
 

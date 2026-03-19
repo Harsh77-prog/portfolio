@@ -27,7 +27,7 @@ export default function OwnerReply({ isDark }) {
 
   return (
     <div
-      className={`min-h-screen p-4 sm:p-6 max-w-4xl mx-auto transition-all duration-700 ease-in-out ${
+      className={`min-h-screen p-4 sm:p-6 max-w-4xl mx-auto fx-cream-trans ${
         isDark ? "text-white" : "text-slate-900"
       }`}
     >

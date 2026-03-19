@@ -20,7 +20,7 @@ import {
   SiDart,
 } from "react-icons/si";
 import PropTypes from "prop-types";
-import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import Reveal, { RevealGroup, RevealItem, CREAM_SPRING } from "./Reveal";
 
 export default function Skills({ isDark }) {
   const [isInteracting, setIsInteracting] = useState(false);
@@ -79,7 +79,8 @@ export default function Skills({ isDark }) {
               <motion.div
                 key={`top-${skill.name}-${index}`}
                 className="stack-chip"
-                whileHover={{ y: -4, scale: 1.02 }}
+                whileHover={{ y: -3, scale: 1.015 }}
+                transition={CREAM_SPRING}
               >
                 <span className="stack-chip-ring" />
                 <span className="stack-chip-icon">{skill.icon}</span>
@@ -94,7 +95,8 @@ export default function Skills({ isDark }) {
               <motion.div
                 key={`bottom-${skill.name}-${index}`}
                 className="stack-chip"
-                whileHover={{ y: -4, scale: 1.02 }}
+                whileHover={{ y: -3, scale: 1.015 }}
+                transition={CREAM_SPRING}
               >
                 <span className="stack-chip-ring" />
                 <span className="stack-chip-icon">{skill.icon}</span>

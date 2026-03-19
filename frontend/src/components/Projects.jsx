@@ -1,7 +1,8 @@
 ﻿import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../App.css";
+import { CREAM_EASE } from "./Reveal";
 
 const PROJECTS = [
   {
@@ -82,8 +83,9 @@ function HoloCard({ project, isDark, active }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.1, ease: CREAM_EASE }}
+      viewport={{ once: false, amount: 0.25 }}
       className={`holo-card ${isDark ? "holo-dark" : "holo-light"} ${
         active ? "holo-active" : "holo-idle"
       }`}
@@ -100,7 +102,7 @@ function HoloCard({ project, isDark, active }) {
           decoding="async"
           width="1200"
           height="675"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover fx-cream-trans transition-transform group-hover:scale-105"
         />
         <div className={`absolute inset-0 ${isDark ? "holo-overlay-dark" : "holo-overlay-light"}`} />
       </div>
@@ -142,7 +144,7 @@ function HoloCard({ project, isDark, active }) {
             onClick={(event) => {
               if (!isCompleted) event.preventDefault();
             }}
-            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-500 ${
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold fx-cream-trans ${
               !isCompleted
                 ? "opacity-40 cursor-not-allowed line-through"
                 : isDark
@@ -220,12 +222,40 @@ ProjectRail.propTypes = {
 export default function Projects({ isDark }) {
   const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const preloadImagesRef = useRef([]);
+
+  useEffect(() => {
+    const sources = PROJECTS.map((project) => project.img).filter(Boolean);
+
+    const preload = () => {
+      preloadImagesRef.current = sources.map((src) => {
+        const img = new Image();
+        img.src = src;
+        return img;
+      });
+    };
+
+    let handle;
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      handle = window.requestIdleCallback(preload, { timeout: 2000 });
+    } else {
+      handle = window.setTimeout(preload, 300);
+    }
+
+    return () => {
+      if (typeof window !== "undefined" && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(handle);
+      } else {
+        window.clearTimeout(handle);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
-    }, 7000);
+    }, 11000);
     return () => clearInterval(timer);
   }, [shouldReduceMotion]);
 
@@ -238,8 +268,8 @@ export default function Projects({ isDark }) {
         <motion.h1
           initial={shouldReduceMotion ? false : { opacity: 0, y: -24 }}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: CREAM_EASE }}
+          viewport={{ once: false, amount: 0.25 }}
           className="fx-title"
         >
           Projects Console
@@ -255,8 +285,8 @@ export default function Projects({ isDark }) {
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1.1, ease: CREAM_EASE }}
+            viewport={{ once: false, amount: 0.25 }}
             className={`control-panel ${isDark ? "panel-dark" : "panel-light"}`}
           >
             <div className="holo-corners" />

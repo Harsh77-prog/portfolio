@@ -5,7 +5,7 @@ export default function ThemeToggle({ isDark, setIsDark }) {
   return (
     <button
       onClick={() => setIsDark(!isDark)}
-      className={`relative inline-flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-300 transform hover:scale-110 active:scale-95 ${
+      className={`relative inline-flex items-center justify-center w-11 h-11 rounded-full border fx-cream-trans transform hover:scale-105 active:scale-98 ${
         isDark
           ? "bg-[#0b0f17]/80 border-sky-200/30 text-sky-200 shadow-[0_0_18px_rgba(34,197,94,0.35)]"
           : "bg-white/80 border-black/10 text-slate-900 shadow-[0_12px_30px_rgba(15,23,42,0.2)]"
