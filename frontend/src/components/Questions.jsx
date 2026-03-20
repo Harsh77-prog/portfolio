@@ -1,34 +1,45 @@
-import { useState, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import Reveal, { CREAM_EASE } from "./Reveal";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const ADMIN_IMAGE_BASE = "/HarshImage";
 
-export default function AskQuestion({ isDark }) {
+const AskQuestion = memo(function AskQuestion({ isDark }) {
   const [name, setName] = useState("");
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
   const [showQuestions, setShowQuestions] = useState(false);
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async () => {
     const res = await axios.get(`${backendUrl}/api/questions`);
     setQuestions(res.data);
-  };
+  }, [backendUrl]);
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [fetchQuestions]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await axios.post(`${backendUrl}/api/questions`, { name, question });
-    setName("");
-    setQuestion("");
-    fetchQuestions();
-    if (!showQuestions) setShowQuestions(true);
-  };
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      await axios.post(`${backendUrl}/api/questions`, { name, question });
+      setName("");
+      setQuestion("");
+      fetchQuestions();
+      setShowQuestions(true);
+    },
+    [backendUrl, fetchQuestions, name, question]
+  );
+
+  const handleNameChange = useCallback((event) => setName(event.target.value), []);
+  const handleQuestionChange = useCallback((event) => setQuestion(event.target.value), []);
+  const handleToggleQuestions = useCallback(
+    () => setShowQuestions((prev) => !prev),
+    []
+  );
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8">
@@ -45,7 +56,7 @@ export default function AskQuestion({ isDark }) {
             transition={{ duration: 0.45, ease: CREAM_EASE }}
             className="fx-input"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             placeholder="Your Name"
             required
           />
@@ -54,7 +65,7 @@ export default function AskQuestion({ isDark }) {
             transition={{ duration: 0.45, ease: CREAM_EASE }}
             className="fx-input h-32 resize-none"
             value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={handleQuestionChange}
             placeholder="Type your question here..."
             required
           />
@@ -75,7 +86,7 @@ export default function AskQuestion({ isDark }) {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.45, ease: CREAM_EASE }}
           className="fx-button"
-          onClick={() => setShowQuestions(!showQuestions)}
+          onClick={handleToggleQuestions}
         >
           {showQuestions ? "Hide Questions" : "Show Questions"}
         </motion.button>
@@ -132,15 +143,19 @@ export default function AskQuestion({ isDark }) {
                       isDark ? "bg-sky-200/20 text-sky-200" : "bg-slate-900/10 text-slate-900"
                     }`}
                   >
-                    <img
-                      src="HarshImage.png"
-                      alt="Admin"
-                      loading="lazy"
-                      decoding="async"
-                      width="36"
-                      height="36"
-                      className="w-9 h-9 rounded-full object-cover"
-                    />
+                    <picture>
+                      <source srcSet={`${ADMIN_IMAGE_BASE}.avif`} type="image/avif" />
+                      <source srcSet={`${ADMIN_IMAGE_BASE}.webp`} type="image/webp" />
+                      <img
+                        src={`${ADMIN_IMAGE_BASE}.png`}
+                        alt="Admin"
+                        loading="lazy"
+                        decoding="async"
+                        width="36"
+                        height="36"
+                        className="w-9 h-9 rounded-full object-cover"
+                      />
+                    </picture>
                   </div>
                   <div className="items-center gap-2 text-sm">
                     <p className={`leading-snug text-justify ${isDark ? "text-slate-200" : "text-slate-700"}`}>
@@ -158,12 +173,15 @@ export default function AskQuestion({ isDark }) {
       )}
     </div>
   );
-}
+});
 
 AskQuestion.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
 
+AskQuestion.displayName = "AskQuestion";
+
+export default AskQuestion;
 
 
 

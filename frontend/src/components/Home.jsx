@@ -1,21 +1,25 @@
+import { memo, useMemo } from "react";
+import Reveal from "./Reveal";
+import "../App.css";
+import PropTypes from "prop-types";
 import About from "./about";
 import Projects from "./Projects";
 import Achievements from "./Achievements";
 import Skills from "./skill";
 import Contact from "./Contact";
-import Hobies from "./Hobies";
+import Hobbies from "./Hobies";
 import Expertise from "./Expertise";
 import LocationMap from "./LocationMap";
-import Reveal from "./Reveal";
 
-import "../App.css";
-import PropTypes from "prop-types";
-
-export default function Home({ isDark }) {
+const Home = memo(function Home({ isDark }) {
   // Hover shadow based on mode
-  const shadowHover = isDark
-    ? "hover:shadow-[0_0_25px_#22c55e]/60"
-    : "hover:shadow-[0_0_25px_#000000]/60";
+  const shadowHover = useMemo(
+    () =>
+      isDark
+        ? "hover:shadow-[0_0_25px_#22c55e]/60"
+        : "hover:shadow-[0_0_25px_#000000]/60",
+    [isDark]
+  );
 
   return (
     <div
@@ -81,7 +85,7 @@ export default function Home({ isDark }) {
                 as="div"
                 className={`flex-1 rounded-2xl bg-transparent shadow-none fx-cream-trans ${shadowHover} hover:scale-[1.03] flex justify-center`}
               >
-                <Hobies isDark={isDark} />
+                <Hobbies isDark={isDark} />
               </Reveal>
             </div>
           </div>
@@ -107,12 +111,15 @@ export default function Home({ isDark }) {
       </div>
     </div>
   );
-}
+});
 
 Home.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
 
+Home.displayName = "Home";
+
+export default Home;
 
 
 

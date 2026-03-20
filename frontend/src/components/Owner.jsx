@@ -1,29 +1,50 @@
-import { useState, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-export default function OwnerReply({ isDark }) {
+const OwnerReply = memo(function OwnerReply({ isDark }) {
   const [questions, setQuestions] = useState([]);
   const [replies, setReplies] = useState({});
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async () => {
     const res = await axios.get(`${backendUrl}/api/questions`);
     setQuestions(res.data);
-  };
+  }, [backendUrl]);
 
   useEffect(() => {
     fetchQuestions();
+  }, [fetchQuestions]);
+
+  const handleReply = useCallback(
+    async (id) => {
+      const reply = replies[id];
+      if (!reply) return;
+      await axios.post(`${backendUrl}/api/questions/reply/${id}`, {
+        reply,
+      });
+      setReplies((prev) => ({ ...prev, [id]: "" }));
+      fetchQuestions();
+    },
+    [backendUrl, fetchQuestions, replies]
+  );
+
+  const handleReplyChange = useCallback((event) => {
+    const id = event.target.dataset.id;
+    if (!id) return;
+    const value = event.target.value;
+    setReplies((prev) => ({ ...prev, [id]: value }));
   }, []);
 
-  const handleReply = async (id) => {
-    await axios.post(`${backendUrl}/api/questions/reply/${id}`, {
-      reply: replies[id],
-    });
-    setReplies({ ...replies, [id]: "" });
-    fetchQuestions();
-  };
+  const handleReplyClick = useCallback(
+    (event) => {
+      const id = event.currentTarget.dataset.id;
+      if (!id) return;
+      handleReply(id);
+    },
+    [handleReply]
+  );
 
   return (
     <div
@@ -91,13 +112,13 @@ export default function OwnerReply({ isDark }) {
                   className="fx-input mt-3"
                   placeholder="Type your reply..."
                   value={replies[q._id] || ""}
-                  onChange={(e) =>
-                    setReplies({ ...replies, [q._id]: e.target.value })
-                  }
+                  data-id={q._id}
+                  onChange={handleReplyChange}
                 />
 
                 <button
-                  onClick={() => handleReply(q._id)}
+                  data-id={q._id}
+                  onClick={handleReplyClick}
                   className="fx-button mt-4"
                 >
                   Send Reply
@@ -109,11 +130,15 @@ export default function OwnerReply({ isDark }) {
       )}
     </div>
   );
-}
+});
 
 OwnerReply.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+OwnerReply.displayName = "OwnerReply";
+
+export default OwnerReply;
 
 
 

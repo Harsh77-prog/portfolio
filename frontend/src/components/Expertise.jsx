@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
 import "../App.css";
 import Reveal from "./Reveal";
 
@@ -19,7 +20,7 @@ const signalCards = [
   { label: "App Dev", value: "Flutter", sub: "Basic Dart & Firebase" },
 ];
 
-export default function Expertise({ isDark }) {
+const Expertise = memo(function Expertise({ isDark }) {
   const cardTone = isDark
     ? "bg-white/5 border-white/10"
     : "bg-white border-black/10";
@@ -97,8 +98,12 @@ export default function Expertise({ isDark }) {
       </div>
     </Reveal>
   );
-}
+});
 
 Expertise.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+Expertise.displayName = "Expertise";
+
+export default Expertise;

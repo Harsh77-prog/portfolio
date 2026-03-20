@@ -1,5 +1,5 @@
 import "../App.css";
-import Questions from "./Questions";
+import { memo } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -9,7 +9,9 @@ import {
 import PropTypes from "prop-types";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
-export default function Contact({ isDark }) {
+import Questions from "./Questions";
+
+const Contact = memo(function Contact({ isDark }) {
   return (
     <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
       <div className="fx-grid" />
@@ -97,11 +99,15 @@ export default function Contact({ isDark }) {
       </div>
     </section>
   );
-}
+});
 
 Contact.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+Contact.displayName = "Contact";
+
+export default Contact;
 
 
 

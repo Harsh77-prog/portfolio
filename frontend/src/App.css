@@ -9,13 +9,21 @@
   }
 body {
     background: #05060d;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
 }
   
   .scroll-container {
@@ -470,6 +478,8 @@ html {
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   scrollbar-width: none;
   cursor: grab;
   -webkit-overflow-scrolling: touch;
@@ -1313,7 +1323,7 @@ html:not(.dark) .fx-button:focus {
 }
 
 @supports (content-visibility: auto) {
-  .fx-section {
+  .perf-lite .fx-section {
     content-visibility: auto;
     contain-intrinsic-size: 900px;
   }
@@ -1717,14 +1727,15 @@ html:not(.dark) .fx-button:focus {
 }
 
 .about-hero-media {
-  border-radius: 26px;
-  overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35);
-  transform: translateZ(0);
-  position: relative;
-  background-size: cover;
-  background-position: center 20%;
-  background-repeat: no-repeat;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35);
+    transform: translateZ(0);
+    position: relative;
+    background-image: url("/HarshImage.png");
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
   filter: none;
   backdrop-filter: none;
 }

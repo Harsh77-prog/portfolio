@@ -1,11 +1,28 @@
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
-import '../App.css';
-import PropTypes from 'prop-types';
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
+import "../App.css";
+import PropTypes from "prop-types";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
-export default function About({ isDark }) {
-  const text = "Hi, I am Harsh";
+const HERO_TEXT = "Hi, I am Harsh";
+
+const About = memo(function About({ isDark }) {
+  const sectionRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const orbDrift = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const orbDriftAlt = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  const orbOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.25, 0.6, 0.25]);
+  const heroFloat = useTransform(scrollYProgress, [0, 1], [0, -18]);
+  const heroImage = useMemo(
+    () =>
+      "image-set(url('/HarshImage.avif') type('image/avif'), url('/HarshImage.webp') type('image/webp'), url('/HarshImage.png') type('image/png'))",
+    []
+  );
 
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -17,11 +34,11 @@ export default function About({ isDark }) {
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        setDisplayedText(text.slice(0, index + 1));
+        setDisplayedText(HERO_TEXT.slice(0, index + 1));
         setIndex(index + 1);
-        if (index === text.length) setTimeout(() => setIsDeleting(true), pauseTime);
+        if (index === HERO_TEXT.length) setTimeout(() => setIsDeleting(true), pauseTime);
       } else {
-        setDisplayedText(text.slice(0, index - 1));
+        setDisplayedText(HERO_TEXT.slice(0, index - 1));
         setIndex(index - 1);
         if (index === 0) setIsDeleting(false);
       }
@@ -31,10 +48,29 @@ export default function About({ isDark }) {
   }, [index, isDeleting]);
 
   return (
-    <section className={`fx-section about-cinematic ${isDark ? "text-white" : "text-slate-900"}`}>
+    <section
+      ref={sectionRef}
+      className={`fx-section about-cinematic ${isDark ? "text-white" : "text-slate-900"}`}
+    >
       <div className="fx-grid" />
-      <div className="fx-orb" style={{ top: "-80px", left: "-40px" }} />
-      <div className="fx-orb fx-orb-2" style={{ bottom: "-140px", right: "-60px" }} />
+      <motion.div
+        className="fx-orb"
+        style={{
+          top: "-80px",
+          left: "-40px",
+          y: reduceMotion ? 0 : orbDrift,
+          opacity: reduceMotion ? 1 : orbOpacity,
+        }}
+      />
+      <motion.div
+        className="fx-orb fx-orb-2"
+        style={{
+          bottom: "-140px",
+          right: "-60px",
+          y: reduceMotion ? 0 : orbDriftAlt,
+          opacity: reduceMotion ? 1 : orbOpacity,
+        }}
+      />
 
       <div className="fx-shell relative z-10">
         <div className="fx-panel about-hero-card p-8 sm:p-10 md:p-12">
@@ -117,9 +153,9 @@ export default function About({ isDark }) {
               variant="glide"
               className="relative order-1 md:order-2"
             >
-              <div
+              <motion.div
                 className="fx-panel about-hero-media overflow-hidden"
-                style={{ backgroundImage: "url('/HarshImage.png')" }}
+                style={{ backgroundImage: heroImage, y: reduceMotion ? 0 : heroFloat }}
               >
                 <div className="about-hero-frame" />
                 <div className="relative h-[320px] sm:h-[420px] md:h-[460px]">
@@ -140,20 +176,23 @@ export default function About({ isDark }) {
                     <p className="about-hero-stat-value">India</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </Reveal>
           </div>
         </div>
       </div>
     </section>
   );
-}
+});
 
 // Add prop-types validation
 About.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
 
+About.displayName = "About";
+
+export default About;
 
 
 

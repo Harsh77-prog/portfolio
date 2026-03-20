@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import {
@@ -13,32 +12,28 @@ import {
 import "../App.css";
 import PropTypes from "prop-types";
 
-export default function Navbar({ isDark, setIsDark }) {
+const NAV_ITEMS = [
+  { name: "Home", icon: FaHome, hash: "home" },
+  { name: "About", icon: FaUser, hash: "about" },
+  { name: "Projects", icon: FaProjectDiagram, hash: "projects-section" },
+  { name: "Achievements", icon: FaTrophy, hash: "achievements" },
+  { name: "Skills", icon: FaCode, hash: "skills" },
+  { name: "Contact", icon: FaEnvelope, hash: "contact" },
+];
+
+const Navbar = memo(function Navbar({ isDark, setIsDark }) {
   const location = useLocation();
-  const [setClickedLink] = useState(null);
-
-  const navItems = [
-    { name: "Home", icon: <FaHome />, hash: "home" },
-    { name: "About", icon: <FaUser />, hash: "about" },
-    { name: "Projects", icon: <FaProjectDiagram />, hash: "projects-section" },
-    { name: "Achievements", icon: <FaTrophy />, hash: "achievements" },
-    { name: "Skills", icon: <FaCode />, hash: "skills" },
-    { name: "Contact", icon: <FaEnvelope />, hash: "contact" },
-  ];
-
-  const colors = {
-    linkColor: isDark ? "text-sky-200" : "text-slate-900",
-    hoverShadow: isDark
-      ? "hover:shadow-[0_0_18px_rgba(34,197,94,0.6)] hover:scale-105"
-      : "hover:shadow-[0_0_12px_rgba(15,23,42,0.35)] hover:scale-105",
-    tooltipBg: isDark ? "bg-[#0b0f17]/80" : "bg-white/90",
-    tooltipText: isDark ? "text-sky-200" : "text-slate-900",
-  };
-
-  const handleClick = (hash) => {
-    setClickedLink(hash);
-    setTimeout(() => setClickedLink(null), 300);
-  };
+  const colors = useMemo(
+    () => ({
+      linkColor: isDark ? "text-sky-200" : "text-slate-900",
+      hoverShadow: isDark
+        ? "hover:shadow-[0_0_18px_rgba(34,197,94,0.6)] hover:scale-105"
+        : "hover:shadow-[0_0_12px_rgba(15,23,42,0.35)] hover:scale-105",
+      tooltipBg: isDark ? "bg-[#0b0f17]/80" : "bg-white/90",
+      tooltipText: isDark ? "text-sky-200" : "text-slate-900",
+    }),
+    [isDark]
+  );
 
   return (
     <div className="fixed top-1/2 right-2 sm:right-4 -translate-y-1/2 z-[999] fx-nav">
@@ -54,18 +49,18 @@ export default function Navbar({ isDark, setIsDark }) {
         </div>
 
         <div className="flex flex-col items-center text-xs font-medium tracking-wide gap-4 sm:gap-6 fx-nav-items">
-          {navItems.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = location.pathname === "/" && location.hash === `#${item.hash}`;
+            const Icon = item.icon;
             return (
               <div key={item.name}>
                 <Link
                   to={`/#${item.hash}`}
-                  onClick={() => handleClick(item.hash)}
                   className={`relative group text-lg sm:text-xl fx-cream-trans fx-nav-link ${colors.linkColor} ${colors.hoverShadow} ${
                     isActive ? "scale-110" : ""
                   }`}
                 >
-                  {item.icon}
+                  <Icon />
                   {/* Tooltip */}
                   <span
                     className={`absolute right-9 sm:right-10 top-1/2 -translate-y-1/2 fx-nav-tooltip ${colors.tooltipBg} ${colors.tooltipText} text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md opacity-0 group-hover:opacity-100 whitespace-nowrap z-50`}
@@ -80,12 +75,16 @@ export default function Navbar({ isDark, setIsDark }) {
       </nav>
     </div>
   );
-}
+});
 
 Navbar.propTypes = {
   isDark: PropTypes.bool.isRequired,
   setIsDark: PropTypes.func.isRequired,
 };
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;
 
 
 

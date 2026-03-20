@@ -1,7 +1,7 @@
 import "../App.css";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import Reveal, { RevealGroup, RevealItem, CREAM_SPRING } from "./Reveal";
 
 const achievements = [
@@ -56,8 +56,10 @@ const achievements = [
   },
 ];
 
-export default function Achievements({ isDark }) {
+const Achievements = memo(function Achievements({ isDark }) {
   const [isInteracting, setIsInteracting] = useState(false);
+  const handlePointerDown = useCallback(() => setIsInteracting(true), []);
+  const handlePointerUp = useCallback(() => setIsInteracting(false), []);
 
   return (
     <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
@@ -87,10 +89,10 @@ export default function Achievements({ isDark }) {
           className={`mt-12 achieve-marquee ${isInteracting ? "is-interacting" : ""}`}
           delay={0.1}
           variant="glide"
-          onPointerDown={() => setIsInteracting(true)}
-          onPointerUp={() => setIsInteracting(false)}
-          onPointerLeave={() => setIsInteracting(false)}
-          onPointerCancel={() => setIsInteracting(false)}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          onPointerCancel={handlePointerUp}
         >
           <div className="achieve-track scrolling-track">
             {[...achievements, ...achievements].map((a, i) => (
@@ -122,11 +124,15 @@ export default function Achievements({ isDark }) {
       </div>
     </section>
   );
-}
+});
 
 Achievements.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+Achievements.displayName = "Achievements";
+
+export default Achievements;
 
 
 

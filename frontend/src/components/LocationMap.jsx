@@ -1,5 +1,5 @@
 import "../App.css";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 
 // Custom avatar image
-const avatarUrl = "HarshImage.png";
+const avatarUrl = "/HarshImage.webp";
 
 // Fix Leaflet marker icon issues
 delete L.Icon.Default.prototype._getIconUrl;
@@ -32,18 +32,21 @@ const customIcon = new L.Icon({
   popupAnchor: [0, -50],
 });
 
-export default function LocationMap({ isDark }) {
+const LocationMap = memo(function LocationMap({ isDark }) {
   const [locationText, setLocationText] = useState("Loading location...");
   const [showMap, setShowMap] = useState(false);
   const [perfLite, setPerfLite] = useState(false);
   const mapRef = useRef(null);
+  const mapStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
 
   useEffect(() => {
     const [lat, lon] = myCoordinates;
+    const controller = new AbortController();
 
     // Reverse Geocoding
     fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+      { signal: controller.signal }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -54,9 +57,12 @@ export default function LocationMap({ isDark }) {
         }
       })
       .catch((err) => {
+        if (err?.name === "AbortError") return;
         console.error("Reverse geocoding error:", err);
         setLocationText("Unable to fetch location");
       });
+
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
@@ -126,7 +132,7 @@ export default function LocationMap({ isDark }) {
               center={myCoordinates}
               zoom={mapZoomLevel}
               scrollWheelZoom={false}
-              style={{ height: "100%", width: "100%" }}
+              style={mapStyle}
             >
               <TileLayer
                 attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
@@ -147,11 +153,15 @@ export default function LocationMap({ isDark }) {
       </Reveal>
     </div>
   );
-}
+});
 
 LocationMap.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+LocationMap.displayName = "LocationMap";
+
+export default LocationMap;
 
 
 

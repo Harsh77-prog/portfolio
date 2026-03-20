@@ -1,5 +1,5 @@
-﻿import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 import { CREAM_EASE } from "./Reveal";
@@ -10,7 +10,7 @@ const PROJECTS = [
     desc: "A full-stack shopping platform with filters, cart, and Razorpay payments(Testing mode)",
     status: "Completed",
     link: "https://trendify-ecommerce-web.onrender.com",
-    img: "/trendify.png",
+    imgBase: "/trendify",
     stack: ["Ejs", "Node", "Razorpay"],
   },
   {
@@ -18,7 +18,7 @@ const PROJECTS = [
     desc: "Personal portfolio using React, Tailwind, and Framer Motion animations.",
     status: "Completed",
     link: "#",
-    img: "/portfolio.png",
+    imgBase: "/portfolio",
     stack: ["React", "Tailwind", "Framer"],
   },
   {
@@ -26,7 +26,7 @@ const PROJECTS = [
     desc: "A news website using React and NewsAPI with category filtering.",
     status: "Completed",
     link: "https://news-v9gy.vercel.app/",
-    img: "/tazakhabar.png",
+    imgBase: "/tazakhabar",
     stack: ["React", "NewsAPI", "Node"],
   },
   {
@@ -34,7 +34,7 @@ const PROJECTS = [
     desc: "Single-player chess game with AI (Minimax).",
     status: "Completed",
     link: "https://github.com/Harsh77-prog/Shatranj",
-    img: "/shatranj.png",
+    imgBase: "/shatranj",
     stack: ["Flutter", "Dart", "Minimax"],
   },
   {
@@ -42,7 +42,7 @@ const PROJECTS = [
     desc: "Create and track your financial journey with intelligent analytics",
     status: "In Progress",
     link: "https://finance-iq-frontend.vercel.app",
-    img: "/finance.png",
+    imgBase: "/finance",
     stack: ["Next", "Node", "postgreSQL" , "AI/ML"],
   },
   {
@@ -50,12 +50,12 @@ const PROJECTS = [
     desc: "Flutter notes app with ChatGPT integration.",
     status: "Completed",
     link: "https://github.com/Harsh77-prog/Noteshelf",
-    img: "startimg.png",
+    imgBase: "/startimg",
     stack: ["Flutter", "Open AI", "Local Storage"],
   },
 ];
 
-function StatusPill({ status, isDark }) {
+const StatusPill = memo(function StatusPill({ status, isDark }) {
   const isCompleted = status === "Completed";
   return (
     <span
@@ -70,22 +70,64 @@ function StatusPill({ status, isDark }) {
       {isCompleted ? "LIVE" : "SOON"}
     </span>
   );
-}
+});
 
 StatusPill.propTypes = {
   status: PropTypes.string.isRequired,
   isDark: PropTypes.bool.isRequired,
 };
 
-function HoloCard({ project, isDark, active }) {
+const ProjectImage = memo(function ProjectImage({
+  base,
+  alt,
+  className,
+  width,
+  height,
+  loading = "lazy",
+  decoding = "async",
+}) {
+  return (
+    <picture>
+      <source srcSet={`${base}.avif`} type="image/avif" />
+      <source srcSet={`${base}.webp`} type="image/webp" />
+      <img
+        src={`${base}.png`}
+        alt={alt}
+        loading={loading}
+        decoding={decoding}
+        width={width}
+        height={height}
+        className={className}
+      />
+    </picture>
+  );
+});
+
+ProjectImage.propTypes = {
+  base: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  loading: PropTypes.string,
+  decoding: PropTypes.string,
+};
+
+const HoloCard = memo(function HoloCard({ project, isDark, active }) {
   const isCompleted = project.status === "Completed";
+  const handleLaunchClick = useCallback(
+    (event) => {
+      if (!isCompleted) event.preventDefault();
+    },
+    [isCompleted]
+  );
 
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.1, ease: CREAM_EASE }}
-      viewport={{ once: false, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.25 }}
       className={`holo-card ${isDark ? "holo-dark" : "holo-light"} ${
         active ? "holo-active" : "holo-idle"
       }`}
@@ -95,8 +137,8 @@ function HoloCard({ project, isDark, active }) {
       <div className="holo-scan" />
 
       <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden">
-        <img
-          src={project.img}
+        <ProjectImage
+          base={project.imgBase}
           alt={project.name}
           loading="lazy"
           decoding="async"
@@ -141,9 +183,7 @@ function HoloCard({ project, isDark, active }) {
             href={isCompleted ? project.link : "#"}
             target={isCompleted ? "_blank" : undefined}
             rel={isCompleted ? "noopener noreferrer" : undefined}
-            onClick={(event) => {
-              if (!isCompleted) event.preventDefault();
-            }}
+            onClick={handleLaunchClick}
             className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold fx-cream-trans ${
               !isCompleted
                 ? "opacity-40 cursor-not-allowed line-through"
@@ -160,7 +200,7 @@ function HoloCard({ project, isDark, active }) {
       </div>
     </motion.article>
   );
-}
+});
 
 HoloCard.propTypes = {
   project: PropTypes.shape({
@@ -168,14 +208,23 @@ HoloCard.propTypes = {
     desc: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    imgBase: PropTypes.string.isRequired,
     stack: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   isDark: PropTypes.bool.isRequired,
   active: PropTypes.bool.isRequired,
 };
 
-function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
+const ProjectRail = memo(function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
+  const handleRailClick = useCallback(
+    (event) => {
+      const index = Number(event.currentTarget.dataset.index);
+      if (Number.isNaN(index)) return;
+      onSelect(index);
+    },
+    [onSelect]
+  );
+
   return (
     <div className="relative mt-10">
       <div className="rail-line" />
@@ -186,13 +235,14 @@ function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
             <button
               key={`${project.name}-${index}`}
               type="button"
-              onClick={() => onSelect(index)}
+              data-index={index}
+              onClick={handleRailClick}
               className={`rail-item ${isActive ? "rail-active" : "rail-idle"} ${
                 isDark ? "rail-dark" : "rail-light"
               }`}
             >
-              <img
-                src={project.img}
+              <ProjectImage
+                base={project.imgBase}
                 alt={project.name}
                 loading="lazy"
                 decoding="async"
@@ -210,7 +260,7 @@ function ProjectRail({ projects, isDark, activeIndex, onSelect }) {
       </div>
     </div>
   );
-}
+});
 
 ProjectRail.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -219,13 +269,26 @@ ProjectRail.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-export default function Projects({ isDark }) {
+const Projects = memo(function Projects({ isDark }) {
   const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const preloadImagesRef = useRef([]);
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const gridDrift = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const gridOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.15, 0.4, 0.15]);
 
   useEffect(() => {
-    const sources = PROJECTS.map((project) => project.img).filter(Boolean);
+    if (typeof document !== "undefined" && document.documentElement.classList.contains("perf-lite")) {
+      return undefined;
+    }
+    const sources = PROJECTS.flatMap((project) => [
+      `${project.imgBase}.avif`,
+      `${project.imgBase}.webp`,
+    ]);
 
     const preload = () => {
       preloadImagesRef.current = sources.map((src) => {
@@ -253,6 +316,9 @@ export default function Projects({ isDark }) {
 
   useEffect(() => {
     if (shouldReduceMotion) return;
+    if (typeof document !== "undefined" && document.documentElement.classList.contains("perf-lite")) {
+      return undefined;
+    }
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % PROJECTS.length);
     }, 11000);
@@ -260,16 +326,24 @@ export default function Projects({ isDark }) {
   }, [shouldReduceMotion]);
 
   const activeProject = useMemo(() => PROJECTS[activeIndex], [activeIndex]);
+  const handleSelect = useCallback((index) => setActiveIndex(index), []);
+  const gridStyle = useMemo(
+    () => (shouldReduceMotion ? undefined : { y: gridDrift, opacity: gridOpacity }),
+    [gridDrift, gridOpacity, shouldReduceMotion]
+  );
 
   return (
-    <section className={`fx-section relative overflow-hidden ${isDark ? "text-white" : "text-black"}`}>
-      <div className="fx-grid" />
+    <section
+      ref={sectionRef}
+      className={`fx-section relative overflow-hidden ${isDark ? "text-white" : "text-black"}`}
+    >
+      <motion.div className="fx-grid" style={gridStyle} />
       <div className="relative mx-auto max-w-6xl px-4 text-center">
         <motion.h1
           initial={shouldReduceMotion ? false : { opacity: 0, y: -24 }}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: CREAM_EASE }}
-          viewport={{ once: false, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.25 }}
           className="fx-title"
         >
           Projects Console
@@ -286,7 +360,7 @@ export default function Projects({ isDark }) {
             initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
             transition={{ duration: 1.1, ease: CREAM_EASE }}
-            viewport={{ once: false, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.25 }}
             className={`control-panel ${isDark ? "panel-dark" : "panel-light"}`}
           >
             <div className="holo-corners" />
@@ -331,13 +405,21 @@ export default function Projects({ isDark }) {
           projects={PROJECTS}
           isDark={isDark}
           activeIndex={activeIndex}
-          onSelect={setActiveIndex}
+          onSelect={handleSelect}
         />
       </div>
     </section>
   );
-}
+});
 
 Projects.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+StatusPill.displayName = "StatusPill";
+ProjectImage.displayName = "ProjectImage";
+HoloCard.displayName = "HoloCard";
+ProjectRail.displayName = "ProjectRail";
+Projects.displayName = "Projects";
+
+export default Projects;

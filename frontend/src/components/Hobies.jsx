@@ -1,26 +1,32 @@
-import { FaGamepad, FaCameraRetro,
-  FaPlaneDeparture,
+import {
   FaCamera,
+  FaCameraRetro,
   FaCode,
+  FaGamepad,
+  FaMusic,
   FaPaintBrush,
+  FaPlaneDeparture,
   FaPuzzlePiece,
-  FaMusic,  } from "react-icons/fa";
-import '../App.css';
-import { motion } from "framer-motion";
+} from "react-icons/fa";
+import "../App.css";
+import { motion, useReducedMotion } from "framer-motion";
 import PropTypes from "prop-types";
+import { memo } from "react";
 import Reveal, { RevealGroup, RevealItem, CREAM_EASE } from "./Reveal";
 
-export default function Hobbies({ isDark }) {
-  const hobbies = [
-    { icon: <FaGamepad />, label: "Gaming" },
-    { icon: <FaMusic />, label: "Music" },
-    { icon: <FaCameraRetro />, label: "Photo Editing" },
-    { icon: <FaPlaneDeparture />, label: "Traveling" },
-    { icon: <FaCamera />, label: "Photography" },
-    { icon: <FaCode />, label: "Coding" },
-    { icon: <FaPaintBrush />, label: "Crafting" },
-    { icon: <FaPuzzlePiece />, label: "Puzzles" },
-  ];
+const HOBBIES = [
+  { icon: <FaGamepad />, label: "Gaming" },
+  { icon: <FaMusic />, label: "Music" },
+  { icon: <FaCameraRetro />, label: "Photo Editing" },
+  { icon: <FaPlaneDeparture />, label: "Traveling" },
+  { icon: <FaCamera />, label: "Photography" },
+  { icon: <FaCode />, label: "Coding" },
+  { icon: <FaPaintBrush />, label: "Crafting" },
+  { icon: <FaPuzzlePiece />, label: "Puzzles" },
+];
+
+const Hobbies = memo(function Hobbies({ isDark }) {
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={`fx-section ${isDark ? "text-white" : "text-slate-900"}`}>
@@ -46,14 +52,19 @@ export default function Hobbies({ isDark }) {
         </RevealGroup>
 
         <div className="mt-10 flex flex-wrap justify-center gap-6">
-          {hobbies.map((hobby, index) => (
+          {HOBBIES.map((hobby, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              animate={{
-                y: [0, -2, 2, 0],
-              }}
+              viewport={{ once: true, amount: 0.35 }}
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: [0, -2, 2, 0],
+                    }
+              }
               transition={{
                 default: { duration: 1.05, ease: CREAM_EASE },
                 y: { repeat: Infinity, duration: 12 + index * 0.3, ease: "easeInOut", repeatType: "mirror" },
@@ -75,11 +86,15 @@ export default function Hobbies({ isDark }) {
       </div>
     </section>
   );
-}
+});
 
 Hobbies.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+Hobbies.displayName = "Hobbies";
+
+export default Hobbies;
 
 
 

@@ -1,6 +1,6 @@
 import "../App.css";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import {
   SiHtml5,
   SiCss3,
@@ -22,30 +22,37 @@ import {
 import PropTypes from "prop-types";
 import Reveal, { RevealGroup, RevealItem, CREAM_SPRING } from "./Reveal";
 
-export default function Skills({ isDark }) {
+const SKILLS = [
+  { name: "C", icon: <SiC className="text-sky-500 text-4xl" /> },
+  { name: "C++", icon: <SiCplusplus className="text-sky-300 text-4xl" /> },
+  { name: "HTML", icon: <SiHtml5 className="text-orange-500 text-4xl" /> },
+  { name: "CSS", icon: <SiCss3 className="text-sky-500 text-4xl" /> },
+  { name: "JavaScript", icon: <SiJavascript className="text-sky-400 text-4xl" /> },
+  { name: "React", icon: <SiReact className="text-sky-400 text-4xl" /> },
+  { name: "Node.js", icon: <SiNodedotjs className="text-sky-400 text-4xl" /> },
+  { name: "Express", icon: <SiExpress className="text-gray-300 text-4xl" /> },
+  { name: "MongoDB", icon: <SiMongodb className="text-sky-500 text-4xl" /> },
+  { name: "Tailwind", icon: <SiTailwindcss className="text-sky-400 text-4xl" /> },
+  { name: "Bootstrap", icon: <SiBootstrap className="text-indigo-400 text-4xl" /> },
+  { name: "Figma", icon: <SiFigma className="text-cyan-500 text-4xl" /> },
+  { name: "Postman", icon: <SiPostman className="text-orange-400 text-4xl" /> },
+  { name: "Git", icon: <SiGit className="text-orange-600 text-4xl" /> },
+  { name: "Flutter", icon: <SiFlutter className="text-sky-400 text-4xl" /> },
+  { name: "Dart", icon: <SiDart className="text-sky-600 text-4xl" /> },
+];
+
+const Skills = memo(function Skills({ isDark }) {
   const [isInteracting, setIsInteracting] = useState(false);
-  const skills = [
-    { name: "C", icon: <SiC className="text-sky-500 text-4xl" /> },
-    { name: "C++", icon: <SiCplusplus className="text-sky-300 text-4xl" /> },
-    { name: "HTML", icon: <SiHtml5 className="text-orange-500 text-4xl" /> },
-    { name: "CSS", icon: <SiCss3 className="text-sky-500 text-4xl" /> },
-    { name: "JavaScript", icon: <SiJavascript className="text-sky-400 text-4xl" /> },
-    { name: "React", icon: <SiReact className="text-sky-400 text-4xl" /> },
-    { name: "Node.js", icon: <SiNodedotjs className="text-sky-400 text-4xl" /> },
-    { name: "Express", icon: <SiExpress className="text-gray-300 text-4xl" /> },
-    { name: "MongoDB", icon: <SiMongodb className="text-sky-500 text-4xl" /> },
-    { name: "Tailwind", icon: <SiTailwindcss className="text-sky-400 text-4xl" /> },
-    { name: "Bootstrap", icon: <SiBootstrap className="text-indigo-400 text-4xl" /> },
-    { name: "Figma", icon: <SiFigma className="text-cyan-500 text-4xl" /> },
-    { name: "Postman", icon: <SiPostman className="text-orange-400 text-4xl" /> },
-    { name: "Git", icon: <SiGit className="text-orange-600 text-4xl" /> },
-    { name: "Flutter", icon: <SiFlutter className="text-sky-400 text-4xl" /> },
-    { name: "Dart", icon: <SiDart className="text-sky-600 text-4xl" /> },
-  ];
-  const loopedSkills = [...skills, ...skills];
-  const mid = Math.ceil(loopedSkills.length / 2);
-  const topRow = loopedSkills.slice(0, mid);
-  const bottomRow = loopedSkills.slice(mid);
+  const { topRow, bottomRow } = useMemo(() => {
+    const loopedSkills = [...SKILLS, ...SKILLS];
+    const mid = Math.ceil(loopedSkills.length / 2);
+    return {
+      topRow: loopedSkills.slice(0, mid),
+      bottomRow: loopedSkills.slice(mid),
+    };
+  }, []);
+  const handlePointerDown = useCallback(() => setIsInteracting(true), []);
+  const handlePointerUp = useCallback(() => setIsInteracting(false), []);
 
   return (
     <section className={`fx-section stack-section ${isDark ? "text-white" : "text-slate-900"}`}>
@@ -69,10 +76,10 @@ export default function Skills({ isDark }) {
           className={`mt-8 stack-marquee stack-marquee-rows ${isInteracting ? "is-interacting" : ""}`}
           delay={0.1}
           variant="glide"
-          onPointerDown={() => setIsInteracting(true)}
-          onPointerUp={() => setIsInteracting(false)}
-          onPointerLeave={() => setIsInteracting(false)}
-          onPointerCancel={() => setIsInteracting(false)}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          onPointerCancel={handlePointerUp}
         >
           <div className="stack-track stack-track-top">
             {topRow.map((skill, index) => (
@@ -110,11 +117,15 @@ export default function Skills({ isDark }) {
       </div>
     </section>
   );
-}
+});
 
 Skills.propTypes = {
   isDark: PropTypes.bool.isRequired,
 };
+
+Skills.displayName = "Skills";
+
+export default Skills;
 
 
 

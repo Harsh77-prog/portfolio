@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const DEFAULT_DISTANCE = 24;
@@ -72,7 +73,7 @@ function buildVariants({ direction, distance, duration, delay, variant }) {
   };
 }
 
-export function RevealItem({
+export const RevealItem = memo(function RevealItem({
   as = "div",
   className = "",
   delay = 0,
@@ -81,6 +82,7 @@ export function RevealItem({
   distance = DEFAULT_DISTANCE,
   variant = "soft",
   children,
+  ...rest
 }) {
   const MotionTag = motion[as] || motion.div;
 
@@ -88,11 +90,12 @@ export function RevealItem({
     <MotionTag
       className={className}
       variants={buildVariants({ direction, distance, duration, delay, variant })}
+      {...rest}
     >
       {children}
     </MotionTag>
   );
-}
+});
 
 RevealItem.propTypes = {
   as: PropTypes.string,
@@ -105,14 +108,15 @@ RevealItem.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export function RevealGroup({
+export const RevealGroup = memo(function RevealGroup({
   as = "div",
   className = "",
   delay = 0,
   stagger = 0.12,
-  once = false,
+  once = true,
   amount = 0.25,
   children,
+  ...rest
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as] || motion.div;
@@ -140,11 +144,12 @@ export function RevealGroup({
       initial="hidden"
       whileInView="show"
       viewport={{ once, amount }}
+      {...rest}
     >
       {children}
     </MotionTag>
   );
-}
+});
 
 RevealGroup.propTypes = {
   as: PropTypes.string,
@@ -156,7 +161,7 @@ RevealGroup.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default function Reveal({
+const Reveal = memo(function Reveal({
   as = "div",
   className = "",
   delay = 0,
@@ -164,9 +169,10 @@ export default function Reveal({
   direction = "up",
   distance = DEFAULT_DISTANCE,
   variant = "soft",
-  once = false,
+  once = true,
   amount = 0.25,
   children,
+  ...rest
 }) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as] || motion.div;
@@ -185,11 +191,12 @@ export default function Reveal({
       initial="hidden"
       whileInView="show"
       viewport={{ once, amount }}
+      {...rest}
     >
       {children}
     </MotionTag>
   );
-}
+});
 
 Reveal.propTypes = {
   as: PropTypes.string,
@@ -203,3 +210,9 @@ Reveal.propTypes = {
   amount: PropTypes.number,
   children: PropTypes.node.isRequired,
 };
+
+RevealItem.displayName = "RevealItem";
+RevealGroup.displayName = "RevealGroup";
+Reveal.displayName = "Reveal";
+
+export default Reveal;
